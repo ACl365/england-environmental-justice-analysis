@@ -261,3 +261,4 @@ wrapt==1.17.2
 xgboost==2.1.4
 xyzservices==2025.1.0
 zipp==3.21.0
+black==25.1.0
