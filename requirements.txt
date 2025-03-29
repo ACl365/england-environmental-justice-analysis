@@ -1,0 +1,16 @@
+# Environmental Justice Analysis Requirements
+pandas>=1.3.0
+numpy>=1.20.0
+matplotlib>=3.7.1
+seaborn>=0.11.0
+scikit-learn>=1.0.0
+geopandas>=0.10.0
+scipy>=1.7.0
+streamlit>=1.10.0
+plotly>=5.10.0
+shap>=0.41.0
+statsmodels>=0.13.0
+pysal>=2.6.0
+libpysal>=4.6.2
+esda>=2.4.1
+spreg>=1.3.0
