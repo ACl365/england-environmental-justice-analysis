@@ -28,21 +28,23 @@ To set up the project, follow these steps:
 
 ## Usage
 
-The project consists of several analysis modules. To run the main analysis pipeline, use the following command:
+The project consists of several analysis modules located in the `src/` directory. To run the main analysis pipeline, use the following command from the project root:
 
 ```bash
-python run_analysis.py
+python src/run_analysis.py
 ```
 
 To run the advanced analysis modules, use the corresponding scripts:
 
 ```bash
-python run_advanced_analysis.py
-python run_pollutant_analysis.py
-python run_causal_analysis.py
-python run_domain_analysis.py
-python run_spatial_analysis.py
+python src/run_advanced_analysis.py
+python src/run_pollutant_analysis.py
+python src/run_causal_analysis.py
+python src/run_domain_analysis.py
+python src/run_spatial_analysis.py
 ```
+
+*(Note: Ensure your virtual environment is activated before running scripts.)*
 
 ## Project Structure
 
@@ -50,25 +52,28 @@ The project directory is structured as follows:
 
 ```
 UK_ENV/
-├── data/                      # Contains the datasets used in the analysis
-├── notebooks/                 # Jupyter notebooks for exploratory analysis
-├── scripts/                   # Standalone scripts for data processing and analysis
-├── src/                       # Source code for the analysis modules
-├── outputs/                   # Output files, including figures and tables
-├── README.md                  # This file
-├── requirements.txt           # List of Python dependencies
-├── project_summary.md         # Comprehensive project summary
-└── ...
+├── docs/                      # Supplementary documentation files
+├── notebooks/                 # Jupyter notebooks for exploratory analysis and experimentation
+├── src/                       # Main source code for analysis modules and scripts
+├── .gitignore                 # Specifies intentionally untracked files that Git should ignore
+├── LICENSE                    # Project licence information
+├── README.md                  # This file: Overview, setup, usage instructions
+├── requirements.txt           # List of Python dependencies for reproducibility
+└── outputs/                   # (Git-ignored) Directory for generated outputs (figures, tables, etc.)
 ```
 
 ## Data
 
-The project uses the following datasets:
+This project relies on external datasets that are **not included** in this repository due to size and potential licensing restrictions. The primary datasets required are:
 
 *   **Unified Air Quality and Deprivation Dataset**: Contains air quality metrics, Index of Multiple Deprivation (IMD) scores, and an environmental justice index at the Lower Super Output Area (LSOA) level.
 *   **Health Indicators Dataset**: Contains respiratory health indicators at the Local Authority District (LAD) level derived from NHS Outcomes Framework Indicators.
 
-The data is located in the `data/` directory.
+Users need to acquire these datasets independently. Placeholder instructions or links for obtaining the data should be added here if available. For example:
+*   *[Link to Data Source 1 or Download Instructions]*
+*   *[Link to Data Source 2 or Download Instructions]*
+
+Once obtained, it's recommended to place the data in a local `data/` directory (which is ignored by Git via `.gitignore`) for the scripts to access it (adjust script paths if necessary).
 
 ## Contributing
 
