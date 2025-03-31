@@ -1,6 +1,3 @@
-# england-environmental-justice-analysis
-Applying causal inference &amp; ML in Python to investigate environmental justice and health impacts in England.
-=======
 # Environmental Justice Analysis in England: Addressing Health Inequalities Through Data-Driven Insights
 
 <!-- [![Project Status: Active](https://www.repostatus.org/badges/latest/active.svg)](https://www.repostatus.org/#active) -->
