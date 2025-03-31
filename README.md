@@ -1,2 +1,2 @@
-# england-environmental-justice-analysis
+# uk-environmental-justice-analysis
 Applying causal inference &amp; ML in Python to investigate environmental justice and health impacts in England.
