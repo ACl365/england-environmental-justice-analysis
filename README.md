@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 # england-environmental-justice-analysis
 Applying causal inference &amp; ML in Python to investigate environmental justice and health impacts in England.
 =======
@@ -153,4 +152,4 @@ This project is licensed under the MIT Licence - see the LICENSE file for detail
 ## Author
 
 Alexander Clarke
->>>>>>> a1f0fe4 (Initial commit: Project setup)
+
