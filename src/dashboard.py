@@ -58,6 +58,7 @@ st.markdown(
         border-radius: 0.5rem;
         border-left: 0.5rem solid #1E88E5;
         margin-bottom: 1rem;
+        color: #333; /* Ensure text is visible */
     }
     .metric-card {
         background-color: #f5f5f5;
@@ -138,6 +139,7 @@ def main():
     lad_data, lsoa_data, high_vulnerability, high_injustice = load_data()
 
     # Header
+    # st.title("Environmental Justice and Health Inequalities in England")
     st.markdown(
         '<div class="main-header">Environmental Justice and Health Inequalities in England</div>',
         unsafe_allow_html=True,
@@ -288,76 +290,6 @@ def display_overview(lad_data, lsoa_data):
     """
     )
 
-    # Key metrics
-    st.markdown('<div class="section-header">Key Metrics</div>', unsafe_allow_html=True)
-
-    col1, col2, col3, col4 = st.columns(4)
-
-    with col1:
-        st.markdown(
-            """
-        <div class="metric-card">
-            <div class="metric-value">{}</div>
-            <div class="metric-label">Local Authorities</div>
-        </div>
-        """.format(
-                len(lad_data)
-            ),
-            unsafe_allow_html=True,
-        )
-
-    with col2:
-        st.markdown(
-            """
-        <div class="metric-card">
-            <div class="metric-value">{}</div>
-            <div class="metric-label">LSOAs</div>
-        </div>
-        """.format(
-                len(lsoa_data)
-            ),
-            unsafe_allow_html=True,
-        )
-
-    with col3:
-        st.markdown(
-            """
-        <div class="metric-card">
-            <div class="metric-value">{:.1f}</div>
-            <div class="metric-label">Avg NO₂ (μg/m³)</div>
-        </div>
-        """.format(
-                lad_data["NO2"].mean()
-            ),
-            unsafe_allow_html=True,
-        )
-
-    with col4:
-        st.markdown(
-            """
-        <div class="metric-card">
-            <div class="metric-value">{:.1f}</div>
-            <div class="metric-label">Avg PM2.5 (μg/m³)</div>
-        </div>
-        """.format(
-                lad_data["PM2.5"].mean()
-            ),
-            unsafe_allow_html=True,
-        )
-
-    st.markdown('<div class="section-header">Research Questions</div>', unsafe_allow_html=True)
-
-    st.markdown(
-        """
-    1. **Primary Research Question**: To what extent do socioeconomic deprivation and air pollution exposure combine to create "double disadvantage" areas with disproportionately poor respiratory health outcomes?
-
-    2. **Secondary Research Questions**:
-       - Is there a threshold effect in air pollution exposure that correlates with significant deterioration in respiratory health?
-       - How do different pollutants (NO2, PM2.5, O3) interact to affect health outcomes?
-       - What is the spatial distribution of environmental injustice across England?
-       - Which areas should be prioritized for pollution reduction interventions to maximize health benefits?
-    """
-    )
 
 
 def display_environmental_justice(lad_data, lsoa_data, high_injustice):
@@ -815,3 +747,5 @@ def display_intervention_priorities(lad_data, high_vulnerability):
     """,
         unsafe_allow_html=True,
     )
+if __name__ == "__main__":
+    main()
