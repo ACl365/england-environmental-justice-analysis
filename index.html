@@ -7,8 +7,7 @@
     <title>Data Portfolio: England Environmental Justice & Health Inequalities Analysis</title>
     <!-- Link to the external CSS file -->
     <link rel="stylesheet" href="style.css">
-    <!-- Optional: Link to an icon library like Font Awesome for Tech Stack -->
-    <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"> -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
 
@@ -20,20 +19,19 @@
             <h1>England Environmental Justice & Health Inequalities Analysis</h1>
             <!-- ######## END OF UPDATED SECTION ######## -->
             <p class="subtitle">Identifying vulnerable communities and informing targeted policy through integrated geospatial, statistical, and machine learning analysis.</p>
-            <!-- Optional: Subtle personal motivation -->
-            <!-- <p class="motivation">Driven by an interest in health equity and the power of data to illuminate societal challenges.</p> -->
+            <p class="motivation">Driven by an interest in health equity and the power of data to illuminate societal challenges.</p>
         </header>
 
         <section class="project-section project-summary" id="summary">
              <h2>Executive Summary</h2>
              <!-- Using Option 2: Short Intro + Key Bullet Points -->
-             <p>This project provides actionable intelligence for tackling environmental injustice in England and Wales by identifying specific communities facing a 'double burden' of high pollution and deprivation, linked to poorer respiratory health. Using an integrated approach combining spatial, machine learning, and quasi-causal methods, key findings reveal:</p>
+             <p>This project provides actionable intelligence for tackling environmental injustice in England by identifying specific communities facing a 'double burden' of high pollution and deprivation, linked to poorer respiratory health. Using an integrated approach combining spatial, machine learning, and quasi-causal methods, key findings reveal:</p>
              <ul>
                  <li><strong>Significant spatial clustering:</strong> Environmental injustice is geographically concentrated, not random.</li>
                  <li><strong>NO₂ Health Impact:</strong> Higher NO₂ exposure is significantly associated with poorer respiratory health, even after controlling for area deprivation (via PSM).</li>
                  <li><strong>Distinct Area Profiles:</strong> Local Authorities exhibit different patterns of pollution/deprivation/health, requiring tailored policy responses.</li>
              </ul>
-             <p>The analysis enables targeted resource allocation and NO₂ reduction strategies (est. benefit: ~1.5 million residents in top 10 LADs), supporting a holistic, place-based approach.</p>
+             <p>The analysis enables targeted resource allocation and NO₂ reduction strategies (est. benefit: ~1.5 million residents based on the total population of the top 10 LADs identified for prioritization), supporting a holistic, place-based approach.</p>
         </section>
 
         <!-- ######## START OF MOVED SECTION: Key Visual Moved Up ######## -->
@@ -41,7 +39,7 @@
              <!-- Moved the LISA map here for early visual impact -->
              <figure class="figure--full-width">
                  <img src="assets/images/lisa_clusters_env_justice_index.png" alt="LISA Cluster Map showing high-high clusters for combined pollution and deprivation index">
-                 <figcaption>LISA Cluster Map: Red areas show statistically significant High-High clusters (high pollution/deprivation), highlighting geographic concentrations of environmental injustice across England & Wales.</figcaption>
+                 <figcaption>LISA Cluster Map: Red areas show statistically significant High-High clusters (high pollution/deprivation), highlighting geographic concentrations of environmental injustice across England.</figcaption>
              </figure>
          </section>
         <!-- ######## END OF MOVED SECTION ######## -->
@@ -141,7 +139,7 @@
             <p>This analysis provides geographically specific, evidence-based intelligence for England policymakers and public health bodies:</p>
             <ul>
                 <li><strong>Prioritise Resources Effectively:</strong> Focus interventions and funding on the identified LSOA-level hotspots (Finding 1) and the specific high-risk LAD clusters revealed by the typology analysis (Finding 3).</li>
-                <li><strong>Target NO₂ Reduction Strategically:</strong> Implement and potentially intensify NO₂ reduction policies (e.g., Clean Air Zones, traffic management, promoting active travel) in areas identified as high-impact, particularly those highlighted by the PSM analysis (Finding 2) and policy simulations (Finding 4). Quantified impact suggests such measures could potentially improve health outcomes for an estimated <strong>~[Number, e.g., 500,000]</strong> residents in the top 10 most impacted LADs alone.</li>
+                <li><strong>Target NO₂ Reduction Strategically:</strong> Implement and potentially intensify NO₂ reduction policies (e.g., Clean Air Zones, traffic management, promoting active travel) in areas identified as high-impact, particularly those highlighted by the PSM analysis (Finding 2) and policy simulations (Finding 4). Quantified impact suggests such measures could potentially improve health outcomes for an estimated <strong>~1.5 million residents</strong> (based on the total population of the top 10 LADs identified for prioritization).</li>
                 <li><strong>Adopt a Holistic, Place-Based Approach:</strong> Recognise that pollution is intertwined with specific socioeconomic factors. Interventions should address key deprivation domains like poor housing quality and living environments alongside direct pollution control measures (Finding 5).</li>
                 <li><strong>Encourage Coordinated Regional Action:</strong> The spatial clustering suggests pollution and deprivation issues often cross administrative boundaries. Leverage potential spatial spillover effects by encouraging coordinated mitigation strategies between neighbouring vulnerable LADs (Finding 1).</li>
             </ul>
@@ -177,23 +175,27 @@
 
         <section class="project-section tech-stack" id="tech">
             <h2>Technology Stack</h2>
-            <!-- Consider replacing text with icons + text for visual appeal -->
-            <!-- Example Structure (requires icon font like Font Awesome or SVG icons):
-            <ul>
-                 <li><i class="fab fa-python"></i> Python</li>
-                 <li><i class="fas fa-table"></i> Pandas</li>
-                 ... etc ...
+            <ul class="tech-list">
+                 <li><i class="fab fa-python fa-fw"></i> Python</li>
+                 <li><i class="fas fa-table fa-fw"></i> Pandas</li>
+                 <li><i class="fas fa-map-marker-alt fa-fw"></i> GeoPandas</li>
+                 <li><i class="fas fa-calculator fa-fw"></i> NumPy</li>
+                 <li><i class="fas fa-brain fa-fw"></i> Scikit-learn</li>
+                 <li><i class="fas fa-chart-line fa-fw"></i> Statsmodels</li>
+                 <li><i class="fas fa-map fa-fw"></i> PySAL</li>
+                 <li><i class="fas fa-lightbulb fa-fw"></i> SHAP</li>
+                 <li><i class="fas fa-chart-pie fa-fw"></i> Matplotlib</li>
+                 <li><i class="fas fa-palette fa-fw"></i> Seaborn</li>
+                 <li><i class="fas fa-chart-area fa-fw"></i> Plotly</li>
             </ul>
-            -->
-            <p>Python | Pandas | GeoPandas | NumPy | Scikit-learn | Statsmodels | PySAL | SHAP | Matplotlib | Seaborn | Plotly</p>
         </section>
 
         <section class="project-section project-links">
-             <!-- Ensure this link is updated -->
-            <a href="[Link to your GitHub Repo]" class="button" target="_blank" rel="noopener noreferrer">View Code & Technical Details on GitHub</a>
-            <!-- Optional: Add link to a live demo or full report PDF -->
-            <!-- <a href="[Link to Live Demo/Report]" class="button button-secondary" target="_blank" rel="noopener noreferrer">View Full Report</a> -->
-        </section>
+			<!-- GitHub repository link -->
+			<a href="https://github.com/ACl365/england-environmental-justice-analysis" class="button" target="_blank" rel="noopener noreferrer">View Code & Technical Details on GitHub</a>
+			<!-- Link to live demo -->
+			<a href="[Provide the actual URL here]" class="button button-secondary" target="_blank" rel="noopener noreferrer">View Interactive Dashboard</a>
+		</section>
 
     </article>
 
