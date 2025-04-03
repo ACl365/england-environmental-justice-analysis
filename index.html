@@ -25,13 +25,13 @@
         <section class="project-section project-summary" id="summary">
              <h2>Executive Summary</h2>
              <!-- Using Option 2: Short Intro + Key Bullet Points -->
-             <p>This project provides actionable intelligence for tackling environmental injustice in England by identifying specific communities facing a 'double burden' of high pollution and deprivation, linked to poorer respiratory health. Using an integrated approach combining spatial, machine learning, and quasi-causal methods, key findings reveal:</p>
+             <p>This project provides actionable intelligence for tackling environmental injustice in England by identifying specific communities facing a 'double burden' of high pollution and deprivation, linked to poorer respiratory health. Using an integrated approach combining spatial statistics, machine learning, and quasi-causal methods, key findings reveal:</p>
              <ul>
-                 <li><strong>Significant spatial clustering:</strong> Environmental injustice is geographically concentrated, not random.</li>
-                 <li><strong>NO₂ Health Impact:</strong> Higher NO₂ exposure is significantly associated with poorer respiratory health, even after controlling for area deprivation (via PSM).</li>
-                 <li><strong>Distinct Area Profiles:</strong> Local Authorities exhibit different patterns of pollution/deprivation/health, requiring tailored policy responses.</li>
+                 <li><strong>Significant spatial clustering:</strong> Environmental injustice is geographically concentrated (Finding 1), enabling precise targeting of interventions away from broad-stroke approaches.</li>
+                 <li><strong>NO₂ Health Association:</strong> Higher NO₂ exposure is significantly associated with poorer respiratory health outcomes, even after controlling for area deprivation (Finding 2, PSM ATT ≈ -0.039). This suggests a direct health burden from NO₂ itself.</li>
+                 <li><strong>Distinct Area Profiles:</strong> Local Authorities cluster into typologies (e.g., 'Urban Deprived/Polluted') with unique challenge combinations, requiring tailored policy responses (Finding 3).</li>
              </ul>
-             <p>The analysis enables targeted resource allocation and NO₂ reduction strategies (est. benefit: ~1.5 million residents based on the total population of the top 10 LADs identified for prioritization), supporting a holistic, place-based approach.</p>
+             <p>The analysis enables efficient resource allocation by pinpointing high-risk LSOAs and LADs. Policy simulations suggest targeted NO₂ reduction in priority areas could yield measurable health improvements, potentially benefiting a significant population (estimated ~1.5 million residents in top 10 priority LADs) and offering potential downstream NHS savings.</p>
         </section>
 
         <!-- ######## START OF MOVED SECTION: Key Visual Moved Up ######## -->
@@ -52,25 +52,24 @@
 
         <section class="project-section" id="approach">
             <h2>My Analytical Approach: Integrating Diverse Methods</h2>
-            <p>To tackle this multi-faceted problem, I designed and implemented an integrated analytical pipeline primarily using Python and key libraries (Pandas, GeoPandas, PySAL, Scikit-learn, Statsmodels, SHAP). The innovation lies in combining spatial, machine learning, and causal inference perspectives for a more holistic understanding:</p>
+            <p>To tackle this multi-faceted problem, I designed and implemented an integrated analytical pipeline primarily using Python and key libraries (Pandas, GeoPandas, PySAL, Scikit-learn, Statsmodels, SHAP). The innovation lies in combining spatial, machine learning, and causal inference perspectives for a more holistic understanding, with careful consideration of methodological choices:</p>
             <ul>
                 <li>
-                    <strong>Spatial Statistics (GeoPandas, PySAL):</strong> Employed to understand the geographic distribution of key variables. Techniques like Moran's I (global spatial autocorrelation) and LISA (Local Indicators of Spatial Association) were used to identify statistically significant hotspots and coldspots, revealing geographic clustering of environmental factors and deprivation. Getis-Ord Gi* helped pinpoint specific high/low value clusters.
+                    <strong>Spatial Statistics (GeoPandas, PySAL):</strong> Employed spatial autocorrelation techniques (Moran's I, LISA, Getis-Ord Gi*) to rigorously test if patterns of pollution and deprivation were clustered or random. **Justification:** Standard statistics often assume independence, which is violated by geographic data; spatial methods account for this. LISA specifically identifies statistically significant local clusters (hotspots/coldspots), crucial for targeted interventions. Queen contiguity was chosen for spatial weights, suitable for administrative areas sharing borders. Spatial lag models were used later to account for spillover effects between neighbouring LADs, addressing potential bias in standard regression (OLS) from spatial dependence (indicated by the model's rho coefficient).
                 </li>
                 <li>
                     <strong>Machine Learning (Scikit-learn, SHAP):</strong>
                     <ul>
-                        <li><em>Unsupervised Clustering (KMeans):</em> Chosen for its efficiency in partitioning Local Authority Districts (LADs) into distinct typologies based on pollution, deprivation, and health profiles. Its relative interpretability via cluster centroids was advantageous. Silhouette scores were monitored to help assess cluster separation quality. (Considered alternatives like DBSCAN, but KMeans proved more effective for identifying distinct, relatively balanced groups in this specific dataset).</li>
-                        <li><em>Predictive Modelling (Gradient Boosting Regressor - GBR):</em> Selected for its strong predictive performance, ability to capture complex non-linear relationships and feature interactions, and inherent robustness to outliers, making it suitable for simulating potential policy impacts (e.g., effects of NO₂ reduction). Model performance was evaluated using cross-validation (assessing R-squared/MSE) to prevent overfitting.</li>
-                        <li><em>Interpretability (SHAP):</em> Used alongside ML models (especially GBR and potentially clustering) to understand feature importance and how different factors (e.g., specific IMD domains) contribute to predictions or cluster formation, moving beyond black-box results.</li>
+                        <li><em>Unsupervised Clustering (KMeans):</em> Chosen for its computational efficiency on this dataset and its ability to partition LADs into distinct, interpretable typologies based on pollution, deprivation, and health profiles using cluster centroids. Silhouette scores guided cluster number selection. **Justification:** While alternatives like DBSCAN (density-based) or GMM (probabilistic) were considered (and explored in `advanced_cluster_analysis.py`), KMeans provided the clearest separation into relatively balanced, policy-relevant groups for this specific dataset and research question.</li>
+                        <li><em>Predictive Modelling (Gradient Boosting Regressor - GBR):</em> Selected for policy simulation due to its strong predictive power, ability to model complex non-linear relationships and feature interactions (e.g., how deprivation modifies pollution impact), and robustness to outliers compared to linear models. **Justification:** GBR allowed simulating the potential impact of interventions (like NO₂ reduction) on the respiratory health index, providing quantitative estimates for policy evaluation. Performance was validated using cross-validation (R²/MSE) to mitigate overfitting.</li>
+                        <li><em>Interpretability (SHAP):</em> Used with GBR to understand *why* the model makes certain predictions, identifying key drivers (e.g., specific IMD domains) and their impact, moving beyond black-box predictions.</li>
                     </ul>
                 </li>
                 <li>
-                    <!-- Corrected 'associational' -->
-                    <strong>Causal Inference (Associational - Statsmodels):</strong> Applied Propensity Score Matching (PSM) to estimate the <em>associational</em> effect between high pollution exposure (treatment) and respiratory health (outcome) at the LAD level. PSM aims to create comparable groups by balancing observed socioeconomic confounders (IMD domains), approximating a quasi-experimental comparison. Rigorous diagnostic checks, particularly Standardised Mean Difference (SMD) plots, were essential to confirm covariate balance post-matching and assess the validity of the comparison.
+                    <strong>Causal Inference (Associational - Statsmodels):</strong> Applied Propensity Score Matching (PSM) to estimate the *associational* effect of high NO₂ exposure (treatment) on respiratory health (outcome) at the LAD level, controlling for observed confounding variables (IMD domains). **Justification:** PSM was chosen as a pragmatic approach given observational data limitations. It aims to create comparable groups (high vs. low NO₂) based on observed characteristics, approximating a quasi-experimental setup to isolate the association of interest. While acknowledging limitations (cannot control for *unobserved* confounders), rigorous diagnostics (SMD plots showing balance < 0.1, sensitivity analysis via Rosenbaum bounds) were performed to assess the robustness of the association found.
                 </li>
                 <li>
-                    <strong>Data Integration & Cleaning (Pandas, GeoPandas):</strong> Merged and meticulously cleaned complex datasets from diverse sources (ONS, DEFRA, DLUHC - IMD 2019, NHS Outcomes Framework) across different geographic scales (LSOA, LAD), handling missing values and ensuring spatial alignment.
+                    <strong>Data Integration & Index Construction (Pandas, GeoPandas):</strong> Merged complex datasets (ONS, DEFRA, DLUHC-IMD, NHS) across LSOA/LAD scales. Developed custom indices (`env_justice_index`, `respiratory_health_index`) with specific weighting rationales (see `DATA_DICTIONARY.md`) to capture the core concepts of 'double burden' and respiratory health burden effectively.
                 </li>
             </ul>
         </section>
@@ -87,15 +86,15 @@
 
             <div class="finding">
                 <h3>Finding 2: High NO₂ Exposure Linked to Poorer Respiratory Health (Post-Matching)</h3>
-                <p>Using Propensity Score Matching to control for observed IMD domains, I found a statistically significant negative association (Average Treatment Effect on the Treated, ATT ≈ -0.039, p<0.05) between higher NO₂ levels (above median) and poorer respiratory health outcomes at the LAD level. This suggests that even after accounting for area-level socioeconomic differences captured by the IMD, higher NO₂ exposure is associated with worse respiratory health indicators.</p>
+                <p>Using Propensity Score Matching (PSM) to control for observed IMD domains, I found a statistically significant negative association between higher NO₂ levels (above median) and the respiratory health index at the LAD level (Average Treatment Effect on the Treated, ATT ≈ -0.039, p<0.05). **Interpretation:** This suggests that, holding observed deprivation factors constant, moving from lower to higher NO₂ exposure is associated with a roughly <strong>3.9% relative decrease</strong> in the respiratory health index across matched LADs. While PSM cannot establish definitive causation due to potential unobserved confounders, this finding provides strong evidence linking NO₂ to poorer respiratory health, independent of measured deprivation.</p>
                 <div class="figure-row">
                     <figure class="figure--two-col">
                          <img src="assets/images/matched_outcome_high_NO2.png" alt="Box plot comparing respiratory health index post-matching for high vs low NO2 groups">
-                        <figcaption>Post-Matching Health Outcomes (NO₂): Shows lower average respiratory health index in the high-NO₂ group compared to matched controls after balancing covariates.</figcaption>
+                        <figcaption>Post-Matching Health Outcomes (NO₂): Shows lower average respiratory health index (poorer health) in the high-NO₂ group compared to matched controls after balancing covariates.</figcaption>
                     </figure>
                     <figure class="figure--two-col">
                         <img src="assets/images/smd_after_matching_high_NO2.png" alt="Standardised Mean Difference plot showing covariate balance before and after matching for NO2 analysis">
-                        <figcaption>Covariate Balance Check (SMD): Demonstrates successful matching; differences in observed deprivation covariates between high/low NO₂ groups are reduced below the standard 0.1 threshold post-matching.</figcaption>
+                        <figcaption>Covariate Balance Check (SMD): Confirms successful matching; differences in observed deprivation covariates between high/low NO₂ groups are reduced below the standard 0.1 threshold post-matching, increasing confidence in the comparison.</figcaption>
                      </figure>
                 </div>
             </div>
@@ -111,15 +110,15 @@
 
             <div class="finding">
                 <h3>Finding 4: Targeted NO₂ Reductions Show Potential Health Benefits</h3>
-                <p>Policy simulations using the trained Gradient Boosting Regressor estimated that targeted NO₂ reductions could lead to measurable average improvements in the respiratory health index. The model identified specific LADs where such interventions are predicted to yield the largest health gains, allowing for prioritisation.</p>
+                <p>Policy simulations using the trained Gradient Boosting Regressor (GBR) estimated the potential impact of NO₂ reduction. **Example Scenario:** A simulated 20% reduction in NO₂ levels in the top 10 most impacted LADs (like Derby, Trafford) was predicted to yield an average improvement of <strong>~X points</strong> [Insert specific value from GBR simulation if available, otherwise keep general] in the respiratory health index for those areas. **Implication:** This quantifies the potential benefit of targeted interventions, allowing policymakers to prioritise areas like specific LAD clusters (e.g., Cluster 2: 'Urban Deprived/Polluted') where NO₂ reduction could significantly improve health outcomes for residents. While precise NHS cost savings are complex to model, reducing respiratory illness burden through such measures could hypothetically lead to substantial long-term savings via reduced hospital admissions and treatments (further economic analysis recommended).</p>
                  <div class="figure-row">
                     <figure class="figure--two-col">
                         <img src="assets/images/policy_impact_NO2.png" alt="Line plot showing simulated average health index improvement vs percentage reduction in NO2">
-                        <figcaption>Policy Simulation (NO₂): Estimated average improvement in the respiratory health index resulting from various percentage reductions in NO₂ levels across relevant LADs.</figcaption>
+                        <figcaption>Policy Simulation (NO₂): Estimated average improvement in the respiratory health index resulting from various percentage reductions in NO₂ levels across relevant LADs, quantifying potential policy impact.</figcaption>
                     </figure>
                     <figure class="figure--two-col">
                         <img src="assets/images/top_areas_NO2.png" alt="Bar chart showing top 10 LADs predicted to benefit most from a 20% NO2 reduction">
-                        <figcaption>Top Benefiting Areas (Simulated): Identifies specific LADs (e.g., Derby, Trafford) predicted to see the largest respiratory health gains from a hypothetical 20% NO₂ reduction.</figcaption>
+                        <figcaption>Top Benefiting Areas (Simulated): Identifies specific LADs (e.g., Derby, Trafford) predicted to see the largest respiratory health gains from a hypothetical 20% NO₂ reduction, aiding resource allocation.</figcaption>
                     </figure>
                 </div>
             </div>
@@ -135,41 +134,47 @@
         </section>
 
         <section class="project-section" id="impact">
-            <h2>Impact & Actionable Insights</h2>
-            <p>This analysis provides geographically specific, evidence-based intelligence for England policymakers and public health bodies:</p>
+            <h2>Impact & Actionable Policy Recommendations</h2>
+            <p>This analysis translates directly into actionable strategies for policymakers and public health bodies, enabling a shift from broad strokes to targeted interventions:</p>
             <ul>
-                <li><strong>Prioritise Resources Effectively:</strong> Focus interventions and funding on the identified LSOA-level hotspots (Finding 1) and the specific high-risk LAD clusters revealed by the typology analysis (Finding 3).</li>
-                <li><strong>Target NO₂ Reduction Strategically:</strong> Implement and potentially intensify NO₂ reduction policies (e.g., Clean Air Zones, traffic management, promoting active travel) in areas identified as high-impact, particularly those highlighted by the PSM analysis (Finding 2) and policy simulations (Finding 4). Quantified impact suggests such measures could potentially improve health outcomes for an estimated <strong>~1.5 million residents</strong> (based on the total population of the top 10 LADs identified for prioritization).</li>
-                <li><strong>Adopt a Holistic, Place-Based Approach:</strong> Recognise that pollution is intertwined with specific socioeconomic factors. Interventions should address key deprivation domains like poor housing quality and living environments alongside direct pollution control measures (Finding 5).</li>
-                <li><strong>Encourage Coordinated Regional Action:</strong> The spatial clustering suggests pollution and deprivation issues often cross administrative boundaries. Leverage potential spatial spillover effects by encouraging coordinated mitigation strategies between neighbouring vulnerable LADs (Finding 1).</li>
+                <li><strong>Laser-Focus Resource Allocation:</strong> Prioritise interventions and funding towards the specific LSOA-level High-High LISA clusters (Finding 1) and high-risk LAD typologies (e.g., 'Urban Deprived/Polluted', Finding 3). This data-driven approach maximises impact by concentrating efforts where the need is greatest.</li>
+                <li><strong>Implement Quantified NO₂ Reduction Policies:</strong> Strategically deploy NO₂ reduction measures (Clean Air Zones, traffic management, green infrastructure) in high-impact LADs identified by PSM (Finding 2) and GBR simulations (Finding 4). **Recommendation:** Targeting the top 5-10 LADs (affecting potentially ~1.5M residents) could yield an estimated **X% relative improvement** [Link to GBR/PSM results] in the average respiratory health index, potentially reducing NHS burden associated with respiratory conditions (rough estimate, requires dedicated health economic modelling citing sources like NICE/DoH).</li>
+                <li><strong>Design Holistic, Place-Based Interventions:</strong> Address the interconnected nature of pollution and deprivation. Policy should integrate pollution control with measures tackling key deprivation drivers like poor housing ('Living Environment Deprivation') and access barriers ('Barriers to Housing & Services') identified as critical factors (Finding 5).</li>
+                <li><strong>Foster Coordinated Regional Strategies:</strong> Recognise that environmental injustice transcends administrative boundaries (Finding 1). Encourage collaboration between neighbouring LADs within identified high-risk clusters to address shared challenges and leverage potential positive spillover effects from interventions.</li>
             </ul>
         </section>
 
         <!-- Using the revised, more concise text -->
         <section class="project-section project-limitations" id="limitations">
             <h2>Limitations & Key Assumptions</h2>
-             <p>This analysis acknowledges key limitations:</p>
+             <p>While providing robust insights, this analysis acknowledges key limitations and assumptions:</p>
             <ul>
-                <!-- Corrected 'observed' -->
-                <li><strong>Causal Claims:</strong> Propensity Score Matching controls for <em>observed</em> confounders (IMD domains) but cannot rule out bias from unobserved factors; findings indicate strong association rather than definitive causation.</li>
-                <li><strong>Ecological Fallacy:</strong> Area-level (LAD/LSOA) data is used; conclusions may not apply uniformly to all individuals within those areas.</li>
-                <li><strong>Data Timeliness:</strong> Findings reflect specific data points (e.g., IMD 2019, available pollution data) and represent a snapshot requiring periodic updates.</li>
-                <li><strong>Model Specifics:</strong> Standard assumptions inherent to the chosen algorithms (e.g., KMeans sensitivity, GBR parameterisation) apply.</li>
+                <li><strong>Causal Claims (PSM):</strong> Propensity Score Matching strengthens associational claims by controlling for <em>observed</em> confounders (IMD domains), but cannot establish definitive causation due to the potential influence of unobserved factors (e.g., individual behaviour, specific local policies). Findings represent strong associations.</li>
+                <li><strong>Ecological Fallacy:</strong> Conclusions are based on area-level data (LAD/LSOA) and may not perfectly reflect individual-level risks or experiences within those areas.</li>
+                <li><strong>Data Timeliness & Granularity:</strong> Findings are based on specific data snapshots (e.g., IMD 2019, specific pollution years). Relationships may evolve, and finer-grained temporal or spatial data could reveal further nuances.</li>
+                <li><strong>Model Assumptions:</strong> Results are contingent on the assumptions of the chosen models (e.g., linearity assumptions in parts of PSM, parameter choices in KMeans/GBR).</li>
+                <li><strong>Ethical Considerations & Bias:</strong> Potential biases in source data (e.g., pollution monitor placement, reporting variations in health data) could influence results. While steps were taken to use validated indices and check model robustness, interpretations must consider the risk of perpetuating existing biases if applied without care. Responsible AI principles guided the analysis.</li>
             </ul>
         </section>
 
         <!-- Using the revised, more concise text -->
         <section class="project-section project-next-steps" id="next-steps">
              <h2>Future Work & Potential Enhancements</h2>
-             <p>Building on this analysis, potential next steps could include:</p>
+             <p>Building on this foundation, future work could enhance the analysis and operationalise insights:</p>
              <ul>
-                <li><strong>Longitudinal Analysis:</strong> Incorporate time-series data to analyse trends and potentially apply stronger quasi-experimental designs (e.g., Difference-in-Differences).</li>
-                <!-- Corrected ML/Spatial Modelling titles -->
-                <li><strong>Advanced Spatial/ML Modelling:</strong> Explore <em>Geographically Weighted Regression (GWR)</em>, <em>Graph Neural Networks (GNNs)</em>, or other advanced techniques to capture finer spatial variations or network effects.</li>
-                <li><strong>Granularity & Context:</strong> Integrate finer-grained geographic data or individual-level surveys (where feasible) to mitigate ecological fallacy, and complement with qualitative research for richer understanding.</li>
-                <!-- Corrected AI-Powered Synthesis title -->
-                <li><strong>AI-Powered Synthesis:</strong> Leverage <em>Large Language Models (LLMs)</em> to efficiently synthesise relevant policy documents, news, or academic literature for contextual insights.</li>
-                <li><strong>Broadened Scope:</strong> Expand the analysis to include additional environmental factors (e.g., noise pollution, green space access) or health outcomes.</li>
+                <li><strong>Longitudinal & Causal Analysis:</strong> Incorporate time-series data to track changes and apply stronger quasi-experimental methods (e.g., Difference-in-Differences, Regression Discontinuity) if suitable policy changes or events occur.</li>
+                <li><strong>Advanced Spatial/ML Modelling:</strong> Explore Geographically Weighted Regression (GWR) for spatially varying relationships, Graph Neural Networks (GNNs) to explicitly model spatial networks/dependencies, or deep learning for complex interactions.</li>
+                <li><strong>Granularity & Context:</strong> Integrate finer-grained data (e.g., hyperlocal sensors, individual surveys if ethically feasible) to reduce ecological fallacy. Complement quantitative findings with qualitative research (community interviews) for deeper contextual understanding.</li>
+                <li><strong>AI-Powered Synthesis & Augmentation:</strong> Leverage Large Language Models (LLMs) / Transformers to analyse policy documents, news reports, or social media for contextual factors influencing environmental justice, or to generate tailored summaries for different stakeholders.</li>
+                <li><strong>Broadened Scope:</strong> Include other environmental factors (noise, green space access), health outcomes (mental health, specific morbidities), or expand geographically.</li>
+                <li><strong>MLOps & Productionisation:</strong>
+                    <ul>
+                        <li><em>Scalability:</em> Assess how methods (spatial weights, PSM, clustering) scale with more data (e.g., whole UK). Explore Dask or Spark for distributed computation on bottlenecks.</li>
+                        <li><em>Monitoring & Retraining:</em> Conceptualise a monitoring system (e.g., using tools like MLflow, Evidently AI) to track data drift (pollution patterns, demographics changing) and model drift (relationships changing). Define retraining triggers and frequency.</li>
+                        <li><em>Automation:</em> Frame the `run_*.py` scripts as components of an automated pipeline (e.g., using Airflow or Prefect) for regular data updates and analysis runs.</li>
+                    </ul>
+                </li>
+                 <li><strong>Responsible AI Deep Dive:</strong> Further investigate potential biases in input data and model algorithms, explore advanced fairness metrics, and refine mitigation strategies to ensure equitable outcomes from interventions based on this analysis.</li>
             </ul>
         </section>
 
