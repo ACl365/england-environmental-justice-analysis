@@ -21,7 +21,7 @@ This comprehensive analysis revealed several crucial insights enabling targeted 
 *   **NO₂ Health Association:** Higher NO₂ exposure is significantly associated with poorer respiratory health outcomes, even after controlling for observed deprivation via PSM (ATT ≈ -0.039, p<0.05). This suggests reducing NO₂ is associated with a ~3.9% relative improvement in the respiratory health index for matched LADs.
 *   **Distinct Area Profiles:** LADs cluster into distinct typologies (KMeans) with unique challenge combinations (e.g., 'Urban Deprived/Polluted'), necessitating tailored policies.
 *   **Quantified Policy Impact:** Policy simulations (GBR) estimate measurable average improvements in the respiratory health index from targeted NO₂ reductions in high-priority LADs (e.g., Derby, Trafford), potentially benefiting ~1.5M residents in top 10 LADs.
-*   **Deprivation Nuances:** 'Living Environment' and 'Barriers to Housing & Services' deprivation domains are key correlates of pollution, highlighting specific areas for integrated interventions beyond just income/employment.
+*   **Deprivation Nuances:** 'Living Environment' and 'Barriers to Housing &amp; Services' deprivation domains are key correlates of pollution, highlighting specific areas for integrated interventions beyond just income/employment.
 
 **➡️ Explore the detailed findings, visualisations, and actionable recommendations in the [Project Showcase](https://ACl365.github.io/england-environmental-justice-analysis/).**
 
@@ -47,11 +47,11 @@ Use code with caution.
 Markdown
 england-environmental-justice-analysis/
 ├── assets/ # (Not gitignored) Web assets (key images, CSS) for GitHub Pages
-│ └── images/
-├── data/ # (Gitignored - requires manual download) Raw & Processed Data
-│ ├── raw/
-│ ├── processed/
-│ └── geographies/
+│   └── images/
+├── data/ # (Gitignored - requires manual download) Raw &amp; Processed Data
+│   ├── raw/
+│   ├── processed/
+│   └── geographies/
 ├── docs/ # Supplementary documentation (e.g., DATA_SETUP.md, Full_Technical_Report.pdf/md)
 ├── notebooks/ # Exploratory Jupyter notebooks (optional)
 ├── src/ # Main analysis source code and runner scripts
@@ -124,7 +124,7 @@ Refer to tests/run_tests.py for more options.
 Data Requirements
 This analysis relies on publicly available UK datasets which are not included in this repository due to size and licensing restrictions. Users must download the required data files independently.
 
-Required Data: IMD 2019 (England), DEFRA Air Quality estimates, NHS Health Indicators (England), ONS LSOA/LAD Geographic Boundaries (England & Wales / Great Britain).
+Required Data: IMD 2019 (England), DEFRA Air Quality estimates, NHS Health Indicators (England), ONS LSOA/LAD Geographic Boundaries (England &amp; Wales / Great Britain).
 
 Placement: Data should be placed within the data/ directory structure (e.g., data/raw/, data/geographies/).
 
