@@ -28,7 +28,7 @@ def main():
     try:
         # Add project root to Python path
         sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
-        from src import causal_inference_analysis
+        import causal_inference_analysis
 
         causal_inference_analysis.main()
 

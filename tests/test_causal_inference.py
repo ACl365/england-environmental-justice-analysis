@@ -137,8 +137,8 @@ class TestCausalInference(unittest.TestCase):
             self.assertLessEqual(p_val, 1)
 
     @patch('matplotlib.pyplot.savefig')  # Mock the savefig function to avoid creating files
-    @patch('matplotlib.pyplot.figure')   # Mock the figure function
-    def test_propensity_score_matching(self, mock_figure, mock_savefig):
+    # @patch('matplotlib.pyplot.figure') # Removed figure mock
+    def test_propensity_score_matching(self, mock_savefig): # Removed mock_figure argument
         """Test propensity score matching."""
         # Run propensity score matching with a subset of data for speed
         test_subset = self.test_data.sample(30, random_state=42)
@@ -165,9 +165,9 @@ class TestCausalInference(unittest.TestCase):
         self.assertEqual(len(smd_results), len(self.covariates[:2]))
 
     @patch('matplotlib.pyplot.savefig')  # Mock the savefig function
-    @patch('matplotlib.pyplot.figure')   # Mock the figure function
+    # @patch('matplotlib.pyplot.figure') # Removed figure mock
     @patch('plotly.graph_objects.Figure.write_html')  # Mock the write_html function
-    def test_dose_response_function(self, mock_write_html, mock_figure, mock_savefig):
+    def test_dose_response_function(self, mock_write_html, mock_savefig): # Removed mock_figure argument
         """Test dose-response function estimation."""
         # Run dose-response function with a subset of data for speed
         test_subset = self.test_data.sample(30, random_state=42)
@@ -192,10 +192,10 @@ class TestCausalInference(unittest.TestCase):
         self.assertEqual(len(upper_ci), len(pred_data))
 
     @patch('matplotlib.pyplot.savefig')  # Mock the savefig function
-    @patch('matplotlib.pyplot.figure')   # Mock the figure function
+    # @patch('matplotlib.pyplot.figure') # Removed figure mock
     @patch('plotly.express.bar')         # Mock the plotly express bar function
     @patch('plotly.graph_objects.Figure.write_html')  # Mock the write_html function
-    def test_policy_impact_simulation(self, mock_write_html, mock_bar, mock_figure, mock_savefig):
+    def test_policy_impact_simulation(self, mock_write_html, mock_bar, mock_savefig): # Removed mock_figure argument
         """Test policy impact simulation."""
         # Run policy impact simulation with a subset of data for speed
         test_subset = self.test_data.sample(30, random_state=42)
@@ -228,8 +228,8 @@ class TestCausalInference(unittest.TestCase):
             self.assertIsInstance(result['avg_improvement'], float)
 
     @patch('matplotlib.pyplot.savefig')  # Mock the savefig function
-    @patch('matplotlib.pyplot.figure')   # Mock the figure function
-    def test_quantify_impact(self, mock_figure, mock_savefig):
+    # @patch('matplotlib.pyplot.figure') # Removed figure mock
+    def test_quantify_impact(self, mock_savefig): # Removed mock_figure argument
         """Test impact quantification."""
         # Create mock policy results
         policy_results = [
