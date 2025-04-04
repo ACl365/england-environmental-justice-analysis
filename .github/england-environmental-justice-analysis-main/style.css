@@ -1,0 +1,316 @@
+/* --- Basic Reset & Defaults --- */
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    scroll-behavior: smooth; /* Smooth scrolling for any internal links */
+    font-size: 16px; /* Base font size */
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* Common sans-serif stack */
+    line-height: 1.7; /* Improved readability */
+    color: #333;
+    background-color: #fdfdfd; /* Slightly off-white background */
+}
+
+/* --- Variables --- */
+:root {
+    --primary-color: #005a9c; /* Professional Blue */
+    --secondary-color: #007bff; /* Brighter blue for accents/links */
+    --text-color: #333;
+    --heading-color: #2c3e50; /* Darker shade for headings */
+    --light-gray: #f0f4f8; /* Lighter background/border */
+    --medium-gray: #6c757d; /* Subdued text, captions */
+    --border-radius: 5px;
+    --base-spacing: 1rem; /* 16px */
+    --max-width: 960px; /* Max content width */
+    --heading-font: 'Lato', 'Helvetica Neue', Helvetica, Arial, sans-serif; /* Example heading font */
+    --body-font: 'Roboto', 'Helvetica Neue', Helvetica, Arial, sans-serif; /* Example body font */
+}
+
+/* --- Typography --- */
+body {
+    font-family: var(--body-font);
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: var(--heading-font);
+    color: var(--heading-color);
+    line-height: 1.3;
+    margin-bottom: calc(var(--base-spacing) * 0.75);
+}
+
+h1 {
+    font-size: 2.6rem;
+    margin-bottom: calc(var(--base-spacing) * 0.5);
+    color: var(--primary-color);
+}
+
+h2 {
+    font-size: 1.9rem;
+    border-bottom: 3px solid var(--light-gray);
+    padding-bottom: calc(var(--base-spacing) * 0.4);
+    margin-top: calc(var(--base-spacing) * 3); /* More space above H2 */
+    margin-bottom: calc(var(--base-spacing) * 1.5);
+}
+
+h3 {
+    font-size: 1.5rem;
+    color: var(--primary-color);
+    margin-top: calc(var(--base-spacing) * 2);
+    margin-bottom: calc(var(--base-spacing) * 0.75);
+}
+
+p {
+    margin-bottom: var(--base-spacing);
+}
+
+ul, ol {
+    margin-bottom: var(--base-spacing);
+    padding-left: calc(var(--base-spacing) * 1.5); /* Indent lists */
+}
+
+li {
+    margin-bottom: calc(var(--base-spacing) * 0.5);
+}
+
+ul ul, ol ol { /* Nested lists */
+     margin-top: calc(var(--base-spacing) * 0.5);
+     margin-bottom: calc(var(--base-spacing) * 0.5);
+}
+
+strong {
+    font-weight: 600; /* Slightly bolder */
+}
+
+a {
+    color: var(--secondary-color);
+    text-decoration: none;
+    transition: color 0.2s ease;
+}
+
+a:hover, a:focus {
+    color: var(--primary-color);
+    text-decoration: underline;
+}
+
+/* --- Layout & Container --- */
+.project-page {
+    max-width: var(--max-width);
+    margin: calc(var(--base-spacing) * 2) auto;
+    padding: 0 calc(var(--base-spacing) * 1.5); /* Add horizontal padding */
+}
+
+.project-header {
+    text-align: center; /* Centre header text */
+    margin-bottom: calc(var(--base-spacing) * 3);
+}
+
+.project-header .subtitle {
+    font-size: 1.25rem;
+    color: var(--medium-gray);
+    margin-top: calc(var(--base-spacing) * 0.5);
+    font-style: italic;
+}
+
+.project-section {
+    margin-bottom: calc(var(--base-spacing) * 3);
+}
+
+/* --- Specific Section Styles --- */
+.project-summary {
+    background-color: var(--light-gray);
+    padding: calc(var(--base-spacing) * 1.5);
+    border-radius: var(--border-radius);
+    border-left: 5px solid var(--primary-color);
+}
+.project-summary h2 {
+    margin-top: 0; /* Remove top margin for H2 inside summary */
+    border-bottom: none;
+    font-size: 1.6rem; /* Slightly smaller H2 */
+}
+
+.project-limitations,
+.project-next-steps {
+    background-color: #fff8e1; /* Light yellow background */
+    border-left: 5px solid #ffab00; /* Amber border */
+    padding: calc(var(--base-spacing) * 1.5);
+    border-radius: var(--border-radius);
+    margin-top: calc(var(--base-spacing) * 2);
+}
+.project-limitations h2,
+.project-next-steps h2 {
+     margin-top: 0;
+     border-bottom: none;
+     font-size: 1.6rem;
+     color: #e65100; /* Darker orange heading */
+}
+
+/* --- Findings & Figures --- */
+.finding {
+    margin-bottom: calc(var(--base-spacing) * 2.5);
+}
+
+figure {
+    margin: calc(var(--base-spacing) * 1.5) 0;
+    text-align: center;
+}
+
+figure img {
+    max-width: 100%;
+    height: auto;
+    border: 1px solid #ccc;
+    border-radius: var(--border-radius);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    display: block; /* Remove extra space below image */
+    margin-left: auto;
+    margin-right: auto;
+}
+
+figcaption {
+    font-size: 0.9rem;
+    color: var(--medium-gray);
+    margin-top: calc(var(--base-spacing) * 0.75);
+    padding: 0 var(--base-spacing); /* Add padding for longer captions */
+    font-style: italic;
+}
+
+.figure-row {
+    display: flex;
+    flex-wrap: wrap; /* Allow wrapping on smaller screens */
+    gap: calc(var(--base-spacing) * 1.5);
+    align-items: flex-start; /* Align items top */
+    margin-top: calc(var(--base-spacing) * 1.5);
+    margin-bottom: calc(var(--base-spacing) * 1.5);
+}
+
+.figure--two-col {
+    flex: 1 1 calc(50% - var(--base-spacing) * 0.75); /* Grow, shrink, basis (adjusting for gap) */
+    min-width: 280px; /* Prevent figures getting too squished */
+    margin: 0; /* Remove default figure margins when in a row */
+}
+
+/* --- Tech Stack --- */
+.tech-stack p, /* Style the paragraph version */
+.tech-stack ul {  /* Style the list version if you use it */
+    background-color: var(--light-gray);
+    padding: var(--base-spacing);
+    border-radius: var(--border-radius);
+    font-family: 'Courier New', Courier, monospace; /* Monospace font */
+    color: var(--heading-color);
+    word-spacing: calc(var(--base-spacing)*0.5); /* Add spacing between words */
+}
+/* If using icons in a list: */
+.tech-stack ul {
+    list-style: none;
+    padding-left: 0; /* Remove default list padding */
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--base-spacing);
+}
+.tech-stack li {
+    margin-bottom: 0; /* Remove bottom margin from list items */
+    display: inline-flex; /* Align icon and text */
+    align-items: center;
+    gap: calc(var(--base-spacing) * 0.5);
+    background-color: #e9ecef; /* Slightly different background */
+    padding: calc(var(--base-spacing) * 0.4) calc(var(--base-spacing) * 0.8);
+    border-radius: 4px;
+}
+/* .tech-stack li i { font-size: 1.2em; } */ /* Style icons */
+
+/* --- Buttons / Links --- */
+.project-links {
+    text-align: center; /* Centre button(s) */
+    margin-top: calc(var(--base-spacing) * 2);
+}
+
+.button {
+    display: inline-block;
+    background-color: var(--primary-color);
+    color: #fff;
+    padding: calc(var(--base-spacing)*0.75) calc(var(--base-spacing)*1.5);
+    border-radius: var(--border-radius);
+    font-weight: bold;
+    text-decoration: none;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.2s ease-in-out, transform 0.1s ease;
+    margin: calc(var(--base-spacing)*0.5); /* Add margin for multiple buttons */
+}
+
+.button:hover,
+.button:focus {
+    background-color: #003e74; /* Darker shade */
+    color: #fff; /* Ensure text remains white */
+    text-decoration: none; /* Remove underline on hover */
+    outline: 2px solid var(--secondary-color); /* Focus indicator */
+    outline-offset: 2px;
+}
+
+.button:active {
+    transform: scale(0.98); /* Press effect */
+}
+
+/* Optional secondary button style */
+.button.button-secondary {
+    background-color: transparent;
+    border: 2px solid var(--primary-color);
+    color: var(--primary-color);
+}
+.button.button-secondary:hover,
+.button.button-secondary:focus {
+    background-color: var(--light-gray);
+    color: var(--primary-color);
+}
+
+
+/* --- Responsive Design --- */
+@media (max-width: 768px) {
+    html {
+        font-size: 15px; /* Slightly smaller base font */
+    }
+
+    h1 { font-size: 2.2rem; }
+    h2 { font-size: 1.7rem; }
+    h3 { font-size: 1.3rem; }
+
+    .project-page {
+        padding: 0 var(--base-spacing); /* Adjust padding */
+    }
+
+    .figure-row {
+        flex-direction: column; /* Stack figures */
+        gap: calc(var(--base-spacing) * 2);
+    }
+
+    .figure--two-col {
+        flex-basis: 100%; /* Make stacked figures full width */
+        min-width: unset; /* Remove min-width when stacked */
+    }
+}
+
+@media (max-width: 480px) {
+    html {
+        font-size: 14px;
+    }
+     h1 { font-size: 1.9rem; }
+     h2 { font-size: 1.5rem; }
+     h3 { font-size: 1.2rem; }
+
+    .project-header .subtitle {
+        font-size: 1.1rem;
+    }
+    .button {
+         padding: calc(var(--base-spacing)*0.6) calc(var(--base-spacing)*1.2);
+         width: 100%; /* Make buttons full width */
+         margin-left: 0;
+         margin-right: 0;
+    }
+}

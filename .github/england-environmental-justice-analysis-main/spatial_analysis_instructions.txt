@@ -1,0 +1,596 @@
+Okay, let's consolidate the spatial analysis into a single, more robust script (spatial_analysis_fixed.py). This script will:
+
+Load the necessary data (unified_df, LSOA boundaries, LAD boundaries).
+
+Fix invalid geometries.
+
+Perform LSOA-level analysis (Moran's I, LISA, Gi*) using accurate spatial weights.
+
+Perform LAD-level spatial regression (OLS and Spatial Lag) to avoid memory issues.
+
+Save outputs (plots and potentially GeoDataFrames).
+
+Assumptions:
+
+You have downloaded the correct, valid polygon boundary files for both LSOAs and LADs in GeoJSON or Shapefile format.
+
+The necessary libraries (geopandas, libpysal, esda, spreg, matplotlib, seaborn, pandas, numpy) are installed in your environment (venv).
+
+Your file structure is something like:
+
+UK_ENV/
+├── data/
+│   ├── LSOA_DEC_2021_EW_BSC_V4_XYZ.geojson  # <-- Your VALID LSOA boundaries
+│   ├── LAD_Dec_2021_GB_BFC_XYZ.geojson      # <-- Your VALID LAD boundaries
+│   └── unified_dataset_with_air_quality.csv
+├── outputs/
+│   └── spatial_hotspots/
+├── src/
+│   ├── spatial_analysis_fixed.py  # <-- This new script
+│   └── run_spatial_analysis.py    # <-- You will update this later
+└── requirements.txt
+```
+Use code with caution.
+--- START OF FILE: src/spatial_analysis_fixed.py ---
+
+"""
+Consolidated Spatial Analysis for Environmental Justice Project
+
+Performs:
+- LSOA-level Moran's I, Local Moran's I (LISA), Getis-Ord Gi* using accurate boundaries.
+- LAD-level OLS and Spatial Lag regression using aggregated data and LAD boundaries.
+"""
+
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+import seaborn as sns
+import geopandas as gpd
+import
+Use code with caution.
+Python
+os
+import warnings
+import traceback
+
+-- Dependency Checks and Imports --
+print("--- Checking Dependencies ---")
+dependencies_available = {}
+try:
+import geopandas
+dependencies_available['geopandas'] = True
+except ImportError: dependencies_available['geopandas'] = False; print("WARNING: geopandas not found.")
+try:
+import libpysal as lps
+from libpysal.weights import Queen, KNN, W
+dependencies_available['libpysal'] = True
+except ImportError: dependencies_available['libpysal'] = False; print("WARNING: libpysal not found.")
+try:
+import esda
+from esda.moran import Moran, Moran_Local
+from esda.getisord import G_Local
+dependencies_available['esda'] = True
+except ImportError: dependencies_available['esda'] = False; print("WARNING: esda not found.")
+try:
+import spreg
+from spreg import OLS, ML_Lag
+dependencies_available['spreg'] = True
+except ImportError: dependencies_available['spreg'] = False; print("WARNING: spreg not found.")
+try:
+from scipy.stats import norm
+dependencies_available['scipy'] = True
+except ImportError: dependencies_available['scipy'] = False; print("WARNING: scipy not found.")
+
+if not all(dependencies_available.values()):
+print("\nERROR: Critical dependencies missing. Spatial analysis cannot proceed fully.")
+# Optionally exit here, or let it fail later
+# sys.exit(1)
+else:
+print("All critical spatial libraries appear available.")
+print("----------------------------")
+
+--- Global Settings ---
+Use absolute paths or paths relative to the project root for robustness
+Assuming script is in src/, data is in data/ sibling to src/
+BASE_DIR = os.path.abspath(os.path.join(os.path.dirname(file), '..'))
+DATA_DIR = os.path.join(BASE_DIR
+
+
+, 'data')
+OUTPUT_DIR = os.path.join(BASE_DIR, 'outputs', 'spatial_hotspots')
+
+UNIFIED_CSV_PATH = os.path.join(DATA_DIR, 'unified_dataset_with_air_quality.csv')
+
+*** REPLACE WITH YOUR ACTUAL VALID FILENAMES ***
+LSOA_GEOJSON_PATH = os.path.join(DATA_DIR, 'Lower_layer_Super_Output_Areas_December_2021_Boundaries_EW_BSC_V4_-4299016806856585929.geojson') # Example - Use your downloaded file
+LAD_GEOJSON_PATH = os.path.join(DATA_DIR, 'LAD_Dec_2021_GB_BFC_2022_-8975151699474964544.geojson') # Example - Use your downloaded file
+
+TARGET_CRS = "EPSG:27700" # British National Grid
+
+Ensure output directory exists
+os.makedirs(OUTPUT_DIR, exist_ok=True)
+
+Plotting style
+try:
+plt.style.use('seaborn-v0_8-whitegrid')
+except OSError:
+plt.style.use('default')
+sns.set_palette('viridis')
+plt.rcParams['figure.figsize'] = (12, 8)
+plt.rcParams['font.size'] = 12
+
+--- Helper Functions ---
+def fix_geometries(gdf, gdf_name="GeoDataFrame"):
+"""Attempt to fix invalid geometries using buffer(0)."""
+if not isinstance(gdf, gpd.GeoDataFrame) or 'geometry' not in gdf.columns:
+print(f" Error: Invalid input for fix_geometries ({gdf_name}).")
+return None
+
+initial_invalid_count = (~gdf.geometry.is_valid).sum()
+if initial_invalid_count == 0:
+    print(f"  All {len(gdf)} geometries in {gdf_name} are valid.")
+    return gdf
+
+print(f"  Found {initial_invalid_count} invalid geometries in {gdf_name}. Attempting buffer(0) fix...")
+# Work on a copy
+gdf_fixed = gdf.copy()
+# Ensure nulls aren't processed
+non_null_geoms = gdf_fixed.geometry.notna()
+try:
+    gdf_fixed.loc[non_null_geoms & (~gdf_fixed.geometry.is_valid), 'geometry'] = \
+        gdf_fixed.loc[non_null_geoms & (~gdf_fixed.geometry.is_valid)].geometry.buffer(0)
+    final_invalid_count = (~gdf_fixed.geometry.is_valid).sum()
+    print(f"  After buffer(0):
+{final_invalid_count} geometries remain invalid.")
+if final_invalid_count == 0:
+print(f" Successfully fixed all invalid geometries in {gdf_name}.")
+else:
+print(f" Warning: Could not fix all invalid geometries in {gdf_name}.")
+# Consider removing remaining invalid ones before weights? Or let PySAL handle/warn.
+# gdf_fixed = gdf_fixed[gdf_fixed.geometry.is_valid]
+# print(f" Removed remaining invalid geometries, proceeding with {len(gdf_fixed)} features.")
+return gdf_fixed
+except Exception as e:
+print(f" Error during buffer(0) fix for {gdf_name}: {e}. Returning original.")
+traceback.print_exc()
+return gdf # Return original if fix fails
+
+def load_and_prep_geodata(path, name, expected_code_prefix):
+"""Loads and prepares a GeoJSON file."""
+gdf = None
+try:
+if not os.path.exists(path):
+raise FileNotFoundError(f"{name} file not found at: {path}")
+gdf = gpd.read_file(path)
+if not isinstance(gdf, gpd.GeoDataFrame):
+raise TypeError(f"Loaded {name} file is not a GeoDataFrame.")
+print(f"Loaded {name} with {len(gdf)} areas.")
+print(f" Initial CRS: {gdf.crs}")
+
+# Check for geometry column and type
+    if 'geometry' not in gdf.columns or gdf.geometry.isnull().all():
+         raise ValueError(f"{name} GeoDataFrame loaded, but has no valid geometries.")
+    if not gdf.geom_type.isin(['Polygon', 'MultiPolygon']).all():
+         print(f"Warning: {name} contains non-polygon geometries: {gdf.geom_type.unique()}. Contiguity weights may fail.")
+
+    # Fix geometries
+    gdf = fix_geometries(gdf, name)
+
+    # Reproject if needed
+    if gdf.crs is None: gdf.set_crs(epsg=4326, inplace=True) # Assume WGS84 if missing
+    if str(gdf.crs).upper() != TARGET_CRS:
+        print(f"  Reprojecting {name
+
+Okay, let's consolidate the spatial analysis into a single, improved script. This version aims to:
+
+Load the correct LSOA GeoJSON (Lower_layer_Super_Output_Areas_December_2021_Boundaries_EW_BSC_V4...) and fix geometries.
+
+Load the **} to {TARGET_CRS}...")
+gdf = gdf.to_crs(TARGET_CRS)
+print(f" Reprojection successful. New CRS: {gdf.crs}")
+
+# Identify code column
+code_cols = [col for col in gdf.columns if expected_code_prefix in col.upper() and ('CODE' in col.upper() or 'CD' in col.upper())]
+if not code_cols:
+    raise ValueError(f"Could not find code column starting with '{expected_code_prefix}' in {name}. Columns: {gdf.columns}")
+code_col_in_gdf = code_cols[0]
+print(f"  Identified code column: '{code_col_in_gdf}'")
+
+# Keep only necessary columns and ensure code is string
+gdf = gdf[[code_col_in_gdf, 'geometry']].rename(columns={code_col_in_gdf: 'geo_code'})
+gdf['geo_code'] = gdf['geo_code'].astype(str)
+
+# Final check
+print(f"  Prepared {name} GeoDataFrame with {len(gdf)} rows.")
+print(f"  Non-null geometries: {gdf.geometry.notna().sum()}")
+print(f"  Valid geometries: {gdf.geometry.is_valid.sum()}")
+
+return gdf
+Use code with caution.
+except Exception as e:
+print(f"Error loading/preparing {name} data: {e}")
+traceback.print_exc()
+return None
+
+def merge_spatial_data(analytical_df, gdf, analytical_code_col, gdf_code_col='geo_code'):
+"""Merges analytical data with spatial data, ensuring geometry is kept."""
+print(f"\nMerging analytical data with {gdf_name(gdf)} geometries...")
+if gdf is None or analytical_df is None:
+print(" Error: Input DataFrame or GeoDataFrame is None.")
+return None
+if analytical_code_col not in analytical_df.columns:
+print(f" Error: Analytical code column '{analytical_code_col}' not found in analytical_df.")
+return None
+if gdf_code_col not in gdf.columns:
+print(f" Error: Geometry code column '{gdf_code_col}' not found in gdf.")
+return None
+
+# Ensure join keys are same type
+analytical_df[analytical_code_col] = analytical_df[analytical_code_col].astype(str)
+gdf[gdf_code_col] = gdf[gdf_code_col].astype(str)
+
+initial_analytical_rows = len(analytical_df)
+merged_gdf = gdf.merge(analytical_df, left_on=gdf_code_col, right_on=analytical_code_col, how='inner')
+
+print(f"  Merged GeoDataFrame shape: {merged_gdf.shape}")
+print(f"  Matched {len(merged_gdf)} of {initial_analytical_rows} analytical records.")
+
+if not isinstance(merged_gdf, gpd.GeoDataFrame):
+    print("  Error: Merge did not result in a GeoDataFrame.")
+    return None
+if 'geometry' not in merged_gdf.columns or merged_gdf.geometry.isnull().all():
+    print("  Error: Geometry lost or all null after merge.")
+    return None
+if merged_gdf.empty:
+     print("  Warning: Merged GeoDataFrame is empty. Check code matching.")
+     return None # Return None if empty to avoid downstream errors
+
+# Ensure correct CRS is maintained
+if merged_gdf.crs != TARGET_CRS:
+    merged_gdf.set_crs(TARGET_CRS, inplace=True)
+
+# Final filter for valid geometry after merge
+merged_gdf = merged_gdf[merged_gdf.geometry.notna() & merged_gdf.geometry.is_valid & ~merged_gdf.geometry.is_empty]
+print(f"  Proceeding with {len(merged_gdf)} rows havingcorrect LAD GeoJSON** (`LAD_Dec_2021_GB_BFC_2022...`) and fix geometries.
+Use code with caution.
+Perform LSOA-level Moran's I and Getis-Ord Gi* using accurate Queen contiguity weights.
+
+Perform LAD-level spatial regression (OLS and ML_Lag) using accurate LAD Queen contiguity weights after aggregation.
+
+Generate valid (non-demo) maps and plots for LSOA results.
+
+Include robust error handling and diagnostics.
+
+Assumptions:
+
+The LSOA GeoJSON Lower_layer_Super_Output_Areas_December_2021_Boundaries_EW_BSC_V4_-4299016806856585929.geojson contains valid polygon geometries.
+
+The LAD GeoJSON LAD_Dec_2021_GB_BFC_2022_-8975151699474964544.geojson contains valid polygon geometries.
+
+Your unified_dataset_with_air_quality.csv is in the project root or a standard location relative to the script.
+
+The GeoJSON files are placed in a data/geographies subdirectory within your project root (adjust paths if different). You may need to create this directory.
+
+Necessary libraries (geopandas, libpysal, esda, spreg, matplotlib, seaborn, numpy, pandas) are installed in your environment.
+
+--- START OF FILE src/spatial_analysis.py ---
+
+"""
+Consolidated Spatial Analysis for Environmental Justice Project
+
+Performs:
+- LSOA-level Moran's I (Global and Local) using accurate boundaries.
+- LSOA-level Getis-Ord Gi* using accurate boundaries.
+- LAD-level Spatial Regression (OLS and ML_Lag) using accurate boundaries.
+- Generates valid visualizations.
+"""
+
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+import seaborn as sns
+import geopandas as gpd
+import os
+from shapely.geometry import Polygon, MultiPolygon
+import warnings
+import traceback
+
+# --- Dependency Check ---
+print("--- Checking Dependencies ---")
+requirements = {
+    'geopandas': False, 'libpysal': False, 'esda': False,
+    'spreg': False, 'matplotlib': False, 'seaborn': False,
+    'numpy': False, 'pandas': False, 'shapely': False
+}
+try: import pandas; requirements['pandas'] = True
+except ImportError: print("✗ pandas not found")
+try: import numpy; requirements['numpy'] = True
+except ImportError: print("✗ numpy not found")
+try: import matplotlib; requirements['matplotlib'] = True
+except ImportError: print("✗ matplotlib not found")
+try: import seaborn; requirements['seaborn'] = True
+except ImportError: print("✗ seaborn not found")
+try: import geopandas; requirements['geopandas'] = True
+except ImportError: print("✗ geopandas not found")
+try: import shapely; requirements['shapely'] = True
+except ImportError: print("✗ shapely not found") valid geometry after merge.")
+
+    if merged_gdf.empty:
+        print("  Error: No rows with valid geometry left after final check post-merge.")
+        return None
+
+    return merged_gdf
+
+def gdf_name(gdf):
+    # Helper to get a name for logging based on index/column names
+    if gdf is None: return "None"
+    if 'LSOA' in gdf.index.name.upper() if gdf.index.name else '' or any('LSOA' in col.upper() for col in gdf.columns): return "LSOA"
+    if 'LAD' in gdf.index.name.upper() if gdf.index.name else '' or any('LAD' in col.upper() for col in gdf.columns): return "LAD"
+    return "Unknown GeoDataFrame"
+
+def create_spatial_weights(gdf, id_column, weight_type='queen'):
+    """Creates spatial weights matrix (Queen or KNN)."""
+    print(f"\n--- Creating {weight_type.capitalize()} Spatial Weights for {gdf_name(gdf)} Level ---")
+    if not PYSAL_AVAILABLE: print("  Error: libpysal not available."); return None
+    if gdf is None or gdf.empty: print("  Error: GeoDataFrame is empty or None."); return None
+    if id_column not in gdf.columns and id_column != gdf.index.name:
+        print(f"  Error: ID column '{
+try: import libpysal as lps; from libpysal.weights import Queen, KNN, W; requirements['libpysal'] = True
+except ImportError: print("✗ libpysal not found")
+try: import esda; from esda.moran import Moran, Moran_Local; from esda.getisord import G_Local; requirements['esda'] = True
+except ImportError: print("✗ esda not found")
+try: import spreg; from spreg import OLS, ML_Lag; requirements['spreg'] = True
+except ImportError: print("✗ spreg not found")
+
+PYSAL_AVAILABLE = requirements['libpysal']
+ESDA_AVAILABLE = requirements['esda']
+SPREG_AVAILABLE = requirements['spreg']
+GEOPANDAS_AVAILABLE = requirements['geopandas']
+
+if not all(requirements.values()):
+    print("\nError: Missing critical dependencies. Please install required packages.")
+    # Consider exiting if critical ones like pandas/geopandas/libpysal are missing
+    # sys.exit(1)
+else:
+    print("\n✓ All major dependencies seem available.")
+print("--------------------------id_column}' not found for weights creation."); return None
+
+    # Set index if id_column is not already the index
+    gdf_indexed = gdf.copy()
+    use_index = False
+    if id_column != gdf_indexed.index.name:
+        if gdf_indexed[id_column].is_unique:
+            print(f"  Setting index to '{id_column}' for weights calculation.")
+            gdf_indexed.set_index(id_column, inplace=True)
+            use_index = True
+        else:
+            print(f"  Warning: ID-\n")
+
+
+# --- Constants and Setup ---
+BASE_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), '..')) # Assumes script is in src/
+DATA_DIR = os.path.join(BASE_DIR, 'data')
+GEO_DIR = os.path.join(DATA_DIR, 'geographies') # Assumes GeoJSONs are here
+OUTPUT_DIR = os.path.join(BASE_DIR, 'outputs', 'spatial_analysis')
+os.makedirs(OUTPUT_DIR, exist_ok=True column '{id_column}' is not unique. Using default index.")
+            gdf_indexed = gdf_indexed.reset_index(drop=True) # Use clean integer index
+            use_index = False # libpysal < 2.7 might need False explicitly
+
+    weights = None
+    try:
+        if weight_type.lower() == 'queen':
+            print("  Calculating Queen contiguity weights...")
+            weights = Queen.from_dataframe(gdf_indexed, use_index=use_index, ids=gdf_indexed.index.tolist() if not use_index else)
+
+# File Paths (adjust if your structure is different)
+UNIFIED_CSV_PATH = os.path.join(BASE_DIR, 'unified_dataset_with_air_quality.csv')
+# VALID LSOA Boundaries File
+LSOA_GEOJSON_PATH = os.path.join(GEO_DIR, 'Lower_layer_Super_Output_Areas_December_2021_Boundaries_EW_BSC_V4_-4299016806856585929.geojson')
+# VALID LAD Boundaries File
+LAD_GEOJSON None) # Pass IDs explicitly if not using index
+        elif weight_type.lower() == 'knn':
+            k = min(5, len(gdf_indexed) - 1) # Default k=5 or fewer if necessary
+            print(f"  Calculating KNN weights (k={k})._PATH = os.path.join(GEO_DIR, 'LAD_Dec_2021_GB_BFC_2022_-8975151699474964544.geojson')
+
+TARGET_CRS = "EPSG..")
+            if k <= 0: raise ValueError("Not enough data points for KNN weights.")
+            weights = KNN.from_dataframe(gdf_indexed, k=k, use_index=use_index, ids=gdf_indexed.index.tolist() if not use_index else None:27700" # British National Grid
+
+# Variables for Analysis
+LSOA_VARIABLES = ['env_justice_index', 'air_pollution_index', 'imd_score_normalized', 'NO2', 'PM2.5']
+LAD_REGRESSION_Y = 'env_justice)
+        else:
+            raise ValueError(f"Unsupported weight_type: {weight_type}")
+
+        weights.transform = 'R' # Row-standardize
+        print(f"  Created {weight_type.capitalize()} weights for {weights.n} areas.")
+        if weights.islands:
+            print(f"  Warning: Found {len(weights.islands)} islands (areas with no neighbors).")
+        return weights
+
+    except Exception as e:
+        print(f"  Error creating {weight_type.capitalize()} weights: {e}")
+        traceback_index' # Example: using aggregated env_justice_index
+LAD_REGRESSION_X = ['imd_score_normalized', 'NO2', 'PM2.5'] # Aggregated versions
+
+# Plotting Style
+try:
+    plt.style.use('seaborn-v0_8-whitegrid')
+except OSError:
+    plt.style.use('default')
+sns.set_palette('viridis')
+plt.rcParams['figure.figsize'] = (12, 8)
+plt.rcParams['font.size'] = 12
+
+# --- Helper Functions ---
+
+def fix_.print_exc()
+        return None
+
+# Moran's I, Local Moran's, Getis-Ord, Visualization functions need slight modification
+# to take GeoDataFrame and variable name, perform NaN checks internally
+
+def calculate_morans_i(gdf, variable, weights):
+    """Calculate Global Moran's I, handling NaNs."""
+    print(f"\nCalculating Global Moran's I for {variable}...")
+    if not ESDA_AVAILABLE: print("  ESDA unavailable."); return None, None
+    if gdf is None or variable not in gdf.columns or weights isgeometries(gdf, buffer_dist=0):
+    """Fix invalid geometries using buffer(0) or other methods."""
+    if not isinstance(gdf, gpd.GeoDataFrame) or 'geometry' not in gdf.columns:
+        return gdf
+    
+    initial_invalid = (~gdf.geometry. None:
+        print("  Invalid input for Moran's I."); return None, None
+
+    y = gdf[variable].copy()
+    # Align with weights index
+    if hasattr(weights, 'id_order'):
+        try:
+            y = y.reindex(weights.idis_valid).sum()
+    if initial_invalid == 0:
+        # print("  All geometries are valid.")
+        return gdf
+
+    print(f"  Found {initial_invalid} invalid geometries. Attempting fix...")
+    # Use buffer(0) - common fix
+    gdf['_order)
+        except Exception as e:
+            print(f"  Warning: Failed to reindex for Moran's I - {e}. Using original order.")
+
+    if y.isnull().any():
+        nan_count = y.isnull().sum()
+        median_val = y.median()geometry'] = gdf.geometry.buffer(buffer_dist)
+    
+    remaining_invalid = (~gdf.geometry.is_valid).sum()
+    if remaining_invalid > 0:
+        print(f"  Warning: {remaining_invalid} geometries still invalid after buffer({buffer_dist}).
+        print(f"  Warning: Filling {nan_count} NaNs in '{variable}' with median {median_val:.4f}")
+        y.fillna(median_val, inplace=True)
+        if y.isnull().any(): # Check if all were NaNs
+            print(f"")
+        # Add make_valid as a secondary attempt if needed and shapely version supports it
+    else:
+         print(f"  Fix successful for {initial_invalid} geometries.")
+    return gdf
+
+def load_geo_data(path, default_crs='EPSG:4326'):  Error: Still NaNs after fill for '{variable}'. Cannot calculate.")
+            return None, None
+
+    try:
+        moran = Moran(y, weights)
+        print(f"  Global Moran's I: {moran.I:.4f}, p-value: {moran.p
+    """Load geospatial data with error handling and basic checks."""
+    if not GEOPANDAS_AVAILABLE: return None
+    try:
+        gdf = gpd.read_file(path)
+        print(f"  Successfully loaded: {os.path.basename(path)} ({len(gdf_sim:.4f} (permutations: {moran.permutations})")
+        return moran.I, moran.p_sim
+    except Exception as e:
+        print(f"  Error calculating Moran's I for {variable}: {e}")
+        return None, None)} features)")
+        if gdf.crs is None:
+            print(f"  Warning: CRS is missing. Assuming {default_crs}.")
+            gdf.set_crs(default_crs, inplace=True)
+        
+        # Basic geometry check
+        if 'geometry' not in gdf.columns
+
+# --- Main Execution Block ---
+if __name__ == "__main__":
+    check_dependencies()
+    main()
+Use code with caution.
+Python
+Key Changes and Why:
+
+File Paths: Changed paths to assume data and src are siblings under the main project directory (UK_ENV). or gdf.geometry.isnull().all():
+print(" Error: No valid geometry column found.")
+return None
+if not gdf.geom_type.isin(['Polygon', 'MultiPolygon']).all():
+print(f" Warning: Contains non-polygon geometries: {gdf.geom Used os.path.join and BASE_DIR for better portability. **Crucially, updated the LSOA_GEOJSON_PATH to point to the new, valid file you confirmed (`Lower_layer_Super_Output_Areas_December_2021_Boundaries_EW_type.unique()}. May affect contiguity weights.")
+
+gdf = fix_geometries(gdf) # Attempt to fix invalid geometries
+return gdf
+Use code with caution.
+except Exception as e:
+print(f" Error loading {os.path.basename(path)}: {e}")
+return None
+
+_BSC_V4...).** 2. **Loading Robustness:** Added more checks inload_dataandload_and_prep_geodatato ensure files exist, load correctly as GeoDataFrames, and contain geometries. 3. **Geometry Fixing:** Thefixdef create_spatial_weights(gdf, method='queen', id_column=None, **kwargs):
+"""Create spatial weights matrix with error handling."""
+if not PYSAL_AVAILABLE: return None
+if gdf is None or not isinstance(gdf, gpd.GeoDataFrame) or gdf._geometriesfunction is called immediately after loading GeoDataFrames to handle invalid polygons usingbuffer(0). 4. **Merge Logic:**create_lsoa_spatial_weightsnow performs the merge internally usinggeopandas.merge` and includes checks to ensure the result is still a GeoDataFrameempty:
+print(" Error: Invalid GeoDataFrame for weight creation.")
+return None
+
+print(f"\nCreating {method.upper()} spatial weights...")
+
+# Ensure unique index or ID column
+if id_column and id_column in gdf.columns:
+Use code with caution.
+with the geometry column and valid CRS. It uses an inner merge to keep only LSOAs present in both datasets.
+5. Filtering: Explicitly filters the merged GeoDataFrame for notna(), is_valid, and ~is_empty geometries before creating weights.
+if not gdf[id_column].is_unique:
+print(f" Warning: ID column '{id_column}' is not unique. Using index.")
+gdf = gdf.reset_index(drop=True)
+id_variable_arg = None
+use_index_arg = True
+else:
+gdf = gdf.set_index(id_column)
+id_variable_arg = gdf.index.name # Use index name
+use_index_arg = True # Use the index we just set
+else:
+# Use default index if no6. Weights Creation: Uses Queen.from_dataframe on the cleaned, merged GeoDataFrame. It handles unique/non-unique index cases better and includes a fallback to KNN if Queen fails (though Queen is preferred for contiguity). It also adds a check and warning for islands.
+7. id_column provided or it's missing/invalid
+if not gdf.index.is_unique:
+print(f" Warning: Default index is not unique. Resetting index.")
+gdf = gdf.reset_index(drop=True)
+id_variable_arg = None
+NaN Handling: Moved NaN checks and filling inside the calculate_morans_i, calculate_local_morans, and calculate_getis_ord functions to operate on the data series just before passing it to PySAL, after potential re-indexing.
+8. **Luse_index_arg = True
+
+try:
+    if method.lower() == 'queen':
+        w = Queen.from_dataframe(gdf, use_index=use_index_arg, ids=gdf.index.tolist() if use_index_arg else None)
+    elif method.lowerAD Regression Block:** This block remains largely conceptual within `main` as it depends on the *separate* LAD boundary file being loaded and prepped correctly. The logic for aggregation, loading LAD geometries, merging, creating LAD weights, and running regression is outlined but relies on the `LAD_GEOJSON_PATH`() == 'knn':
+        k = kwargs.get('k', 5)
+        # KNN needs coordinates - use centroids
+        centroids = gdf.geometry.centroid
+        # Create a temporary GDF with centroids for KNN function
+        temp_gdf_for_knn = gpd.GeoDataFrame(gdf.drop(columns=['geometry']), geometry=centroids, crs=gdf.crs)
+        w = KNN.from_dataframe(temp_gdf_for_knn, k=k, use_index=use_index_arg, ids=temp_gdf_for_knn.index.tolist() if being valid. It now uses the more robust `create_spatial_weights` function.
+Use code with caution.
+Error Handling: Added more try...except blocks and informative print statements.
+
+Removed Plotly: Focused on core spatial stats and matplotlib outputs for simplicity and easier integration into static use_index_arg else None)
+else:
+print(f" Error: Unsupported weights method '{method}'.")
+return None
+
+# Row-standardize (common practice)
+w.transform = 'R'
+print(f"  Created {method.upper reports.
+Use code with caution.
+Runner Script Imports: Updated the run_*.py scripts to use from src import ... assuming they are run from the project root directory.
+
+To Use This:
+
+Save: Save this code as `src/spatial_analysis_fixed.()} weights for {w.n} areas (Avg Neighbors: {w.mean_neighbors:.2f}).")
+if w.islands:
+print(f" Warning: Found {len(w.islands)} islands (areas with no neighbors).")
+return w
+
+except Exception aspy`.
+
+Verify Paths: Double-check and correct the LSOA_GEOJSON_PATH and LAD_GEOJSON_PATH variables at the top to match the exact filenames of your valid downloaded boundary files in the data directory.
+
+**Run e:
+print(f" Error creating {method.upper()} weights: {e}")
+traceback.print_exc()
+return None
+
+--- Spatial Stats Functions (Adapted for GDFs & Error Handling) ---
+def calculate_morans_i(gdf, variable,:** Execute from your project root using python -m src.spatial_analysis_fixed.
+4. Update Runner: Modify run_spatial_analysis.py to import and run the main function from src.spatial_analysis_fixed.
+
+This consolidated script provides a much more robust and likely successful approach to your spatial analysis goals.
