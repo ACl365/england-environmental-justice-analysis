@@ -12,7 +12,7 @@ This document provides a description of every feature used in the project, inclu
 | lad_name | Local Authority District name | ONS | N/A | String | N/A |
 | imd_rank | Index of Multiple Deprivation rank | DCLG | N/A | Integer | N/A |
 | imd_decile | Index of Multiple Deprivation decile | DCLG | N/A | Integer | N/A |
-| imd_score_normalized | Normalized Index of Multiple Deprivation score | DCLG | N/A | Float | Normalized to 0-100 scale |
+| imd_score_normalized | Normalised Index of Multiple Deprivation score | DCLG | N/A | Float | Normalised to 0-100 scale |
 | total_population_mid_2015_excluding_prisoners | Total population (excluding prisoners) | ONS | People | Integer | N/A |
 | dependent_children_aged_0_15_mid_2015_excluding_prisoners | Number of dependent children (excluding prisoners) | ONS | People | Integer | N/A |
 | population_aged_16_59_mid_2015_excluding_prisoners | Population aged 16-59 (excluding prisoners) | ONS | People | Integer | N/A |
@@ -72,9 +72,9 @@ This document provides a description of every feature used in the project, inclu
 | O3 | Ozone concentration | DEFRA | ug/m3 | Float | N/A |
 | PM10 | Particulate Matter < 10um concentration | DEFRA | ug/m3 | Float | N/A |
 | PM2.5 | Particulate Matter < 2.5um concentration | DEFRA | ug/m3 | Float | N/A |
-| PM2.5_normalized | Normalized Particulate Matter < 2.5um concentration | DEFRA | N/A | Float | Normalized to 0-1 scale |
-| PM10_normalized | Normalized Particulate Matter < 10um concentration | DEFRA | N/A | Float | Normalized to 0-1 scale |
-| NO2_normalized | Normalized Nitrogen Dioxide concentration | DEFRA | N/A | Float | Normalized to 0-1 scale |
+| PM2.5_normalized | Normalised Particulate Matter < 2.5um concentration | DEFRA | N/A | Float | Normalised to 0-1 scale |
+| PM10_normalized | Normalised Particulate Matter < 10um concentration | DEFRA | N/A | Float | Normalised to 0-1 scale |
+| NO2_normalized | Normalised Nitrogen Dioxide concentration | DEFRA | N/A | Float | Normalised to 0-1 scale |
 | air_pollution_index | Air pollution index | Calculated | N/A | Float | Weighted average of normalized pollutant concentrations: (0.4 * NO2_normalized + 0.3 * PM2.5_normalized + 0.2 * PM10_normalized + 0.1 * (1 - O3/max(O3))), where O3 is inverted as higher O3 at ground level is generally associated with lower NO2. **Rationale:** Weights reflect the relative known health impacts and regulatory focus (higher weight for NO2 and PM2.5). Ozone is included but inverted and weighted lower due to its complex relationship with other pollutants at ground level. Normalization ensures pollutants are comparable. |
 | env_justice_index | Environmental justice index | Calculated | N/A | Float | Calculated as (air_pollution_index * imd_score_normalized)^0.5, representing the geometric mean of pollution burden and socioeconomic deprivation. **Rationale:** The geometric mean is used instead of an arithmetic mean to ensure that areas must have *both* high pollution *and* high deprivation to score highly on the index. This specifically targets the 'double burden' concept central to environmental justice. It prevents areas with extremely high pollution but low deprivation (or vice-versa) from dominating the index. |
 
@@ -108,9 +108,9 @@ This document provides a description of every feature used in the project, inclu
 | acute_conditions_standardised_ratio | Acute conditions standardised ratio | NHS OF | N/A | Float | N/A |
 | acute_conditions_name | Acute conditions name | NHS OF | N/A | String | N/A |
 | acute_conditions_description | Acute conditions description | NHS OF | N/A | String | N/A |
-| chronic_conditions_normalized | Normalized chronic conditions value | NHS OF | N/A | Float | Normalized to 0-1 scale |
-| asthma_diabetes_epilepsy_normalized | Normalized asthma, diabetes, epilepsy value | NHS OF | N/A | Float | Normalized to 0-1 scale |
-| lrti_children_normalized | Normalized lower respiratory tract infections in children value | NHS OF | N/A | Float | Normalized to 0-1 scale |
-| acute_conditions_normalized | Normalized acute conditions value | NHS OF | N/A | Float | Normalized to 0-1 scale |
-| respiratory_health_index | Respiratory health index | Calculated | N/A | Float | Weighted average of normalized respiratory health indicators: (0.35 * chronic_conditions_normalized + 0.35 * asthma_diabetes_epilepsy_normalized + 0.15 * lrti_children_normalized + 0.15 * acute_conditions_normalized). Higher values indicate better respiratory health outcomes. **Rationale:** Weights are assigned based on the severity and prevalence reflected in the source indicators, giving slightly higher importance to chronic conditions and conditions like asthma often linked to air quality. LRTI in children and acute conditions are included as important but potentially less chronic indicators. Normalization allows combining different scales. The index is constructed so higher values = better health for intuitive interpretation. |
+| chronic_conditions_normalized | Normalised chronic conditions value | NHS OF | N/A | Float | Normalised to 0-1 scale |
+| asthma_diabetes_epilepsy_normalized | Normalised asthma, diabetes, epilepsy value | NHS OF | N/A | Float | Normalised to 0-1 scale |
+| lrti_children_normalized | Normalised lower respiratory tract infections in children value | NHS OF | N/A | Float | Normalised to 0-1 scale |
+| acute_conditions_normalized | Normalised acute conditions value | NHS OF | N/A | Float | Normalised to 0-1 scale |
+| respiratory_health_index | Respiratory health index | Calculated | N/A | Float | Weighted average of normalised respiratory health indicators: (0.35 * chronic_conditions_normalized + 0.35 * asthma_diabetes_epilepsy_normalized + 0.15 * lrti_children_normalized + 0.15 * acute_conditions_normalized). Higher values indicate better respiratory health outcomes. **Rationale:** Weights are assigned based on the severity and prevalence reflected in the source indicators, giving slightly higher importance to chronic conditions and conditions like asthma often linked to air quality. LRTI in children and acute conditions are included as important but potentially less chronic indicators. Normalisation allows combining different scales. The index is constructed so higher values = better health for intuitive interpretation. |
 | overall_health_index | Overall health index | Calculated | N/A | Float | Comprehensive health metric combining respiratory_health_index (60% weight) with other health indicators including standardized mortality ratios and hospital admission rates (40% weight). Higher values indicate better overall health outcomes. **Rationale:** Provides a broader health context, weighting the specific respiratory focus alongside general mortality and morbidity indicators available at the LAD level. |

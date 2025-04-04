@@ -1,0 +1,121 @@
+# Python/Data Science .gitignore
+
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Virtual environment
+.venv/
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
+
+# IDE - Visual Studio Code
+.vscode/
+
+# IDE - PyCharm
+.idea/
+
+# OS generated files
+.DS_Store
+Thumbs.db
+
+# Sensitive files
+.env
+*.credential
+*.key
+
+# Large data files
+*.csv
+*.parquet
+*.ods
+*.xlsx
+
+# Log files
+*.log
+
+# Model artefacts
+*.pkl
+*.h5
+
+# Jupyter Notebook checkpoint files
+.ipynb_checkpoints/
+
+# Temporary files
+*~
+\#*\#
+.\#*
+*.swp
+
+# Compiled Object files
+*.o
+
+# Generated output directory
+outputs/
+
+# Specific data files (add others as needed)
+*.geojson
+*.xlsx
+
+# Project write-up files
+portfolio_write-up_long_v2.txt
+project_write_up_skim_proof.txt
+portfolio_write_up_condensed.txt
+
+# Additional spatial data formats
+*.shp
+*.shx
+*.dbf
+*.prj
+*.sbn
+*.sbx
+*.fbn
+*.fbx
+*.ain
+*.aih
+*.atx
+*.ixs
+*.mxs
+*.cpg
+
+# Distribution / packaging
+dist/
+build/
+*.egg-info/
+*.egg
+
+# Test coverage
+.coverage
+htmlcov/
+.tox/
+.nox/
+coverage.xml
+*.cover
+
+# Documentation
+docs/_build/
+site/
+
+# Additional Python-related
+.python-version
+.pytest_cache/
+pytest_cache/
+.mypy_cache/
+
+# Jupyter
+*.ipynb_metadata_dirty
+*/.ipynb_checkpoints/*
+
+# Backup files
+*.bak
+*.tmp
+*.temp
+
+# R related (if using R alongside Python)
+.Rhistory
+.Rapp.history
+.RData
+.Ruserdata

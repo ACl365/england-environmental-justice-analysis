@@ -25,8 +25,8 @@ st.set_page_config(
 
 # Define paths
 OUTPUT_DATA_PATH = "outputs/data/"
-UNIFIED_DATA_PATH = "unified_dataset_with_air_quality.csv"
-HEALTH_DATA_PATH = "health_indicators_by_lad.csv"
+UNIFIED_DATA_PATH = "C:/Users/alex5/Documents/Projects/UK_ENV/data/processed/unified_datasets/unified_dataset_with_air_quality.csv"
+HEALTH_DATA_PATH = "C:/Users/alex5/Documents/Projects/UK_ENV/health_indicators_by_lad.csv"
 
 # Custom CSS
 st.markdown(
@@ -161,7 +161,7 @@ def main():
     page = st.sidebar.radio(
         "Select a page:",
         [
-            "Overview",
+            "Overview/Dashboard",
             "Environmental Justice Analysis",
             "Health Outcomes",
             "Vulnerability Index",
@@ -664,6 +664,11 @@ def display_cluster_analysis(lad_data):
             return
 
         # Standardize variables
+        # Impute missing values using the mean
+        from sklearn.impute import SimpleImputer
+        imputer = SimpleImputer(strategy='mean')
+        lad_data[cluster_vars] = imputer.fit_transform(lad_data[cluster_vars])
+
         scaler = StandardScaler()
         scaled_data = scaler.fit_transform(lad_data[cluster_vars])
 
