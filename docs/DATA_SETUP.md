@@ -1,119 +1,86 @@
-# Data Acquisition Guide
+# Data Setup Instructions for UK Environmental Justice Analysis
 
-This document provides detailed instructions for acquiring and setting up the datasets required for the Environmental Justice Analysis in England project.
+This project relies on publicly available UK data. Due to size and licensing, these files are not included in the repository and must be downloaded manually from the sources below. This document outlines the necessary raw datasets, their sources, and the expected directory structure required to run the analyses in this project.
 
-## Required Datasets
+## Expected Directory Structure
 
-The following datasets are required to run the analysis scripts:
+All raw data should be downloaded and placed within the `data/raw/` directory, organised into subdirectories as follows:
 
-### 1. Unified Air Quality and Deprivation Dataset
+```
+UK_ENV/
+└── data/
+    └── raw/
+        ├── air_quality/      # Air quality measurements from DEFRA
+        ├── census/           # Census 2021 data from ONS
+        ├── deprivation/      # IMD 2019 data from DLUHC
+        ├── geographic/       # Geographic boundary files from ONS
+        ├── health/           # Health outcome data from NHS
+        └── population/       # Population estimates from ONS
+```
 
-- **Filename:** `unified_dataset_with_air_quality.csv`
-- **Description:** Contains air quality metrics (NO2, O3, PM10, PM2.5), Index of Multiple Deprivation (IMD) scores, and environmental justice indices at LSOA level
-- **Where to place:** `data/processed/unified_datasets/unified_dataset_with_air_quality.csv`
-- **How to obtain:**
-  - Download raw data from DEFRA UK-AIR: https://uk-air.defra.gov.uk/data/data-selector
-    - Select "Annual Mean" for NO2, PM2.5, PM10, and O3
-    - Select the most recent complete year
-    - Download as CSV format
-  - Download IMD 2019 data from DLUHC: https://www.gov.uk/government/statistics/english-indices-of-deprivation-2019
-    - Specifically download "File 7: all ranks, deciles and scores for the indices of deprivation"
-  - Process these files using the methodology described in the Data Processing Pipeline section below
+## Required Raw Datasets
 
-### 2. Health Indicators Dataset
+Please download the following datasets and place them in the corresponding subdirectories within `data/raw/`.
 
-- **Filename:** `health_indicators_by_lad.csv`
-- **Description:** Contains respiratory health indicators at Local Authority District (LAD) level
-- **Where to place:** `data/raw/health/health_indicators_by_lad.csv`
-- **How to obtain:**
-  - Access the NHS Outcomes Framework: https://digital.nhs.uk/data-and-information/publications/statistical/nhs-outcomes-framework
-  - Download indicators 2.3.i and 2.3.ii (emergency admissions for respiratory conditions)
-  - Download as CSV format
+### 1. Air Quality Data
 
-### 3. LSOA Boundaries
+*   **Source:** DEFRA UK-AIR Database
+*   **URL:** [https://uk-air.defra.gov.uk/](https://uk-air.defra.gov.uk/)
+*   **Files Used in Original Analysis:**
+    *   `NO2_Tables_2023(1).ods` - Nitrogen dioxide measurements (Year 2023).
+    *   `PM25_Tables_2023(1).ods` - PM2.5 measurements (Year 2023).
+    *   **Note:** The original analysis also used "Various CSV files with hourly and annual measurements" according to `data/README.md`. The specific pollutants, years (likely 2023 or the analysis period), and aggregation level (e.g., station data vs pre-aggregated LSOA/LAD tables) for these additional CSVs are not detailed in the README. If re-running preprocessing, you may need to investigate UK-AIR for relevant hourly/annual data for pollutants like NO2, PM2.5, O3, and PM10 for the desired time period. Using the specific tables listed above is recommended for consistency if possible. Later versions of these tables may work but have not been tested with this project's scripts.
+*   **Location:** `data/raw/air_quality/`
 
-- **Filename:** `Lower_layer_Super_Output_Areas_December_2021_Boundaries_EW_BSC_V4.geojson`
-- **Description:** Geospatial data for LSOA boundaries in England and Wales (December 2021)
-- **Where to place:** `data/raw/geographic/Lower_layer_Super_Output_Areas_December_2021_Boundaries_EW_BSC_V4.geojson`
-- **How to obtain:**
-  - Download directly from ONS Open Geography Portal: https://geoportal.statistics.gov.uk/datasets/ons::lower-layer-super-output-areas-december-2021-boundaries-ew-bsc-1/about
-  - Select GeoJSON format for download
+### 2. Deprivation Data (IMD 2019)
 
-### 4. LAD Boundaries
+*   **Source:** Department for Levelling Up, Housing and Communities (DLUHC)
+*   **URL:** [https://www.gov.uk/government/statistics/english-indices-of-deprivation-2019](https://www.gov.uk/government/statistics/english-indices-of-deprivation-2019)
+*   **Files:**
+    *   `File_1_-_IMD2019_Index_of_Multiple_Deprivation.xlsx`
+    *   `File_5_-_IoD2019_Scores.xlsx`
+    *   `File_6_-_IoD2019_Population_Denominators.xlsx`
+    *   `File_7_-_All_IoD2019_Scores__Ranks__Deciles_and_Population_Denominators_3.csv`
+*   **Location:** `data/raw/deprivation/`
 
-- **Filename:** `LAD_Dec_2021_GB_BFC_2022.geojson`
-- **Description:** Geospatial data for LAD boundaries in Great Britain (December 2021)
-- **Where to place:** `data/raw/geographic/LAD_Dec_2021_GB_BFC_2022.geojson`
-- **How to obtain:**
-  - Download directly from ONS Open Geography Portal: https://geoportal.statistics.gov.uk/datasets/ons::local-authority-districts-december-2021-gb-bfc/about
-  - Select GeoJSON format for download
+### 3. Geographic Boundaries
+
+*   **Source:** ONS Open Geography Portal
+*   **Files & URLs (December 2021 versions used):**
+    *   **LSOA Boundaries:** `Lower_layer_Super_Output_Areas_December_2021_Boundaries_EW_BSC_V4_*.geojson` (Download the GeoJSON version)
+        *   URL: [https://geoportal.statistics.gov.uk/datasets/ons::lower-layer-super-output-areas-december-2021-boundaries-ew-bsc-1/about](https://geoportal.statistics.gov.uk/datasets/ons::lower-layer-super-output-areas-december-2021-boundaries-ew-bsc-1/about)
+    *   **LAD Boundaries:** `LAD_Dec_2021_GB_BFC_2022_*.geojson` (Download the GeoJSON version)
+        *   URL: [https://geoportal.statistics.gov.uk/datasets/ons::local-authority-districts-december-2021-gb-bfc/about](https://geoportal.statistics.gov.uk/datasets/ons::local-authority-districts-december-2021-gb-bfc/about)
+*   **Location:** `data/raw/geographic/`
+    *   *Note: Ensure you download the specific December 2021 boundary files referenced or their direct equivalents.*
+
+### 4. Health Data
+
+*   **Source:** NHS Outcomes Framework (Now potentially NHS England Indicator Library)
+*   **URL:** The original link pointed to the 2024/25 framework: [https://www.gov.uk/government/publications/nhs-outcomes-framework-2024-to-2025](https://www.gov.uk/government/publications/nhs-outcomes-framework-2024-to-2025). You may need to search the NHS England website for the specific indicators.
+*   **Files:**
+    *   `NHS OF Indicators - Data Source Links v2.1.csv` (or latest equivalent metadata file, if available). This file, mentioned in `data/README.md`, contains metadata about the indicators used.
+    *   **Specific Indicator CSVs:** The `data/README.md` mentions "Various NHSOF CSV files with specific health indicators" were used. Unfortunately, it does not list the exact filenames of these indicator CSVs. To replicate the setup, you would need to:
+        1.  Consult the `NHS OF Indicators - Data Source Links v2.1.csv` metadata file (if you can locate it or a similar file).
+        2.  Alternatively, examine the analysis scripts (e.g., in `src/`) to identify which specific health indicators are loaded.
+        3.  Search the NHS indicator library/website for the data corresponding to those indicators (likely requiring individual downloads).
+*   **Location:** `data/raw/health/`
 
 ### 5. Population Data
 
-- **Filename:** `ons_lad_population_estimates.csv`
-- **Description:** Population estimates for each Local Authority District
-- **Where to place:** `data/raw/population/ons_lad_population_estimates.csv`
-- **How to obtain:**
-  - Download from ONS: https://www.ons.gov.uk/peoplepopulationandcommunity/populationandmigration/populationestimates
-  - Select "Mid-year population estimates" for the most recent year
-  - Download as CSV format
-- **Note:** If this file is not available, the code creates a placeholder with realistic values based on ONS 2021 estimates
+*   **Source:** ONS Mid-Year Population Estimates or Census 2021
+*   **URL:** Search the ONS website. The specific table ID used for the original analysis is not listed in `data/README.md`. Look for Local Authority District level population estimates (e.g., search for "MYE" or "SAPE" tables). The year used likely corresponds to the analysis period (e.g., 2021 or 2023).
+*   **File:** The analysis expects a file named `ons_lad_population_estimates.csv`. You may need to rename the downloaded ONS file or adjust the loading code.
+*   **Location:** `data/raw/population/`
+    *   *Note: The analysis script `src/causal_inference_analysis.py` might generate a placeholder if this file is missing, but using actual ONS data is recommended.*
 
-## Sample Data
+### 6. Census Data (Optional - Context for Preprocessing)
 
-For convenience, a small sample dataset is provided in the `data/sample/` directory. This contains:
+*   **Source:** ONS Census 2021
+*   **URL:** Search the ONS website for Census 2021 datasets.
+*   **Files:** The original preprocessing likely used various tables. Examples mentioned in `data/README.md` include `RM058`, `RM121`, `TS006`. These are primarily needed if attempting to fully replicate the preprocessing steps that generated the unified datasets.
+*   **Location:** `data/raw/census/`
 
-- `sample_unified_dataset.csv`: 10 rows from the unified dataset
-- `sample_health_indicators.csv`: 5 rows from the health indicators dataset
-- `sample_lsoa_boundaries.geojson`: A simplified version with 10 LSOA boundaries
+---
 
-These sample files allow you to test parts of the code without downloading the full datasets, though complete analysis requires the full datasets.
-
-## Data Organization
-
-The data directory is organized as follows:
-
-```
-data/
-├── raw/                  # Original, immutable data
-│   ├── air_quality/      # Air quality measurements from DEFRA
-│   ├── census/           # Census 2021 data from ONS
-│   ├── deprivation/      # IMD 2019 data from DLUHC
-│   ├── geographic/       # Geographic boundary files
-│   ├── health/           # Health outcome data from NHS
-│   └── population/       # Population estimates from ONS
-├── processed/            # Cleaned, transformed data ready for analysis
-│   ├── unified_datasets/ # Combined datasets
-│   └── spatial/          # Processed spatial data
-├── sample/               # Small sample datasets for testing
-└── external/             # Data from third-party sources
-```
-
-## Data Processing Pipeline
-
-The creation of the unified dataset involves several preprocessing steps:
-
-1. **Loading raw data** from multiple sources (IMD, air quality, etc.)
-2. **Cleaning and standardising** variable names and formats
-3. **Merging datasets** based on LSOA or LAD codes
-4. **Calculating derived metrics** such as the environmental justice index
-5. **Normalising variables** for consistent scales across different measures
-
-While the preprocessing code is not explicitly included in the repository, the analysis scripts in the `src/` directory contain the logic for loading and using these processed datasets.
-
-## Data Preparation Checklist
-
-Before running the analysis, ensure you have:
-
-- [ ] Downloaded all required datasets
-- [ ] Placed files in the correct directory structure
-- [ ] Verified file formats (CSV, GeoJSON)
-- [ ] Created necessary directories if they don't exist
-- [ ] Checked sample data to understand expected format
-
-## Troubleshooting Common Data Issues
-
-- **Missing geographic codes**: Ensure LSOA/LAD codes are consistent across datasets
-- **Projection issues**: Geographic data should use EPSG:27700 (British National Grid)
-- **Encoding problems**: CSV files should use UTF-8 encoding
-- **Date format inconsistencies**: Standardise date formats before merging datasets
+Once all required raw data is downloaded and placed in the correct directories, the analysis scripts should be able to locate and use them (or the processed versions derived from them). Details on the processed files generated by the analysis scripts can be found in the project's main README or Data Dictionary, if available.
