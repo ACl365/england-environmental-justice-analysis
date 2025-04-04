@@ -998,6 +998,7 @@ def quantify_impact(policy_results, population_data, cost_per_qaly=60000):
 
 def main():
     """Main function to execute the causal inference analysis."""
+    np.random.seed(42) # Set seed for reproducibility
     print("Starting Causal Inference Analysis for Policy Impact Assessment...")
 
     # Load data

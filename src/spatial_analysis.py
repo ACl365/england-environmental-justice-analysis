@@ -1113,6 +1113,7 @@ def merge_lad_data(lad_df, lad_gdf):
 
 def main():
     """Main function to run the spatial analysis."""
+    np.random.seed(42) # Set seed for reproducibility
     print("=" * 80)
     print("Consolidated Spatial Analysis for Environmental Justice Project")
     print("=" * 80)

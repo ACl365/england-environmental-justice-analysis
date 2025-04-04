@@ -638,6 +638,7 @@ def cluster_analysis(merged_df):
 
 def main():
     """Main function to execute the analysis pipeline."""
+    np.random.seed(42) # Set seed for reproducibility
     print("Starting Environmental Justice Analysis...")
 
     # Load data
