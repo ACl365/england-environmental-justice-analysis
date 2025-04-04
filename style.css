@@ -197,8 +197,9 @@ figcaption {
 }
 
 /* --- Tech Stack --- */
-.tech-stack p, /* Style the paragraph version */
-.tech-stack ul {  /* Style the list version if you use it */
+/* Common styles for tech stack display (applies to p or ul) */
+.tech-stack p,
+.tech-stack ul {
     background-color: var(--light-gray);
     padding: var(--base-spacing);
     border-radius: var(--border-radius);
@@ -206,7 +207,7 @@ figcaption {
     color: var(--heading-color);
     word-spacing: calc(var(--base-spacing)*0.5); /* Add spacing between words */
 }
-/* If using icons in a list: */
+/* Specific styles for the list format (used in index.html) */
 .tech-stack ul {
     list-style: none;
     padding-left: 0; /* Remove default list padding */
