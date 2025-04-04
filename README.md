@@ -5,7 +5,7 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Python Version](https://img.shields.io/badge/python-3.13-blue.svg)](https://www.python.org/downloads/)
 [![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
-[![Test Coverage](https://img.shields.io/badge/coverage-80%25-green.svg)](https://codecov.io)
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.15147442.svg)](https://doi.org/10.5281/zenodo.15147442)
 
 
 **📊 Live Demo / Project Showcase:** [View the interactive project summary](https://ACl365.github.io/england-environmental-justice-analysis/)
