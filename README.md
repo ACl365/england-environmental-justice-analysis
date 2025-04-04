@@ -47,8 +47,7 @@ An integrated framework combining spatial, machine learning, and quasi-causal te
 Python | Pandas | GeoPandas | NumPy | Scikit-learn | Statsmodels | PySAL (libpysal, esda, spreg) | SHAP | Matplotlib | Seaborn | Plotly
 
 ## Repository Structure
-Use code with caution.
-Markdown
+```text
 england-environmental-justice-analysis/
 ├── assets/ # (Not gitignored) Web assets (key images, CSS) for GitHub Pages
 │   └── images/
@@ -66,6 +65,7 @@ england-environmental-justice-analysis/
 ├── requirements.txt
 ├── outputs/ # (Gitignored) Full set of generated outputs (figures, tables, etc.)
 └── index.html # HTML file for GitHub Pages showcase
+```
 
 ## Getting Started
 
@@ -166,8 +166,8 @@ Detailed Instructions: Please create a file named DATA_SETUP.md inside the docs/
 Contributing
 Contributions are welcome. Please refer to CONTRIBUTING.md and adhere to the CODE_OF_CONDUCT.md.
 
-Licence
-This project is licensed under the MIT Licence - see the LICENSE.txt file for details. (Ensure you add a LICENSE file)
+License
+This project is licensed under the MIT License - see the LICENSE.txt file for details. (Ensure you add a LICENSE file)
 
 Author
 Alexander Clarke
