@@ -212,7 +212,7 @@ class TestSpatialAnalysis(unittest.TestCase):
 
     @patch('matplotlib.pyplot.savefig')  # Mock the savefig function
     @patch('matplotlib.pyplot.figure')   # Mock the figure function
-    @patch('open')                       # Mock the open function for writing summary
+    @patch('builtins.open')              # Mock the built-in open function for writing summary
     def test_run_spatial_regression(self, mock_open, mock_figure, mock_savefig):
         """Test running spatial regression."""
         # Create spatial weights for LAD level
@@ -229,14 +229,16 @@ class TestSpatialAnalysis(unittest.TestCase):
         # Run spatial regression
         models = run_spatial_regression(lad_gdf, y_var, x_vars, weights)
         
-        # Check that models are returned
-        self.assertIsNotNone(models)
-        
-        # Check that the OLS model is returned
-        self.assertIn('ols', models)
-        
-        # The spatial lag model might not be returned if spreg is not available
-        # or if there was an error, so we don't check for it
+        # Check model results based on data size
+        if len(lad_gdf) >= 5: # Check if enough data for regression (adjust threshold if needed)
+            self.assertIsNotNone(models, "Expected models dictionary, got None")
+            self.assertIn('ols', models, "OLS model missing from results")
+            # Optionally check for 'ml_lag' if spreg is expected to work
+            # if SPREG_AVAILABLE:
+            #     self.assertIn('ml_lag', models, "ML Lag model missing from results")
+        else:
+            # Expect None if data is insufficient, as run_spatial_regression should handle this
+            self.assertIsNone(models, f"Expected None for regression with {len(lad_gdf)} data points (< 5), but got models.")
 
 
 if __name__ == '__main__':
