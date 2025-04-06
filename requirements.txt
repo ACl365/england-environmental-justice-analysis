@@ -23,3 +23,8 @@ plotly   # Optional: For interactive plots
 # os, warnings, traceback are built-in
 
 # Consider adding specific versions if needed, e.g., pandas==2.2.3
+# Linting
+flake8
+
+# Testing
+pytest

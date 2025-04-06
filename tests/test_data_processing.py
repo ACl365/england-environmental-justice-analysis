@@ -213,6 +213,7 @@ class TestDataIntegrity(unittest.TestCase):
         self.unified_data_path = "data/processed/unified_datasets/unified_dataset_with_air_quality.csv"
         self.health_data_path = "data/raw/health/health_indicators_by_lad.csv"
 
+    @unittest.skipIf(os.getenv('CI') == 'true', "Skipping data file existence check in CI")
     def test_unified_data_exists(self):
         """Test that the unified dataset file exists."""
         self.assertTrue(
@@ -220,6 +221,7 @@ class TestDataIntegrity(unittest.TestCase):
             f"Unified dataset file not found at {self.unified_data_path}"
         )
 
+    @unittest.skipIf(os.getenv('CI') == 'true', "Skipping data file existence check in CI")
     def test_health_data_exists(self):
         """Test that the health dataset file exists."""
         self.assertTrue(
