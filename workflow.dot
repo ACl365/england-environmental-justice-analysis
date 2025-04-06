@@ -1,0 +1,17 @@
+digraph G {
+  rankdir=LR; // Left to right layout
+  node [shape=box, style=rounded];
+
+  Data [label="Data Integration\n(ONS, DEFRA, IMD, NHS)"];
+  Spatial [label="Spatial Analysis\n(PySAL, GeoPandas)"];
+  ML [label="Machine Learning\n(Scikit-learn, SHAP)"];
+  Causal [label="Causal Inference (PSM)\n(Statsmodels)"];
+  Policy [label="Policy Insights\n& Recommendations"];
+
+  Data -> Spatial;
+  Data -> ML;
+  Spatial -> ML;
+  ML -> Causal;
+  Causal -> Policy;
+  Spatial -> Policy; // Spatial findings also inform policy
+}

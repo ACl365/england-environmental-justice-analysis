@@ -53,6 +53,74 @@
         <section class="project-section" id="approach">
             <h2>My Analytical Approach: Integrating Diverse Methods</h2>
             <p>To tackle this multi-faceted problem, I designed and implemented an integrated analytical pipeline primarily using Python and key libraries (Pandas, GeoPandas, PySAL, Scikit-learn, Statsmodels, SHAP). The innovation lies in combining spatial, machine learning, and causal inference perspectives for a more holistic understanding, with careful consideration of methodological choices:</p>
+
+            <!-- Embedded SVG Workflow Diagram -->
+            <div style="text-align: center; margin: 20px 0;">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 280" width="80%" style="max-width: 700px; border: 1px solid #ddd; border-radius: 8px;">
+                <!-- Definitions for reuse -->
+                <defs>
+                  <!-- Gradient for highlight box -->
+                  <linearGradient id="primaryGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+                    <stop offset="0%" stop-color="#4c956c" />
+                    <stop offset="100%" stop-color="#2c6e49" />
+                  </linearGradient>
+                  
+                  <!-- Box shadow filter -->
+                  <filter id="dropShadow" x="-20%" y="-20%" width="140%" height="140%">
+                    <feDropShadow dx="2" dy="3" stdDeviation="3" flood-opacity="0.2" />
+                  </filter>
+                  
+                  <!-- Arrow marker -->
+                  <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+                    <polygon points="0 0, 10 3.5, 0 7" fill="#4c956c" />
+                  </marker>
+                </defs>
+                
+                <!-- Boxes -->
+                <!-- Data Integration Box -->
+                <rect x="50" y="100" width="180" height="80" rx="12" ry="12" fill="#fff" stroke="#2c6e49" stroke-width="2" filter="url(#dropShadow)" />
+                <text x="140" y="135" font-family="Inter, 'Segoe UI', sans-serif" font-size="18" font-weight="600" text-anchor="middle" fill="#2c6e49">Data Integration</text>
+                <text x="140" y="160" font-family="Inter, 'Segoe UI', sans-serif" font-size="14" text-anchor="middle" fill="#666">(ONS, DEFRA, IMD, NHS)</text>
+                
+                <!-- Machine Learning Box -->
+                <rect x="320" y="40" width="180" height="80" rx="12" ry="12" fill="#fff" stroke="#2c6e49" stroke-width="2" filter="url(#dropShadow)" />
+                <text x="410" y="75" font-family="Inter, 'Segoe UI', sans-serif" font-size="18" font-weight="600" text-anchor="middle" fill="#2c6e49">Machine Learning</text>
+                <text x="410" y="100" font-family="Inter, 'Segoe UI', sans-serif" font-size="14" text-anchor="middle" fill="#666">(Scikit-learn, SHAP)</text>
+                
+                <!-- Spatial Analysis Box -->
+                <rect x="320" y="160" width="180" height="80" rx="12" ry="12" fill="#fff" stroke="#2c6e49" stroke-width="2" filter="url(#dropShadow)" />
+                <text x="410" y="195" font-family="Inter, 'Segoe UI', sans-serif" font-size="18" font-weight="600" text-anchor="middle" fill="#2c6e49">Spatial Analysis</text>
+                <text x="410" y="220" font-family="Inter, 'Segoe UI', sans-serif" font-size="14" text-anchor="middle" fill="#666">(PySAL, GeoPandas)</text>
+                
+                <!-- Causal Inference Box -->
+                <rect x="570" y="40" width="180" height="80" rx="12" ry="12" fill="#fff" stroke="#2c6e49" stroke-width="2" filter="url(#dropShadow)" />
+                <text x="660" y="75" font-family="Inter, 'Segoe UI', sans-serif" font-size="18" font-weight="600" text-anchor="middle" fill="#2c6e49">Causal Inference</text>
+                <text x="660" y="100" font-family="Inter, 'Segoe UI', sans-serif" font-size="14" text-anchor="middle" fill="#666">(Statsmodels)</text>
+                
+                <!-- Policy Insights Box -->
+                <rect x="570" y="160" width="180" height="80" rx="12" ry="12" fill="url(#primaryGradient)" stroke="#2c6e49" stroke-width="2" filter="url(#dropShadow)" />
+                <text x="660" y="195" font-family="Inter, 'Segoe UI', sans-serif" font-size="18" font-weight="600" text-anchor="middle" fill="white">Policy Insights</text>
+                <text x="660" y="220" font-family="Inter, 'Segoe UI', sans-serif" font-size="14" text-anchor="middle" fill="white">&amp; Recommendations</text>
+                
+                <!-- Connectors/Arrows -->
+                <!-- Data Integration to Machine Learning -->
+                <path d="M230 115 C260 115, 280 80, 320 80" stroke="#4c956c" stroke-width="2.5" fill="none" marker-end="url(#arrowhead)" />
+                
+                <!-- Data Integration to Spatial Analysis -->
+                <path d="M230 140 C260 140, 280 200, 320 200" stroke="#4c956c" stroke-width="2.5" fill="none" marker-end="url(#arrowhead)" />
+                
+                <!-- Machine Learning to Causal Inference -->
+                <path d="M500 80 L570 80" stroke="#4c956c" stroke-width="2.5" fill="none" marker-end="url(#arrowhead)" />
+                
+                <!-- Causal Inference to Policy Insights -->
+                <path d="M660 120 L660 160" stroke="#4c956c" stroke-width="2.5" fill="none" marker-end="url(#arrowhead)" />
+                
+                <!-- Spatial Analysis to Policy Insights -->
+                <path d="M500 200 L570 200" stroke="#4c956c" stroke-width="2.5" fill="none" marker-end="url(#arrowhead)" />
+              </svg>
+              <p style="font-size: 0.9em; color: #666; margin-top: 5px;">Integrated analytical workflow.</p>
+            </div>
+            <!-- End Embedded SVG -->
             <ul>
                 <li>
                     <strong>Spatial Statistics (GeoPandas, PySAL):</strong> Employed spatial autocorrelation techniques (Moran's I, LISA, Getis-Ord Gi*) to rigorously test if patterns of pollution and deprivation were clustered or random. <strong>Justification:</strong> Standard statistics often assume independence, which is violated by geographic data; spatial methods account for this. LISA specifically identifies statistically significant local clusters (hotspots/coldspots), crucial for targeted interventions. Queen contiguity was chosen for spatial weights, suitable for administrative areas sharing borders. Spatial lag models were used later to account for spillover effects between neighbouring LADs, addressing potential bias in standard regression (OLS) from spatial dependence (indicated by the model's rho coefficient).
@@ -97,7 +165,7 @@
                         <figcaption>Propensity Score Overlap (PM2.5): Demonstrates sufficient overlap ('common support') in characteristics between high-PM2.5 (blue) and low-PM2.5 (purple) groups, enabling effective matching.</figcaption>
                      </figure>
                 </div>
-                <!-- Removed SMD Comparison chart 
+                <!-- Removed SMD Comparison chart -->
             </div>
 
             <div class="finding">
