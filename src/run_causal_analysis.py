@@ -11,7 +11,10 @@ import time
 
 
 def main():
-    """Run the causal inference analysis script and handle any errors."""
+    """
+    Run the causal inference analysis script and handle any errors.
+    This script orchestrates the execution of the main analysis defined in causal_inference_analysis.py.
+    """
     print("=" * 80)
     print("Causal Inference Analysis for Policy Impact Assessment")
     print("=" * 80)

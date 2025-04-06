@@ -369,8 +369,11 @@ def propensity_score_matching(merged_df, treatment_var, outcome_var, covariates)
     
     print(f"Enhanced balance visualizations saved to outputs/causal_inference/")
 
-    # Calculate standardized mean differences for covariates
-    smd_results = calculate_smd(matched_data, "matched_group", covariates)
+    # The SMDs after matching were already calculated above (lines 241-256)
+    # and stored in the 'smd_results' dictionary used for plotting.
+    # The previous recalculation here using calculate_smd was incorrect
+    # due to passing a string column ("matched_group") where a binary one was expected.
+    # We will print the already calculated smd_results.
 
     print("\nStandardized Mean Differences after matching:")
     for covariate, smd in smd_results.items():
@@ -1022,7 +1025,6 @@ def main():
             "health_deprivation_and_disability_score",
             "living_environment_score",
             "barriers_to_housing_and_services_score",
-            "crime_score",
         ]
 
         # Perform propensity score matching

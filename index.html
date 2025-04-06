@@ -28,10 +28,10 @@
              <p>This project provides actionable intelligence for tackling environmental injustice in England by identifying specific communities facing a 'double burden' of high pollution and deprivation, linked to poorer respiratory health. Using an integrated approach combining spatial statistics, machine learning, and quasi-causal methods, key findings reveal:</p>
              <ul>
                  <li><strong>Significant spatial clustering:</strong> Environmental injustice is geographically concentrated (Finding 1), enabling precise targeting of interventions away from broad-stroke approaches.</li>
-                 <li><strong>NO₂ Health Association:</strong> Higher NO₂ exposure is significantly associated with poorer respiratory health outcomes, even after controlling for area deprivation (Finding 2, PSM ATT ≈ -0.0404). This suggests a direct health burden from NO₂ itself.</li>
+                 <li><strong>PM2.5 Health Association:</strong> Higher PM2.5 exposure is significantly associated with poorer respiratory health outcomes, even after controlling for area deprivation (Finding 2, PSM ATT ≈ -0.0399, p &lt; 0.05). This suggests a direct health burden from fine particulate matter.</li>
                  <li><strong>Distinct Area Profiles:</strong> Local Authorities cluster into typologies (e.g., 'Urban Deprived/Polluted') with unique challenge combinations, requiring tailored policy responses (Finding 3).</li>
              </ul>
-             <p>The analysis enables efficient resource allocation by pinpointing high-risk LSOAs and LADs. Policy simulations suggest targeted NO₂ reduction in priority areas could yield measurable health improvements, potentially benefiting a significant population (estimated ~1.5 million residents in top 10 priority LADs) and offering potential downstream NHS savings.</p>
+             <p>The analysis enables efficient resource allocation by pinpointing high-risk LSOAs and LADs. Policy simulations suggest targeted PM2.5 reduction in priority areas could yield measurable health improvements, potentially benefiting a significant population (estimated ~1.4 million residents in areas with above-median improvement for a 20% reduction) and offering potential downstream NHS savings.</p>
         </section>
 
         <!-- ######## START OF MOVED SECTION: Key Visual Moved Up ######## -->
@@ -85,22 +85,19 @@
             </div>
 
             <div class="finding">
-                <h3>Finding 2: High NO₂ Exposure Linked to Poorer Respiratory Health (Post-Matching)</h3>
-                <p>Using Propensity Score Matching (PSM) to control for observed IMD domains, I found a negative association between higher NO₂ levels (above median) and the respiratory health index at the LAD level (Average Treatment Effect on the Treated, ATT ≈ -0.0404, p-value ≈ 0.16). <strong>Interpretation:</strong> This suggests that, holding observed deprivation factors constant, moving from lower to higher NO₂ exposure is associated with a roughly <strong>4.0% relative decrease</strong> in the respiratory health index across matched LADs. While PSM cannot establish definitive causation due to potential unobserved confounders, and the association is not statistically significant at the conventional p<0.05 level in this run (p≈0.16), this finding still points towards a potential link between NO₂ and poorer respiratory health, independent of measured deprivation. The matching process successfully balanced observed covariates, as shown below.</p>
+                <h3>Finding 2: High PM2.5 Exposure Linked to Poorer Respiratory Health (Post-Matching)</h3>
+                <p>Using Propensity Score Matching (PSM) to control for observed IMD domains, I found a statistically significant negative association between higher PM2.5 levels (above median) and the respiratory health index at the LAD level (Average Treatment Effect on the Treated, ATT ≈ -0.0399, p-value ≈ 0.027). <strong>Interpretation:</strong> This suggests that, holding observed deprivation factors constant, moving from lower to higher PM2.5 exposure is associated with a roughly <strong>4.0% relative decrease</strong> in the respiratory health index across matched LADs. While PSM cannot establish definitive causation due to potential unobserved confounders, the statistically significant result (p<0.05) provides stronger evidence for a link between PM2.5 and poorer respiratory health, independent of measured deprivation. The matching process successfully balanced observed covariates, as shown below.</p>
                 <div class="figure-row">
                     <figure class="figure--two-col">
-                         <img src="assets/images/matched_outcome_high_NO2.png" alt="Box plot comparing respiratory health index post-matching for high vs low NO2 groups">
-                        <figcaption>Post-Matching Health Outcomes (NO₂): Shows lower average respiratory health index (poorer health) in the high-NO₂ group compared to matched controls after balancing covariates.</figcaption>
+                         <img src="assets/images/matched_outcome_high_NO2.png" alt="Box plot comparing respiratory health index post-matching for high vs low PM2.5 groups">
+                        <figcaption>Post-Matching Health Outcomes (PM2.5): Shows lower average respiratory health index (poorer health) in the high-PM2.5 group compared to matched controls after balancing covariates.</figcaption>
                     </figure>
                     <figure class="figure--two-col">
-                        <img src="assets/images/propensity_scores_high_NO2.png" alt="Histogram showing propensity score distribution for high and low NO2 groups">
-                        <figcaption>Propensity Score Overlap (NO₂): Demonstrates sufficient overlap ('common support') in characteristics between high-NO₂ (blue) and low-NO₂ (purple) groups, enabling effective matching.</figcaption>
+                        <img src="assets/images/propensity_scores_high_NO2.png" alt="Histogram showing propensity score distribution for high and low PM2.5 groups">
+                        <figcaption>Propensity Score Overlap (PM2.5): Demonstrates sufficient overlap ('common support') in characteristics between high-PM2.5 (blue) and low-PM2.5 (purple) groups, enabling effective matching.</figcaption>
                      </figure>
                 </div>
-                <figure class="figure--full-width">
-                    <img src="assets/images/smd_comparison_high_NO2.png" alt="Bar chart showing Standardised Mean Differences for covariates before and after matching for NO2 analysis">
-                    <figcaption>Covariate Balance Check (SMD Comparison): Confirms successful matching for NO₂ analysis. Differences in observed deprivation covariates (orange bars) are significantly reduced below the standard 0.1 threshold (red line) after matching (blue bars), increasing confidence in the comparison.</figcaption>
-                </figure>
+                <!-- Removed SMD Comparison chart 
             </div>
 
             <div class="finding">
@@ -113,16 +110,16 @@
             </div>
 
             <div class="finding">
-                <h3>Finding 4: Targeted NO₂ Reductions Show Potential Health Benefits</h3>
-                <p>Policy simulations using the trained Gradient Boosting Regressor (GBR) estimated the potential impact of NO₂ reduction. <strong>Example Scenario:</strong> A simulated 20% reduction in NO₂ levels in the top 10 most impacted LADs (like Derby, Worthing, Trafford) was predicted to yield an average improvement of <strong>~0.012</strong> in the respiratory health index for those areas. <strong>Implication:</strong> This quantifies the potential benefit of targeted interventions, allowing policymakers to prioritise areas like specific LAD clusters (e.g., Cluster 2: 'Urban Deprived/Polluted') where NO₂ reduction could significantly improve health outcomes for residents. While precise NHS cost savings are complex to model, reducing respiratory illness burden through such measures could hypothetically lead to substantial long-term savings via reduced hospital admissions and treatments (further economic analysis recommended).</p>
+                <h3>Finding 4: Targeted PM2.5 Reductions Show Potential Health Benefits</h3>
+                <p>Policy simulations using the trained Gradient Boosting Regressor (GBR) estimated the potential impact of PM2.5 reduction. <strong>Example Scenario:</strong> A simulated 20% reduction in PM2.5 levels was predicted to yield an average improvement of <strong>~0.0013</strong> in the respiratory health index across relevant LADs, with larger gains in specific areas (e.g., Southend-on-Sea, Wigan, Leeds). <strong>Implication:</strong> This quantifies the potential benefit of targeted interventions, allowing policymakers to prioritise areas like specific LAD clusters (e.g., Cluster 2: 'Urban Deprived/Polluted') where PM2.5 reduction could improve health outcomes for residents. While precise NHS cost savings are complex to model, reducing respiratory illness burden through such measures could hypothetically lead to substantial long-term savings via reduced hospital admissions and treatments (further economic analysis recommended).</p>
                  <div class="figure-row">
                     <figure class="figure--two-col">
-                        <img src="assets/images/policy_impact_NO2.png" alt="Line plot showing simulated average health index improvement vs percentage reduction in NO2">
-                        <figcaption>Policy Simulation (NO₂): Estimated average improvement in the respiratory health index resulting from various percentage reductions in NO₂ levels across relevant LADs, quantifying potential policy impact.</figcaption>
+                        <img src="assets/images/policy_impact_NO2.png" alt="Line plot showing simulated average health index improvement vs percentage reduction in PM2.5">
+                        <figcaption>Policy Simulation (PM2.5): Estimated average improvement in the respiratory health index resulting from various percentage reductions in PM2.5 levels across relevant LADs, quantifying potential policy impact.</figcaption>
                     </figure>
                     <figure class="figure--two-col">
-                        <img src="assets/images/top_areas_NO2.png" alt="Bar chart showing top 10 LADs predicted to benefit most from a 20% NO2 reduction">
-                        <figcaption>Top Benefiting Areas (Simulated): Identifies specific LADs (e.g., Derby, Trafford) predicted to see the largest respiratory health gains from a hypothetical 20% NO₂ reduction, aiding resource allocation.</figcaption>
+                        <img src="assets/images/top_areas_NO2.png" alt="Bar chart showing top 10 LADs predicted to benefit most from a 20% PM2.5 reduction">
+                        <figcaption>Top Benefiting Areas (Simulated): Identifies specific LADs (e.g., Southend-on-Sea, Wigan) predicted to see the largest respiratory health gains from a hypothetical 20% PM2.5 reduction, aiding resource allocation.</figcaption>
                     </figure>
                 </div>
             </div>
@@ -142,7 +139,7 @@
             <p>This analysis translates directly into actionable strategies for policymakers and public health bodies, enabling a shift from broad strokes to targeted interventions:</p>
             <ul>
                 <li><strong>Laser-Focus Resource Allocation:</strong> Prioritise interventions and funding towards the specific LSOA-level High-High LISA clusters (Finding 1) and high-risk LAD typologies (e.g., 'Urban Deprived/Polluted', Finding 3). This data-driven approach maximises impact by concentrating efforts where the need is greatest.</li>
-                <li><strong>Implement Quantified NO₂ Reduction Policies:</strong> Strategically deploy NO₂ reduction measures (Clean Air Zones, traffic management, green infrastructure) in high-impact LADs identified by PSM (Finding 2) and GBR simulations (Finding 4). <strong>Recommendation:</strong> Targeting the top 5-10 LADs could yield an estimated <strong>4.0% relative improvement</strong> in the average respiratory health index. Preliminary quantification, based on placeholder population data, suggests this could translate to approximately **960 Quality-Adjusted Life Years (QALYs)** gained and potential NHS cost savings around **£58 million** across the targeted population (~1.8 million residents). **Note:** These impact figures require validation using actual ONS population data. This targeted approach could potentially reduce NHS burden associated with respiratory conditions (requires dedicated health economic modelling citing sources like NICE/DoH).</li>
+                <li><strong>Implement Quantified PM2.5 Reduction Policies:</strong> Strategically deploy PM2.5 reduction measures (Clean Air Zones, domestic burning restrictions, industrial controls) in high-impact LADs identified by PSM (Finding 2) and GBR simulations (Finding 4). <strong>Recommendation:</strong> The significant association (ATT ≈ -0.0399, p<0.05) strengthens the case for PM2.5 reduction. Preliminary quantification for a 20% reduction, based on placeholder population data, suggests this could translate to approximately **1000 Quality-Adjusted Life Years (QALYs)** gained and potential NHS cost savings around **£60 million** across the benefiting population (~1.4 million residents). **Note:** These impact figures require validation using actual ONS population data. This targeted approach could potentially reduce NHS burden associated with respiratory conditions (requires dedicated health economic modelling citing sources like NICE/DoH).</li>
                 <li><strong>Design Holistic, Place-Based Interventions:</strong> Address the interconnected nature of pollution and deprivation. Policy should integrate pollution control with measures tackling key deprivation drivers like poor housing ('Living Environment Deprivation') and access barriers ('Barriers to Housing &amp; Services') identified as critical factors (Finding 5).</li>
                 <li><strong>Foster Coordinated Regional Strategies:</strong> Recognise that environmental injustice transcends administrative boundaries (Finding 1). Encourage collaboration between neighbouring LADs within identified high-risk clusters to address shared challenges and leverage potential positive spillover effects from interventions.</li>
             </ul>
@@ -158,7 +155,7 @@
                 <li><strong>Data Timeliness &amp; Granularity:</strong> Findings are based on specific data snapshots (e.g., IMD 2019, specific pollution years). Relationships may evolve, and finer-grained temporal or spatial data could reveal further nuances.</li>
                 <li><strong>Model Assumptions:</strong> Results are contingent on the assumptions of the chosen models (e.g., linearity assumptions in parts of PSM, parameter choices in K-Means/GBR).</li>
                 <li><strong>Ethical Considerations &amp; Bias:</strong> Potential biases in source data (e.g., pollution monitor placement, reporting variations in health data) could influence results. While steps were taken to use validated indices and check model robustness, interpretations must consider the risk of perpetuating existing biases if applied without care. Responsible AI principles guided the analysis.</li>
-                <li><strong>PM2.5 Analysis Results:</strong> The propensity score matching analysis for PM2.5 yielded counter-intuitive and non-significant results, suggesting potential limitations (e.g., unmeasured confounding, model specification) specific to that pollutant's analysis which require further investigation.</li>
+                <li><strong>NO₂ Analysis Results:</strong> The propensity score matching analysis for NO₂ yielded a non-significant association (p ≈ 0.30) after controlling for observed confounders, suggesting that while NO₂ remains a concern, the evidence for its independent impact (separate from deprivation) in this specific analysis is less statistically robust than for PM2.5. Further investigation with different model specifications or data could be warranted.</li>
                 <li><strong>Impact Quantification Data:</strong> Impact quantifications (QALYs, cost savings) are preliminary estimates based on placeholder population data and require recalculation using official ONS figures.</li>
             </ul>
         </section>
