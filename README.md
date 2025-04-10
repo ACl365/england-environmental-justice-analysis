@@ -9,7 +9,7 @@
 
 
 **📊 Live Demo / Project Showcase:** [View the interactive project summary](https://ACl365.github.io/england-environmental-justice-analysis/)
-*(Link to the deployed GitHub Pages site for this project)*
+
 
 ## Introduction: The Challenge & Project Aim
 
