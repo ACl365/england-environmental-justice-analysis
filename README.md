@@ -1,3 +1,9 @@
+You are absolutely right! My apologies. I included the markdown code fences which you don't need for the actual file content.
+
+Here is the raw text content for your `README.md` file. Copy everything below this line and paste it directly into your `README.md`.
+
+---
+
 # Environmental Justice Analysis in England: Addressing Health Inequalities Through Data-Driven Insights
 
 [![Project Status: Active](https://www.repostatus.org/badges/latest/active.svg)](https://www.repostatus.org/#active)
@@ -65,41 +71,54 @@ england-environmental-justice-analysis/
 ├── README.md       # This file
 ├── requirements.txt# Python package dependencies
 └── index.html      # Root file for GitHub Pages showcase
-Use code with caution.
-Markdown
-Getting Started
-Prerequisites
-Python >= 3.10 (3.13 recommended)
-git for cloning the repository
-Ability to create a Python virtual environment (e.g., using venv)
-Installation & Setup
-Clone the repository:
-git clone https://github.com/ACl365/england-environmental-justice-analysis.git
-cd england-environmental-justice-analysis
-Use code with caution.
-Bash
-Create and activate a virtual environment:
-# Create the environment
-python -m venv venv
+```
 
-# Activate the environment
-# Linux/macOS:
-source venv/bin/activate
-# Windows (Command Prompt/PowerShell):
-# venv\Scripts\activate
-Use code with caution.
-Bash
-Install dependencies:
-pip install -r requirements.txt
-Use code with caution.
-Bash
-Data Requirements
-⚠️ Important: Due to size and licensing restrictions, the required datasets are not included in this repository. You must download them manually.
-Required Data: See docs/DATA_SETUP.md for a detailed list, including specific sources (IMD 2019, DEFRA Air Quality, NHS Health Indicators, ONS Geographies) and required filenames.
-Download & Placement: Follow the instructions in docs/DATA_SETUP.md carefully to download the data and place it into the correct subdirectories within the data/ folder (e.g., data/raw/, data/geographies/).
-Preprocessing: Some initial preprocessing steps outlined in docs/DATA_SETUP.md might be necessary before running the analysis scripts.
-Usage
-Once the environment is set up and the data is correctly placed, you can run the analysis modules. Execute the runner scripts located in the src/ directory from the project root directory:
+## Getting Started
+
+### Prerequisites
+
+*   Python >= 3.10 (3.13 recommended)
+*   `git` for cloning the repository
+*   Ability to create a Python virtual environment (e.g., using `venv`)
+
+### Installation & Setup
+
+1.  **Clone the repository:**
+    ```bash
+    git clone https://github.com/ACl365/england-environmental-justice-analysis.git
+    cd england-environmental-justice-analysis
+    ```
+
+2.  **Create and activate a virtual environment:**
+    ```bash
+    # Create the environment
+    python -m venv venv
+
+    # Activate the environment
+    # Linux/macOS:
+    source venv/bin/activate
+    # Windows (Command Prompt/PowerShell):
+    # venv\Scripts\activate
+    ```
+
+3.  **Install dependencies:**
+    ```bash
+    pip install -r requirements.txt
+    ```
+
+### Data Requirements
+
+**⚠️ Important:** Due to size and licensing restrictions, the required datasets are **not included** in this repository. You must download them manually.
+
+*   **Required Data:** See `docs/DATA_SETUP.md` for a detailed list, including specific sources (IMD 2019, DEFRA Air Quality, NHS Health Indicators, ONS Geographies) and required filenames.
+*   **Download & Placement:** Follow the instructions in `docs/DATA_SETUP.md` carefully to download the data and place it into the correct subdirectories within the `data/` folder (e.g., `data/raw/`, `data/geographies/`).
+*   **Preprocessing:** Some initial preprocessing steps outlined in `docs/DATA_SETUP.md` might be necessary before running the analysis scripts.
+
+## Usage
+
+Once the environment is set up and the data is correctly placed, you can run the analysis modules. Execute the runner scripts located in the `src/` directory from the **project root directory**:
+
+```bash
 # Ensure your virtual environment ('venv') is activated first!
 
 # Example: Run the fixed spatial analysis module
@@ -112,14 +131,20 @@ python src/run_causal_analysis.py
 python src/run_advanced_analysis.py
 
 # Add commands for other run_*.py scripts as needed
-Use code with caution.
-Bash
-Generated outputs (figures, tables, model results) will typically be saved in the outputs/ directory (which is gitignored).
-Testing
-This project uses Python's unittest framework for unit and integration tests and coverage for measuring test coverage.
-Goal: Ensure code reliability, validate calculations, and verify data processing steps.
-Target: Aiming for high test coverage (>80%) on core analytical functions.
+```
+
+Generated outputs (figures, tables, model results) will typically be saved in the `outputs/` directory (which is gitignored).
+
+## Testing
+
+This project uses Python's `unittest` framework for unit and integration tests and `coverage` for measuring test coverage.
+
+*   **Goal:** Ensure code reliability, validate calculations, and verify data processing steps.
+*   **Target:** Aiming for high test coverage (>80%) on core analytical functions.
+
 To run all tests and view a coverage report:
+
+```bash
 # Ensure your virtual environment is activated
 
 # Run tests and collect coverage data
@@ -130,41 +155,60 @@ coverage report -m
 
 # Optional: Generate an HTML report for detailed exploration
 coverage html -d coverage_html
-Use code with caution.
-Bash
-Refer to tests/README.md or individual test files for more details if needed.
-Ethical Considerations & Responsible AI
-Bias Awareness: We acknowledge potential biases in source data (e.g., pollution monitor placement, health reporting variations) and models. Efforts were made to mitigate this through validated indices (IMD), sensitivity checks (PSM Rosenbaum bounds), multi-scale analysis (LSOA/LAD), and using spatial models less prone to aggregation bias.
-Interpretation: Findings, particularly from PSM, represent associations controlled for observed confounders, not definitive causal proof due to potential unobserved factors. The ecological fallacy (drawing individual inferences from aggregate data) is a key limitation.
-Responsible Use: Results should be interpreted carefully to inform equitable interventions and avoid reinforcing existing disparities. Responsible AI principles guided the analysis design and interpretation.
-MLOps & Productionisation (Conceptual)
+```
+
+Refer to `tests/README.md` or individual test files for more details if needed.
+
+## Ethical Considerations & Responsible AI
+
+*   **Bias Awareness:** We acknowledge potential biases in source data (e.g., pollution monitor placement, health reporting variations) and models. Efforts were made to mitigate this through validated indices (IMD), sensitivity checks (PSM Rosenbaum bounds), multi-scale analysis (LSOA/LAD), and using spatial models less prone to aggregation bias.
+*   **Interpretation:** Findings, particularly from PSM, represent associations controlled for *observed* confounders, not definitive causal proof due to potential unobserved factors. The ecological fallacy (drawing individual inferences from aggregate data) is a key limitation.
+*   **Responsible Use:** Results should be interpreted carefully to inform equitable interventions and avoid reinforcing existing disparities. Responsible AI principles guided the analysis design and interpretation.
+
+## MLOps & Productionisation (Conceptual)
+
 While currently a research project, scaling this analysis for production would involve:
-Scalability: Modular Python scripts aid scalability. For larger datasets or higher frequency updates, optimizing spatial weight calculations or using distributed frameworks (e.g., Dask, Spark with GeoSpark) might be necessary.
-Monitoring: Implement monitoring for:
-Data Drift: Changes in input data distributions (e.g., using tools like Evidently AI).
-Model Drift: Degradation in model performance over time (e.g., tracked via MLflow).
-Retraining: Establish triggers (e.g., performance decay, scheduled updates) and automate retraining pipelines using orchestration tools (e.g., Airflow, Prefect, Kubeflow Pipelines).
-Automation & Deployment: Package the analysis pipeline (data ingestion, processing, modeling, reporting) potentially using Docker for consistent environments.
-Potential Generative AI / LLM Integration
+
+*   **Scalability:** Modular Python scripts aid scalability. For larger datasets or higher frequency updates, optimizing spatial weight calculations or using distributed frameworks (e.g., Dask, Spark with GeoSpark) might be necessary.
+*   **Monitoring:** Implement monitoring for:
+    *   *Data Drift:* Changes in input data distributions (e.g., using tools like Evidently AI).
+    *   *Model Drift:* Degradation in model performance over time (e.g., tracked via MLflow).
+*   **Retraining:** Establish triggers (e.g., performance decay, scheduled updates) and automate retraining pipelines using orchestration tools (e.g., Airflow, Prefect, Kubeflow Pipelines).
+*   **Automation & Deployment:** Package the analysis pipeline (data ingestion, processing, modeling, reporting) potentially using Docker for consistent environments.
+
+## Potential Generative AI / LLM Integration
+
 Future explorations could leverage LLMs for:
-Contextual Enrichment: Synthesizing policy documents or local news relevant to identified high-risk areas.
-Sentiment Analysis: Analyzing public discourse on environmental issues in specific LADs (requires careful ethical consideration).
-Automated Reporting: Generating tailored summaries for diverse stakeholders.
-Conversational Interfaces: Creating tools for querying results interactively.
-Future Work & Potential Enhancements
-Longitudinal Analysis: Incorporate time-series data to analyze trends and employ stronger quasi-experimental designs (e.g., Difference-in-Differences).
-Advanced Models: Explore Geographically Weighted Regression (GWR), Graph Neural Networks (GNNs), or deep learning for spatial patterns.
-Granularity & Qualitative Data: Integrate finer-grained data (e.g., hyperlocal sensors) or qualitative insights (e.g., community interviews) for richer context.
-Broader Scope: Include other environmental factors (noise, green space access), health outcomes (mental health), or expand geographically.
-Economic Impact: Conduct a formal health economic assessment of intervention benefits.
-Responsible AI Deep Dive: Further investigate algorithmic fairness and bias mitigation techniques.
-Contributing
-Contributions are welcome! Please read our CONTRIBUTING.md guidelines and adhere to the CODE_OF_CONDUCT.md.
-License
-This project is licensed under the MIT License - see the LICENSE.txt file for details.
-Citation
-If you use this project or findings in your research, please cite it using the DOI or the CITATION.cff file.
-![alt text](https://zenodo.org/badge/DOI/10.5281/zenodo.15147442.svg)
+
+*   **Contextual Enrichment:** Synthesizing policy documents or local news relevant to identified high-risk areas.
+*   **Sentiment Analysis:** Analyzing public discourse on environmental issues in specific LADs (requires careful ethical consideration).
+*   **Automated Reporting:** Generating tailored summaries for diverse stakeholders.
+*   **Conversational Interfaces:** Creating tools for querying results interactively.
+
+## Future Work & Potential Enhancements
+
+*   **Longitudinal Analysis:** Incorporate time-series data to analyze trends and employ stronger quasi-experimental designs (e.g., Difference-in-Differences).
+*   **Advanced Models:** Explore Geographically Weighted Regression (GWR), Graph Neural Networks (GNNs), or deep learning for spatial patterns.
+*   **Granularity & Qualitative Data:** Integrate finer-grained data (e.g., hyperlocal sensors) or qualitative insights (e.g., community interviews) for richer context.
+*   **Broader Scope:** Include other environmental factors (noise, green space access), health outcomes (mental health), or expand geographically.
+*   **Economic Impact:** Conduct a formal health economic assessment of intervention benefits.
+*   **Responsible AI Deep Dive:** Further investigate algorithmic fairness and bias mitigation techniques.
+
+## Contributing
+
+Contributions are welcome! Please read our [CONTRIBUTING.md](CONTRIBUTING.md) guidelines and adhere to the [CODE_OF_CONDUCT.md](CODE_OF_CONDUCT.md).
+
+## License
+
+This project is licensed under the MIT License - see the [LICENSE.txt](LICENSE.txt) file for details.
+
+## Citation
+
+If you use this project or findings in your research, please cite it using the DOI or the `CITATION.cff` file.
+
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.15147442.svg)](https://doi.org/10.5281/zenodo.15147442)
+
+```
 @software{alexander_clarke_2024_15147442,
   author       = {Alexander Clarke},
   title        = {{ACl365/england-environmental-justice-analysis:
@@ -176,6 +220,8 @@ If you use this project or findings in your research, please cite it using the D
   doi          = {10.5281/zenodo.15147442},
   url          = {https://doi.org/10.5281/zenodo.15147442}
 }
-Use code with caution.
-Author
-Alexander Clarke - ACl365
+```
+
+## Author
+
+*   **Alexander Clarke** - [ACl365](https://github.com/ACl365)
