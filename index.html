@@ -3,272 +3,351 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Data Portfolio: England Environmental Justice & Health Inequalities Analysis</title>
-    <!-- Link to the external CSS file -->
-    <link rel="stylesheet" href="style.css"> <!-- Assuming style.css has the updated styles -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <title>England Environmental Justice & Health Inequalities Analysis</title>
+    <!-- Link to the NEW external CSS file -->
+    <link rel="stylesheet" href="style.css">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <!-- AOS Animation Library -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css" />
 </head>
 <body>
 
+    <!-- Sticky Navigation -->
+    <nav class="project-nav">
+        <div class="nav-container">
+            <ul class="nav-list">
+                 <!-- Links should match section IDs -->
+                 <li><a href="#summary">Summary</a></li>
+                 <li><a href="#key-visual">Key Visual</a></li>
+                 <li><a href="#challenge">Challenge</a></li>
+                 <li><a href="#approach">Approach</a></li>
+                 <li><a href="#findings">Findings</a></li>
+                 <li><a href="#impact">Impact</a></li>
+                 <li><a href="#limitations">Limitations</a></li>
+                 <li><a href="#next-steps">Next Steps</a></li>
+                 <li><a href="#tech">Tech</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Hero Header -->
+    <header class="project-header">
+        <h1 data-aos="fade-down">England Environmental Justice & Health Inequalities Analysis</h1>
+        <p class="lead" data-aos="fade-up" data-aos-delay="100">Identifying vulnerable communities and informing targeted policy through integrated geospatial, statistical, and machine learning analysis.</p>
+        <p class="motivation" data-aos="fade-up" data-aos-delay="200">Driven by an interest in health equity and the power of data to illuminate societal challenges.</p>
+    </header>
+
     <article class="project-page">
 
-        <header class="project-header">
-            <h1>England Environmental Justice & Health Inequalities Analysis</h1>
-            <p class="subtitle">Identifying vulnerable communities and informing targeted policy through integrated geospatial, statistical, and machine learning analysis.</p>
-            <!-- Enhanced Motivation Paragraph -->
-            <p class="motivation">Driven by an interest in health equity and the power of data to illuminate societal challenges.</p>
-        </header>
-
-        <section class="project-section project-summary" id="summary">
-             <h2>Executive Summary</h2>
-             <p>This project provides actionable intelligence for tackling environmental injustice in England by identifying specific communities facing a 'double burden' of high pollution and deprivation, linked to poorer respiratory health. Using an integrated approach combining spatial statistics, machine learning, and quasi-causal methods, key findings reveal:</p>
-             <ul>
-                 <li><i class="fas fa-map-marked-alt fa-fw"></i> <strong>Significant spatial clustering:</strong> Environmental injustice is geographically concentrated (Finding 1), enabling precise targeting of interventions away from broad-stroke approaches. Spatial autocorrelation techniques like Local Indicators of Spatial Association (<code>LISA</code>) confirmed these patterns were statistically significant.</li>
-                 <li><i class="fas fa-lungs-virus fa-fw"></i> <strong>PM2.5 Health Association:</strong> Higher Particulate Matter < 2.5 micrometers (PM2.5) exposure is significantly associated with poorer respiratory health outcomes, even after controlling for area deprivation (Finding 2, Propensity Score Matching (PSM) Average Treatment Effect on the Treated (ATT) <strong>≈ -0.0399</strong>, <strong>p ≈ 0.027</strong>). This suggests a direct health burden from fine particulate matter.</li>
-                 <li><i class="fas fa-layer-group fa-fw"></i> <strong>Distinct Area Profiles:</strong> Local Authority Districts (LADs) cluster into typologies (e.g., 'Urban Deprived/Polluted') with unique challenge combinations, requiring tailored policy responses (Finding 3).</li>
-             </ul>
-             <!-- Refined Impact Caveat -->
-             <p>The analysis enables efficient resource allocation by pinpointing high-risk Lower Layer Super Output Areas (LSOAs) and LADs. Policy simulations suggest targeted PM2.5 reduction in priority areas could yield measurable health improvements. **Note:** Preliminary impact estimates (e.g., ~1.4M residents potentially benefiting, ~£60M potential NHS savings from a 20% PM2.5 reduction) require validation with official ONS population data but indicate substantial potential.</p>
+        <!-- Executive Summary Section -->
+        <section class="project-section" id="summary">
+            <div class="card" data-aos="fade-up">
+                <h2 class="card-title">Executive Summary</h2>
+                <p>This project provides actionable intelligence for tackling environmental injustice in England by identifying specific communities facing a 'double burden' of high pollution and deprivation, linked to poorer respiratory health. Using an integrated approach combining spatial statistics, machine learning, and quasi-causal methods, key findings reveal:</p>
+                <ul class="enhanced-list">
+                    <li><strong>Significant spatial clustering:</strong> Environmental injustice is geographically concentrated (Finding 1), enabling precise targeting of interventions away from broad-stroke approaches. Spatial autocorrelation techniques like Local Indicators of Spatial Association (<code>LISA</code>) confirmed these patterns were statistically significant.</li>
+                    <li><strong>PM2.5 Health Association:</strong> Higher Particulate Matter < 2.5 micrometers (PM2.5) exposure is significantly associated with poorer respiratory health outcomes, even after controlling for area deprivation (Finding 2, Propensity Score Matching (PSM) Average Treatment Effect on the Treated (ATT) <strong>≈ -0.0399</strong>, <strong>p ≈ 0.027</strong>). This suggests a direct health burden from fine particulate matter.</li>
+                    <li><strong>Distinct Area Profiles:</strong> Local Authority Districts (LADs) cluster into typologies (e.g., 'Urban Deprived/Polluted') with unique challenge combinations, requiring tailored policy responses (Finding 3).</li>
+                </ul>
+                <p class="mt-3">The analysis enables efficient resource allocation by pinpointing high-risk Lower Layer Super Output Areas (LSOAs) and LADs. Policy simulations suggest targeted PM2.5 reduction in priority areas could yield measurable health improvements. <strong>Note:</strong> Preliminary impact estimates (e.g., ~1.4M residents potentially benefiting, ~£60M potential NHS savings from a 20% PM2.5 reduction) require validation with official ONS population data but indicate substantial potential.</p>
+            </div>
         </section>
 
-        <section class="project-section project-key-visual" id="key-visual">
-             <figure class="figure--full-width">
+         <!-- Key Visual Section -->
+         <section class="project-section project-key-visual" id="key-visual">
+             <h2 data-aos="fade-up">Geographic Concentration of Environmental Injustice</h2>
+             <figure data-aos="zoom-in">
+                 <!-- Make sure the image path is correct -->
                  <img src="assets/images/lisa_clusters_env_justice_index.png" alt="LISA Cluster Map showing high-high clusters for combined pollution and deprivation index">
-                 <figcaption>LISA Cluster Map: Red areas show statistically significant High-High clusters (high pollution/deprivation), highlighting geographic concentrations of environmental injustice across England.</figcaption>
+                 <figcaption>LISA Cluster Map: Red areas show statistically significant High-High clusters (high pollution/deprivation), highlighting geographic concentrations of environmental injustice across England. Blue areas indicate Low-Low clusters (low pollution/deprivation).</figcaption>
              </figure>
          </section>
 
-        <section class="project-section" id="challenge">
-            <h2>The Challenge: An Unequal Burden</h2>
-            <p>Across England, disadvantaged communities often face disproportionately high levels of air pollution (like Nitrogen Dioxide (NO₂) and PM2.5). This recognised environmental injustice is strongly linked to poorer health outcomes, particularly respiratory conditions, exacerbating existing inequalities and placing significant burdens on public services like the NHS. Addressing this effectively requires moving beyond simple correlations to understand the complex interplay between where people live, their socioeconomic status, and their health.</p>
-            <p><strong>My Goal:</strong> To rigorously analyse these connections using an integrated data science approach, identify high-risk areas with precision, and provide robust, data-driven evidence to support effective, targeted policy interventions.</p>
+        <!-- Challenge Section -->
+        <section class="project-section bg-light" id="challenge">
+             <!-- Wrap content in a container div if needed for centering/max-width within bg-light -->
+             <div style="max-width: 960px; margin: 0 auto;">
+                 <h2 data-aos="fade-up">The Challenge: An Unequal Burden</h2>
+                <div class="card" data-aos="fade-up">
+                    <p>Across England, disadvantaged communities often face disproportionately high levels of air pollution (like Nitrogen Dioxide (NO₂) and PM2.5). This recognised environmental injustice is strongly linked to poorer health outcomes, particularly respiratory conditions, exacerbating existing inequalities and placing significant burdens on public services like the NHS. Addressing this effectively requires moving beyond simple correlations to understand the complex interplay between where people live, their socioeconomic status, and their health.</p>
+                    <p><strong>My Goal:</strong> To rigorously analyse these connections using an integrated data science approach, identify high-risk areas with precision, and provide robust, data-driven evidence to support effective, targeted policy interventions.</p>
+                </div>
+             </div>
         </section>
 
+        <!-- Approach Section -->
         <section class="project-section" id="approach">
-            <h2>My Analytical Approach: Integrating Diverse Methods</h2>
-            <p>To tackle this multi-faceted problem, I designed and implemented an integrated analytical pipeline primarily using Python and key libraries (<code>Pandas</code>, <code>GeoPandas</code>, <code>PySAL</code>, <code>Scikit-learn</code>, <code>Statsmodels</code>, <code>SHAP</code>). The innovation lies in combining spatial, machine learning, and causal inference perspectives for a more holistic understanding, with careful consideration of methodological choices:</p>
+             <div style="max-width: 960px; margin: 0 auto;"> <!-- Optional container -->
+                <h2 data-aos="fade-up">My Analytical Approach: Integrating Diverse Methods</h2>
+                <p data-aos="fade-up">To tackle this multi-faceted problem, I designed and implemented an integrated analytical pipeline primarily using Python and key libraries (<code>Pandas</code>, <code>GeoPandas</code>, <code>PySAL</code>, <code>Scikit-learn</code>, <code>Statsmodels</code>, <code>SHAP</code>). The innovation lies in combining spatial, machine learning, and causal inference perspectives for a more holistic understanding, with careful consideration of methodological choices:</p>
 
-            <!-- Embedded SVG Workflow Diagram -->
-            <div style="text-align: center; margin: 20px 0;">
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 280" width="80%" style="max-width: 700px; border: 1px solid #ddd; border-radius: 8px;">
-                <!-- Definitions for reuse -->
-                <defs>
-                  <!-- Gradient for highlight box -->
-                  <linearGradient id="primaryGradient" x1="0%" y1="0%" x2="0%" y2="100%">
-                    <stop offset="0%" stop-color="#4c956c" /> <!-- Original Green -->
-                    <stop offset="100%" stop-color="#2c6e49" /> <!-- Original Dark Green -->
-                  </linearGradient>
-
-                  <!-- Box shadow filter -->
-                  <filter id="dropShadow" x="-20%" y="-20%" width="140%" height="140%">
-                    <feDropShadow dx="2" dy="3" stdDeviation="3" flood-opacity="0.2" />
-                  </filter>
-
-                  <!-- Arrow marker -->
-                  <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
-                    <polygon points="0 0, 10 3.5, 0 7" fill="#4c956c" /> <!-- Original Green -->
-                  </marker>
-                </defs>
-
-                <!-- Boxes -->
-                <!-- Data Integration Box -->
-                <rect x="50" y="100" width="180" height="80" rx="12" ry="12" fill="#fff" stroke="#2c6e49" stroke-width="2" filter="url(#dropShadow)" /> <!-- Original Dark Green Stroke -->
-                <text x="140" y="135" font-family="Inter, 'Segoe UI', sans-serif" font-size="18" font-weight="600" text-anchor="middle" fill="#2c6e49">Data Integration</text> <!-- Original Dark Green Fill -->
-                <text x="140" y="160" font-family="Inter, 'Segoe UI', sans-serif" font-size="14" text-anchor="middle" fill="#666">(ONS, DEFRA, IMD, NHS)</text> <!-- Original Gray Fill -->
-
-                <!-- Machine Learning Box -->
-                <rect x="320" y="40" width="180" height="80" rx="12" ry="12" fill="#fff" stroke="#2c6e49" stroke-width="2" filter="url(#dropShadow)" /> <!-- Original Dark Green Stroke -->
-                <text x="410" y="75" font-family="Inter, 'Segoe UI', sans-serif" font-size="18" font-weight="600" text-anchor="middle" fill="#2c6e49">Machine Learning</text> <!-- Original Dark Green Fill -->
-                <text x="410" y="100" font-family="Inter, 'Segoe UI', sans-serif" font-size="14" text-anchor="middle" fill="#666">(Scikit-learn, SHAP)</text> <!-- Original Gray Fill -->
-
-                <!-- Spatial Analysis Box -->
-                <rect x="320" y="160" width="180" height="80" rx="12" ry="12" fill="#fff" stroke="#2c6e49" stroke-width="2" filter="url(#dropShadow)" /> <!-- Original Dark Green Stroke -->
-                <text x="410" y="195" font-family="Inter, 'Segoe UI', sans-serif" font-size="18" font-weight="600" text-anchor="middle" fill="#2c6e49">Spatial Analysis</text> <!-- Original Dark Green Fill -->
-                <text x="410" y="220" font-family="Inter, 'Segoe UI', sans-serif" font-size="14" text-anchor="middle" fill="#666">(PySAL, GeoPandas)</text> <!-- Original Gray Fill -->
-
-                <!-- Causal Inference Box -->
-                <rect x="570" y="40" width="180" height="80" rx="12" ry="12" fill="#fff" stroke="#2c6e49" stroke-width="2" filter="url(#dropShadow)" /> <!-- Original Dark Green Stroke -->
-                <text x="660" y="75" font-family="Inter, 'Segoe UI', sans-serif" font-size="18" font-weight="600" text-anchor="middle" fill="#2c6e49">Causal Inference</text> <!-- Original Dark Green Fill -->
-                <text x="660" y="100" font-family="Inter, 'Segoe UI', sans-serif" font-size="14" text-anchor="middle" fill="#666">(Statsmodels, PSM, ATT)</text> <!-- Original Gray Fill -->
-
-                <!-- Policy Insights Box -->
-                <rect x="570" y="160" width="180" height="80" rx="12" ry="12" fill="url(#primaryGradient)" stroke="#2c6e49" stroke-width="2" filter="url(#dropShadow)" /> <!-- Original Dark Green Stroke -->
-                <text x="660" y="195" font-family="Inter, 'Segoe UI', sans-serif" font-size="18" font-weight="600" text-anchor="middle" fill="white">Policy Insights</text>
-                <text x="660" y="220" font-family="Inter, 'Segoe UI', sans-serif" font-size="14" text-anchor="middle" fill="white">& Recommendations</text>
-
-                <!-- Connectors/Arrows -->
-                <!-- Data Integration to Machine Learning -->
-                <path d="M230 115 C260 115, 280 80, 320 80" stroke="#4c956c" stroke-width="2.5" fill="none" marker-end="url(#arrowhead)" /> <!-- Original Green Stroke -->
-
-                <!-- Data Integration to Spatial Analysis -->
-                <path d="M230 140 C260 140, 280 200, 320 200" stroke="#4c956c" stroke-width="2.5" fill="none" marker-end="url(#arrowhead)" /> <!-- Original Green Stroke -->
-
-                <!-- Machine Learning to Causal Inference -->
-                <path d="M500 80 L570 80" stroke="#4c956c" stroke-width="2.5" fill="none" marker-end="url(#arrowhead)" /> <!-- Original Green Stroke -->
-
-                <!-- Causal Inference to Policy Insights -->
-                <path d="M660 120 L660 160" stroke="#4c956c" stroke-width="2.5" fill="none" marker-end="url(#arrowhead)" /> <!-- Original Green Stroke -->
-
-                <!-- Spatial Analysis to Policy Insights -->
-                <path d="M500 200 L570 200" stroke="#4c956c" stroke-width="2.5" fill="none" marker-end="url(#arrowhead)" /> <!-- Original Green Stroke -->
-              </svg>
-              <p style="font-size: 0.9em; color: #666; margin-top: 5px;">Integrated analytical workflow.</p>
-            </div>
-            <!-- End Embedded SVG -->
-
-            <!-- ADDED: Descriptive text for the workflow -->
-            <p>
-                The workflow integrated data from ONS, DEFRA, IMD, and NHS. Analysis involved Spatial Analysis (using <code>PySAL</code>, <code>GeoPandas</code>), Machine Learning (<code>Scikit-learn</code>, <code>SHAP</code>), and Causal Inference techniques (<code>Statsmodels</code>, PSM, ATT) to derive Policy Insights & Recommendations.
-            </p>
-            <!-- END ADDED TEXT -->
-
-            <ul>
-                <li>
-                    <strong>Spatial Statistics (<code>GeoPandas</code>, <code>PySAL</code>):</strong> Employed spatial autocorrelation techniques (Moran's I, <code>LISA</code>, Getis-Ord Gi*) to rigorously test if patterns of pollution and deprivation were clustered or random. <strong class="justification-label">Justification:</strong> Standard statistics often assume independence, which is violated by geographic data; spatial methods account for this. <code>LISA</code> specifically identifies statistically significant local clusters (hotspots/coldspots), crucial for targeted interventions. <code>Queen contiguity</code> was chosen for spatial weights, suitable for administrative areas sharing borders. Spatial lag models were used later to account for spillover effects between neighbouring LADs, addressing potential bias in standard regression (Ordinary Least Squares (OLS)) from spatial dependence (indicated by the model's <code>rho coefficient</code>).
-                </li>
-                <li>
-                    <strong>Machine Learning (<code>Scikit-learn</code>, <code>SHAP</code>):</strong>
-                    <ul>
-                        <li><em>Unsupervised Clustering (<code>K-Means</code>):</em> Chosen for its computational efficiency on this dataset and its ability to partition LADs into distinct, interpretable typologies based on pollution, deprivation, and health profiles using cluster centroids. Silhouette scores guided cluster number selection. <strong class="justification-label">Justification:</strong> While alternatives like <code>DBSCAN</code> (density-based) or <code>GMM</code> (probabilistic) were considered (and explored in <code>advanced_cluster_analysis.py</code>), <code>K-Means</code> provided the clearest separation into relatively balanced, policy-relevant groups for this specific dataset and research question.</li>
-                        <li><em>Predictive Modelling (Gradient Boosting Regressor (<code>GBR</code>)):</em> Selected for policy simulation due to its strong predictive power, ability to model complex non-linear relationships and feature interactions (e.g., how deprivation modifies pollution impact), and robustness to outliers compared to linear models. <strong class="justification-label">Justification:</strong> <code>GBR</code> allowed simulating the potential impact of interventions (like PM2.5 reduction) on the respiratory health index, providing quantitative estimates for policy evaluation. Performance was validated using cross-validation (<code>R²/MSE</code>) to mitigate overfitting.</li>
-                        <li><em>Interpretability (<code>SHAP</code>):</em> Used with <code>GBR</code> to understand <em>why</em> the model makes certain predictions, identifying key drivers (e.g., specific IMD domains) and their impact, moving beyond black-box predictions.</li>
-                    </ul>
-                </li>
-                <li>
-                    <strong>Causal Inference (Associational - <code>Statsmodels</code>):</strong> Applied PSM to estimate the <em>associational</em> effect of high PM2.5 exposure (treatment) on respiratory health (outcome) at the LAD level, controlling for observed confounding variables (IMD domains). <strong class="justification-label">Justification:</strong> PSM was chosen as a pragmatic approach given observational data limitations. It aims to create comparable groups (high vs. low PM2.5) based on observed characteristics (checking for sufficient overlap via propensity score distributions), approximating a quasi-experimental setup to isolate the association of interest. Diagnostic checks confirmed that propensity score matching successfully balanced observed covariates like IMD domains between the high and low PM2.5 groups (Standardised Mean Differences (SMDs) < 0.1 post-matching), strengthening the comparison. While acknowledging limitations (cannot control for <em>unobserved</em> confounders), rigorous diagnostics (sensitivity analysis via <code>Rosenbaum bounds</code>) were performed to assess the robustness of the association found (ATT).
-                </li>
-                <li>
-                    <strong>Data Integration & Index Construction (<code>Pandas</code>, <code>GeoPandas</code>):</strong> Merged complex datasets (ONS, DEFRA, DLUHC-IMD, NHS) across LSOA/LAD scales. Developed custom indices (<code>env_justice_index</code>, <code>respiratory_health_index</code>) with specific weighting rationales (see <code>DATA_DICTIONARY.md</code>) to capture the core concepts of 'double burden' and respiratory health burden effectively.
-                </li>
-            </ul>
-        </section>
-
-        <section class="project-section" id="findings">
-            <h2>Key Findings & Visual Insights</h2>
-
-            <div class="finding">
-                <h3>Finding 1: Environmental Injustice is Spatially Concentrated</h3>
-                <p>The analysis revealed that areas facing the "double disadvantage" of high pollution and high deprivation are not randomly distributed but cluster significantly, particularly in urban centres and specific post-industrial regions (as visually highlighted above). Spatial autocorrelation analysis confirmed these patterns were statistically significant.</p>
-            </div>
-
-            <div class="finding">
-                <h3>Finding 2: High PM2.5 Exposure Linked to Poorer Respiratory Health (Post-Matching)</h3>
-                <!-- Added brief interpretation -->
-                <p>Using PSM to control for observed IMD domains, I found a statistically significant negative association between higher PM2.5 levels (above median) and the respiratory health index at the LAD level (ATT <strong>≈ -0.0399</strong>, p-value <strong>≈ 0.027</strong>). <strong>Interpretation:</strong> This suggests that, holding observed deprivation factors constant, moving from lower to higher PM2.5 exposure is associated with a roughly <strong>4.0% relative decrease</strong> in the respiratory health index across matched LADs. While PSM cannot establish definitive causation due to potential unobserved confounders, the statistically significant result (<strong>p<0.05</strong>) provides stronger evidence for a link between PM2.5 and poorer respiratory health, independent of measured deprivation. The matching process successfully balanced observed covariates, as shown below.</p>
-                <div class="figure-row">
-                    <figure class="figure--two-col">
-                         <img src="assets/images/matched_outcome_high_pm25.png" alt="Box plot comparing respiratory health index post-matching for high vs low PM2.5 groups">
-                        <figcaption>Post-Matching Health Outcomes (PM2.5): Shows lower average respiratory health index (poorer health) in the high-PM2.5 group compared to matched controls after balancing covariates.</figcaption>
-                    </figure>
-                    <figure class="figure--two-col">
-                        <img src="assets/images/propensity_scores_high_pm25.png" alt="Histogram showing propensity score distribution for high and low PM2.5 groups">
-                        <figcaption>Propensity Score Overlap (PM2.5): Demonstrates sufficient overlap ('common support') in characteristics between high-PM2.5 (blue) and low-PM2.5 (purple) groups, enabling effective matching.</figcaption>
-                     </figure>
+                <!-- Workflow SVG -->
+                 <div style="text-align: center; margin: 20px 0;" data-aos="zoom-in-up">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 280" width="80%" style="max-width: 700px; border: 1px solid var(--color-border); border-radius: var(--radius-md); background: var(--color-background-light);">
+                    {/* SVG content - ensure colors use CSS variables or match the theme */}
+                    <defs>
+                      <linearGradient id="primaryGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+                        <stop offset="0%" stop-color="var(--color-primary-light)" />
+                        <stop offset="100%" stop-color="var(--color-primary)" />
+                      </linearGradient>
+                      <filter id="dropShadow" x="-20%" y="-20%" width="140%" height="140%">
+                        <feDropShadow dx="2" dy="3" stdDeviation="3" flood-opacity="0.1" />
+                      </filter>
+                      <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+                        <polygon points="0 0, 10 3.5, 0 7" fill="var(--color-primary-light)" />
+                      </marker>
+                    </defs>
+                    <rect x="50" y="100" width="180" height="80" rx="12" ry="12" fill="#fff" stroke="var(--color-primary)" stroke-width="2" filter="url(#dropShadow)" />
+                    <text x="140" y="135" font-family="var(--font-heading)" font-size="18" font-weight="600" text-anchor="middle" fill="var(--color-primary)">Data Integration</text>
+                    <text x="140" y="160" font-family="var(--font-body)" font-size="14" text-anchor="middle" fill="var(--color-text-light)">(ONS, DEFRA, IMD, NHS)</text>
+                    <rect x="320" y="40" width="180" height="80" rx="12" ry="12" fill="#fff" stroke="var(--color-primary)" stroke-width="2" filter="url(#dropShadow)" />
+                    <text x="410" y="75" font-family="var(--font-heading)" font-size="18" font-weight="600" text-anchor="middle" fill="var(--color-primary)">Machine Learning</text>
+                    <text x="410" y="100" font-family="var(--font-body)" font-size="14" text-anchor="middle" fill="var(--color-text-light)">(Scikit-learn, SHAP)</text>
+                    <rect x="320" y="160" width="180" height="80" rx="12" ry="12" fill="#fff" stroke="var(--color-primary)" stroke-width="2" filter="url(#dropShadow)" />
+                    <text x="410" y="195" font-family="var(--font-heading)" font-size="18" font-weight="600" text-anchor="middle" fill="var(--color-primary)">Spatial Analysis</text>
+                    <text x="410" y="220" font-family="var(--font-body)" font-size="14" text-anchor="middle" fill="var(--color-text-light)">(PySAL, GeoPandas)</text>
+                    <rect x="570" y="40" width="180" height="80" rx="12" ry="12" fill="#fff" stroke="var(--color-primary)" stroke-width="2" filter="url(#dropShadow)" />
+                    <text x="660" y="75" font-family="var(--font-heading)" font-size="18" font-weight="600" text-anchor="middle" fill="var(--color-primary)">Causal Inference</text>
+                    <text x="660" y="100" font-family="var(--font-body)" font-size="14" text-anchor="middle" fill="var(--color-text-light)">(Statsmodels, PSM)</text>
+                    <rect x="570" y="160" width="180" height="80" rx="12" ry="12" fill="url(#primaryGradient)" stroke="var(--color-primary)" stroke-width="2" filter="url(#dropShadow)" />
+                    <text x="660" y="195" font-family="var(--font-heading)" font-size="18" font-weight="600" text-anchor="middle" fill="white">Policy Insights</text>
+                    <text x="660" y="220" font-family="var(--font-body)" font-size="14" text-anchor="middle" fill="white">& Recommendations</text>
+                    <path d="M230 115 C260 115, 280 80, 320 80" stroke="var(--color-primary-light)" stroke-width="2.5" fill="none" marker-end="url(#arrowhead)" />
+                    <path d="M230 140 C260 140, 280 200, 320 200" stroke="var(--color-primary-light)" stroke-width="2.5" fill="none" marker-end="url(#arrowhead)" />
+                    <path d="M500 80 L570 80" stroke="var(--color-primary-light)" stroke-width="2.5" fill="none" marker-end="url(#arrowhead)" />
+                    <path d="M660 120 L660 160" stroke="var(--color-primary-light)" stroke-width="2.5" fill="none" marker-end="url(#arrowhead)" />
+                    <path d="M500 200 L570 200" stroke="var(--color-primary-light)" stroke-width="2.5" fill="none" marker-end="url(#arrowhead)" />
+                  </svg>
+                  <p style="font-size: 0.9em; color: var(--color-text-light); margin-top: var(--space-sm);">Integrated analytical workflow combining diverse data sources and methodologies.</p>
                 </div>
-            </div>
 
-            <div class="finding">
-                <h3>Finding 3: Distinct Area Typologies Emerge from Clustering</h3>
-                <p><code>K-Means</code> clustering identified distinct LAD profiles based on their combined pollution, deprivation, and health characteristics. For example, some areas suffer from high pollution and high deprivation ('Urban Deprived/Polluted'), while others might have moderate pollution but significantly worse health outcomes ('Deprived/Poor Health Focus'), suggesting that a one-size-fits-all policy approach is unlikely to be optimal. Tailored strategies are needed for different cluster types.</p>
-                <figure class="figure--full-width">
-                    <img src="assets/images/cluster_radar_chart.png" alt="Radar chart showing normalised profiles of different LAD clusters across key variables">
-                    <figcaption>Cluster Profiles: Illustrates the different combinations of deprivation, pollution, and health challenges faced by distinct groups of Local Authority Districts, enabling targeted policy design.</figcaption>
-                </figure>
-            </div>
-
-            <div class="finding">
-                <h3>Finding 4: Targeted PM2.5 Reductions Show Potential Health Benefits</h3>
-                <p>Policy simulations using the trained <code>GBR</code> estimated the potential impact of PM2.5 reduction. <strong>Example Scenario:</strong> A simulated <strong>20% reduction</strong> in PM2.5 levels was predicted to yield an average improvement of <strong>~0.0013</strong> in the respiratory health index across relevant LADs, with larger gains in specific areas (e.g., Southend-on-Sea, Wigan, Bury, Leeds, Westminster, Eastbourne, Portsmouth, Salford, Manchester, Blaby). <strong>Implication:</strong> This quantifies the potential benefit of targeted interventions, allowing policymakers to prioritise areas like specific LAD clusters (e.g., Cluster 2: 'Urban Deprived/Polluted') where PM2.5 reduction could improve health outcomes for residents. While precise NHS cost savings are complex to model, reducing respiratory illness burden through such measures could hypothetically lead to substantial long-term savings via reduced hospital admissions and treatments (further economic analysis recommended).</p>
-                 <div class="figure-row">
-                    <figure class="figure--two-col">
-                        <img src="assets/images/policy_impact_pm25.png" alt="Line plot showing simulated average health index improvement vs percentage reduction in PM2.5">
-                        <figcaption>Policy Simulation (PM2.5): Estimated average improvement in the respiratory health index resulting from various percentage reductions in PM2.5 levels across relevant LADs, quantifying potential policy impact.</figcaption>
-                    </figure>
-                    <figure class="figure--two-col">
-                        <img src="assets/images/top_areas_pm25.png" alt="Bar chart showing top 10 LADs predicted to benefit most from a 20% PM2.5 reduction">
-                        <figcaption>Top Benefiting Areas (Simulated): Identifies specific LADs (e.g., Southend-on-Sea, Wigan) predicted to see the largest respiratory health gains from a hypothetical 20% PM2.5 reduction, aiding resource allocation.</figcaption>
-                    </figure>
-                </div>
-            </div>
-
-             <div class="finding">
-                <h3>Finding 5: Deprivation Nuances Matter in Predicting Pollution Exposure</h3>
-                <p>Feature importance analysis (using <code>SHAP</code> values from relevant models) indicated that specific IMD domains, particularly 'Living Environment Deprivation' and 'Barriers to Housing & Services', were often stronger predictors of local pollution levels than income or employment deprivation alone. This suggests interventions need to consider these specific aspects of deprivation.</p>
-                <figure class="figure--full-width">
-                    <img src="assets/images/domain_importance_heatmap.png" alt="Heatmap showing importance or correlation of IMD domains for predicting pollution levels">
-                    <figcaption>IMD Domain Importance: Highlights that factors like poor housing conditions and local environmental quality are key correlates of pollution exposure, suggesting multi-faceted intervention points.</figcaption>
-                </figure>
+                <ul data-aos="fade-up">
+                    <li>
+                        <strong>Spatial Statistics (<code>GeoPandas</code>, <code>PySAL</code>):</strong> Employed spatial autocorrelation techniques (Moran's I, <code>LISA</code>, Getis-Ord Gi*) to rigorously test if patterns of pollution and deprivation were clustered or random.
+                        <span class="justification-label">Justification:</span> Standard statistics often assume independence, which is violated by geographic data; spatial methods account for this. <code>LISA</code> specifically identifies statistically significant local clusters (hotspots/coldspots), crucial for targeted interventions. <code>Queen contiguity</code> was chosen for spatial weights, suitable for administrative areas sharing borders. Spatial lag models were used later to account for spillover effects between neighbouring LADs, addressing potential bias in standard regression (Ordinary Least Squares (OLS)) from spatial dependence (indicated by the model's <code>rho coefficient</code>).
+                    </li>
+                    <li>
+                        <strong>Machine Learning (<code>Scikit-learn</code>, <code>SHAP</code>):</strong>
+                        <ul>
+                            <li><em>Unsupervised Clustering (<code>K-Means</code>):</em> Chosen for its computational efficiency on this dataset and its ability to partition LADs into distinct, interpretable typologies based on pollution, deprivation, and health profiles using cluster centroids. Silhouette scores guided cluster number selection.
+                                <span class="justification-label">Justification:</span> While alternatives like <code>DBSCAN</code> (density-based) or <code>GMM</code> (probabilistic) were considered (and explored in <code>advanced_cluster_analysis.py</code>), <code>K-Means</code> provided the clearest separation into relatively balanced, policy-relevant groups for this specific dataset and research question.</li>
+                            <li><em>Predictive Modelling (Gradient Boosting Regressor (<code>GBR</code>)):</em> Selected for policy simulation due to its strong predictive power, ability to model complex non-linear relationships and feature interactions (e.g., how deprivation modifies pollution impact), and robustness to outliers compared to linear models.
+                                <span class="justification-label">Justification:</span> <code>GBR</code> allowed simulating the potential impact of interventions (like PM2.5 reduction) on the respiratory health index, providing quantitative estimates for policy evaluation. Performance was validated using cross-validation (<code>R²/MSE</code>) to mitigate overfitting.</li>
+                            <li><em>Interpretability (<code>SHAP</code>):</em> Used with <code>GBR</code> to understand <em>why</em> the model makes certain predictions, identifying key drivers (e.g., specific IMD domains) and their impact, moving beyond black-box predictions.</li>
+                        </ul>
+                    </li>
+                    <li>
+                        <strong>Causal Inference (Associational - <code>Statsmodels</code>):</strong> Applied PSM to estimate the <em>associational</em> effect of high PM2.5 exposure (treatment) on respiratory health (outcome) at the LAD level, controlling for observed confounding variables (IMD domains).
+                         <span class="justification-label">Justification:</span> PSM was chosen as a pragmatic approach given observational data limitations. It aims to create comparable groups (high vs. low PM2.5) based on observed characteristics (checking for sufficient overlap via propensity score distributions), approximating a quasi-experimental setup to isolate the association of interest. Diagnostic checks confirmed that propensity score matching successfully balanced observed covariates like IMD domains between the high and low PM2.5 groups (Standardised Mean Differences (SMDs) < 0.1 post-matching), strengthening the comparison. While acknowledging limitations (cannot control for <em>unobserved</em> confounders), rigorous diagnostics (sensitivity analysis via <code>Rosenbaum bounds</code>) were performed to assess the robustness of the association found (ATT).
+                    </li>
+                    <li>
+                        <strong>Data Integration & Index Construction (<code>Pandas</code>, <code>GeoPandas</code>):</strong> Merged complex datasets (ONS, DEFRA, DLUHC-IMD, NHS) across LSOA/LAD scales. Developed custom indices (<code>env_justice_index</code>, <code>respiratory_health_index</code>) with specific weighting rationales (see <code>DATA_DICTIONARY.md</code>) to capture the core concepts of 'double burden' and respiratory health burden effectively.
+                    </li>
+                </ul>
             </div>
         </section>
 
+        <!-- Findings Section -->
+        <section class="project-section bg-light" id="findings">
+            <div style="max-width: 960px; margin: 0 auto;"> <!-- Optional container -->
+                <h2 data-aos="fade-up">Key Findings & Visual Insights</h2>
+
+                <!-- Finding 1 -->
+                <div class="card finding" data-aos="fade-up">
+                    <h3 class="card-title"><i class="fas fa-map-marked-alt me-2 text-primary"></i>Finding 1: Environmental Injustice is Spatially Concentrated</h3>
+                    <p>The analysis revealed that areas facing the "double disadvantage" of high pollution and high deprivation are not randomly distributed but cluster significantly, particularly in urban centres and specific post-industrial regions (as visually highlighted by the LISA map). Spatial autocorrelation analysis confirmed these patterns were statistically significant.</p>
+                     <p><small>Refer back to the <a href="#key-visual">Key Visual (LISA Map)</a> shown previously.</small></p>
+                </div>
+
+                <!-- Finding 2 -->
+                <div class="card finding" data-aos="fade-up">
+                    <h3 class="card-title"><i class="fas fa-lungs-virus me-2 text-primary"></i>Finding 2: High PM2.5 Exposure Linked to Poorer Respiratory Health (Post-Matching)</h3>
+                    <p>Using PSM to control for observed IMD domains, I found a statistically significant negative association between higher PM2.5 levels (above median) and the respiratory health index at the LAD level (ATT <strong>≈ -0.0399</strong>, p-value <strong>≈ 0.027</strong>).
+                    <strong>Interpretation:</strong> This suggests that, holding observed deprivation factors constant, moving from lower to higher PM2.5 exposure is associated with a roughly <strong>4.0% relative decrease</strong> in the respiratory health index across matched LADs. While PSM cannot establish definitive causation due to potential unobserved confounders, the statistically significant result (<strong>p<0.05</strong>) provides stronger evidence for a link between PM2.5 and poorer respiratory health, independent of measured deprivation. The matching process successfully balanced observed covariates, as shown below.</p>
+                    <div class="figure-row">
+                        <figure class="figure--two-col" data-aos="zoom-in" data-aos-delay="100">
+                            <img src="assets/images/matched_outcome_high_pm25.png" alt="Box plot comparing respiratory health index post-matching for high vs low PM2.5 groups">
+                            <figcaption>Post-Matching Health Outcomes (PM2.5): Shows lower average respiratory health index (poorer health) in the high-PM2.5 group compared to matched controls after balancing covariates.</figcaption>
+                        </figure>
+                        <figure class="figure--two-col" data-aos="zoom-in" data-aos-delay="200">
+                            <img src="assets/images/propensity_scores_high_pm25.png" alt="Histogram showing propensity score distribution for high and low PM2.5 groups">
+                            <figcaption>Propensity Score Overlap (PM2.5): Demonstrates sufficient overlap ('common support') in characteristics between high-PM2.5 (blue) and low-PM2.5 (purple) groups, enabling effective matching.</figcaption>
+                        </figure>
+                    </div>
+                </div>
+
+                <!-- Finding 3 -->
+                <div class="card finding" data-aos="fade-up">
+                    <h3 class="card-title"><i class="fas fa-layer-group me-2 text-primary"></i>Finding 3: Distinct Area Typologies Emerge from Clustering</h3>
+                    <p><code>K-Means</code> clustering identified distinct LAD profiles based on their combined pollution, deprivation, and health characteristics. For example, some areas suffer from high pollution and high deprivation ('Urban Deprived/Polluted'), while others might have moderate pollution but significantly worse health outcomes ('Deprived/Poor Health Focus'), suggesting that a one-size-fits-all policy approach is unlikely to be optimal. Tailored strategies are needed for different cluster types.</p>
+                    <figure data-aos="zoom-in">
+                        <img src="assets/images/cluster_radar_chart.png" alt="Radar chart showing normalised profiles of different LAD clusters across key variables">
+                        <figcaption>Cluster Profiles: Illustrates the different combinations of deprivation, pollution, and health challenges faced by distinct groups of Local Authority Districts, enabling targeted policy design.</figcaption>
+                    </figure>
+                </div>
+
+                 <!-- Finding 4 -->
+                <div class="card finding" data-aos="fade-up">
+                    <h3 class="card-title"><i class="fas fa-seedling me-2 text-primary"></i>Finding 4: Targeted PM2.5 Reductions Show Potential Health Benefits</h3>
+                    <p>Policy simulations using the trained <code>GBR</code> estimated the potential impact of PM2.5 reduction. <strong>Example Scenario:</strong> A simulated <strong>20% reduction</strong> in PM2.5 levels was predicted to yield an average improvement of <strong>~0.0013</strong> in the respiratory health index across relevant LADs, with larger gains in specific areas (e.g., Southend-on-Sea, Wigan, Bury, Leeds, Westminster, Eastbourne, Portsmouth, Salford, Manchester, Blaby). <strong>Implication:</strong> This quantifies the potential benefit of targeted interventions, allowing policymakers to prioritise areas like specific LAD clusters (e.g., Cluster 2: 'Urban Deprived/Polluted') where PM2.5 reduction could improve health outcomes for residents. While precise NHS cost savings are complex to model, reducing respiratory illness burden through such measures could hypothetically lead to substantial long-term savings via reduced hospital admissions and treatments (further economic analysis recommended).</p>
+                     <div class="figure-row">
+                        <figure class="figure--two-col" data-aos="zoom-in" data-aos-delay="100">
+                            <img src="assets/images/policy_impact_pm25.png" alt="Line plot showing simulated average health index improvement vs percentage reduction in PM2.5">
+                            <figcaption>Policy Simulation (PM2.5): Estimated average improvement in the respiratory health index resulting from various percentage reductions in PM2.5 levels across relevant LADs, quantifying potential policy impact.</figcaption>
+                        </figure>
+                        <figure class="figure--two-col" data-aos="zoom-in" data-aos-delay="200">
+                            <img src="assets/images/top_areas_pm25.png" alt="Bar chart showing top 10 LADs predicted to benefit most from a 20% PM2.5 reduction">
+                            <figcaption>Top Benefiting Areas (Simulated): Identifies specific LADs (e.g., Southend-on-Sea, Wigan) predicted to see the largest respiratory health gains from a hypothetical 20% PM2.5 reduction, aiding resource allocation.</figcaption>
+                        </figure>
+                    </div>
+                </div>
+
+                <!-- Finding 5 -->
+                <div class="card finding" data-aos="fade-up">
+                    <h3 class="card-title"><i class="fas fa-home-user me-2 text-primary"></i>Finding 5: Deprivation Nuances Matter in Predicting Pollution Exposure</h3>
+                    <p>Feature importance analysis (using <code>SHAP</code> values from relevant models) indicated that specific IMD domains, particularly 'Living Environment Deprivation' and 'Barriers to Housing & Services', were often stronger predictors of local pollution levels than income or employment deprivation alone. This suggests interventions need to consider these specific aspects of deprivation.</p>
+                    <figure data-aos="zoom-in">
+                        <img src="assets/images/domain_importance_heatmap.png" alt="Heatmap showing importance or correlation of IMD domains for predicting pollution levels">
+                        <figcaption>IMD Domain Importance: Highlights that factors like poor housing conditions and local environmental quality are key correlates of pollution exposure, suggesting multi-faceted intervention points.</figcaption>
+                    </figure>
+                </div>
+            </div>
+        </section>
+
+        <!-- Impact Section -->
         <section class="project-section" id="impact">
-            <h2>Impact & Actionable Policy Recommendations</h2>
-            <p>This analysis translates directly into actionable strategies for policymakers and public health bodies, enabling a shift from broad strokes to targeted interventions:</p>
-            <ul>
-                <li><i class="fas fa-bullseye fa-fw"></i> <strong>Laser-Focus Resource Allocation:</strong> Prioritise interventions and funding towards the specific LSOA-level High-High <code>LISA</code> clusters (<strong>Finding 1</strong>) and high-risk LAD typologies (e.g., 'Urban Deprived/Polluted', <strong>Finding 3</strong>). This data-driven approach maximises impact by concentrating efforts where the need is greatest.</li>
-                <!-- Refined Impact Caveat -->
-                <li><i class="fas fa-wind fa-fw"></i> <strong>Implement Quantified PM2.5 Reduction Policies:</strong> Strategically deploy PM2.5 reduction measures (Clean Air Zones, domestic burning restrictions, industrial controls) in high-impact LADs identified by PSM (<strong>Finding 2</strong>) and <code>GBR</code> simulations (<strong>Finding 4</strong>). <strong>Recommendation:</strong> The significant association (ATT <strong>≈ -0.0399</strong>, <strong>p<0.05</strong>) strengthens the case for PM2.5 reduction. Preliminary impact estimates (e.g., ~1.4M residents potentially benefiting, ~£60M potential NHS savings from a 20% PM2.5 reduction) require validation with official ONS population data but indicate substantial potential. This targeted approach could potentially reduce NHS burden associated with respiratory conditions (requires dedicated health economic modelling citing sources like NICE/DoH).</li>
-                <li><i class="fas fa-people-arrows fa-fw"></i> <strong>Design Holistic, Place-Based Interventions:</strong> Address the interconnected nature of pollution and deprivation. Policy should integrate pollution control with measures tackling key deprivation drivers like poor housing ('Living Environment Deprivation') and access barriers ('Barriers to Housing & Services') identified as critical factors (<strong>Finding 5</strong>).</li>
-                <li><i class="fas fa-handshake fa-fw"></i> <strong>Foster Coordinated Regional Strategies:</strong> Recognise that environmental injustice transcends administrative boundaries (<strong>Finding 1</strong>). Encourage collaboration between neighbouring LADs within identified high-risk clusters to address shared challenges and leverage potential positive spillover effects from interventions.</li>
-            </ul>
-        </section>
-
-        <section class="project-section project-limitations" id="limitations">
-             <h2>Limitations & Key Assumptions</h2>
-             <p>While providing robust insights, this analysis acknowledges key limitations and assumptions:</p>
-            <ul>
-                <li><i class="fas fa-triangle-exclamation fa-fw"></i> <strong>Causal Claims (PSM):</strong> Propensity Score Matching strengthens associational claims by controlling for <em>observed</em> confounders (IMD domains), but cannot establish definitive causation due to the potential influence of unobserved factors (e.g., individual behaviour, specific local policies). Findings represent strong associations.</li>
-                <li><i class="fas fa-triangle-exclamation fa-fw"></i> <strong>Ecological Fallacy:</strong> Conclusions are based on area-level data (LAD/LSOA) and may not perfectly reflect individual-level risks or experiences within those areas.</li>
-                <li><i class="fas fa-triangle-exclamation fa-fw"></i> <strong>Data Timeliness & Granularity:</strong> Findings are based on specific data snapshots (e.g., IMD 2019, specific pollution years). Relationships may evolve, and finer-grained temporal or spatial data could reveal further nuances.</li>
-                <li><i class="fas fa-triangle-exclamation fa-fw"></i> <strong>Model Assumptions:</strong> Results are contingent on the assumptions of the chosen models (e.g., linearity assumptions in parts of PSM, parameter choices in <code>K-Means</code>/<code>GBR</code>).</li>
-                <li><i class="fas fa-triangle-exclamation fa-fw"></i> <strong>Ethical Considerations & Bias:</strong> Potential biases in source data (e.g., pollution monitor placement, reporting variations in health data) could influence results. While steps were taken to use validated indices and check model robustness, interpretations must consider the risk of perpetuating existing biases if applied without care. Responsible AI principles guided the analysis.</li>
-                <li><i class="fas fa-triangle-exclamation fa-fw"></i> <strong>NO₂ Analysis Results:</strong> The propensity score matching analysis for NO₂ yielded a non-significant association (p ≈ 0.30) after controlling for observed confounders, suggesting that while NO₂ remains a concern, the evidence for its independent impact (separate from deprivation) in this specific analysis is less statistically robust than for PM2.5. Further investigation with different model specifications or data could be warranted.</li>
-                <li><i class="fas fa-triangle-exclamation fa-fw"></i> <strong>Impact Quantification Data:</strong> Impact quantifications (QALYs, cost savings) are preliminary estimates based on placeholder population data and require recalculation using official ONS figures for validation.</li>
-            </ul>
-        </section>
-
-        <section class="project-section project-next-steps" id="next-steps">
-             <h2>Future Work & Potential Enhancements</h2>
-             <p>Building on this foundation, future work could enhance the analysis and operationalise insights:</p>
-             <ul>
-                <li><i class="fas fa-chart-line fa-fw"></i> <strong>Longitudinal & Causal Analysis:</strong> Incorporate time-series data to track changes and apply stronger quasi-experimental methods (e.g., Difference-in-Differences, Regression Discontinuity) if suitable policy changes or events occur.</li>
-                <li><i class="fas fa-project-diagram fa-fw"></i> <strong>Advanced Spatial/ML Modelling:</strong> Explore Geographically Weighted Regression (<code>GWR</code>) for spatially varying relationships, Graph Neural Networks (<code>GNNs</code>) to explicitly model spatial networks/dependencies, or deep learning for complex interactions.</li>
-                <li><i class="fas fa-search-location fa-fw"></i> <strong>Granularity & Context:</strong> Integrate finer-grained data (e.g., hyperlocal sensors, individual surveys if ethically feasible) to reduce ecological fallacy. Complement quantitative findings with qualitative research (community interviews) for richer context.</li>
-                <li><i class="fas fa-robot fa-fw"></i> <strong>AI-Powered Synthesis & Augmentation:</strong> Leverage Large Language Models (LLMs) / Transformers to analyse policy documents, news reports, or social media for contextual factors influencing environmental justice, or to generate tailored summaries for different stakeholders.</li>
-                <li><i class="fas fa-expand-arrows-alt fa-fw"></i> <strong>Broadened Scope:</strong> Include other environmental factors (noise, green space access), health outcomes (mental health), or expand geographically.</li>
-                <li><i class="fas fa-cogs fa-fw"></i> <strong>MLOps & Productionisation:</strong>
-                    <ul>
-                        <li><em>Scalability:</em> Assess how methods (spatial weights, PSM, clustering) scale with more data (e.g., whole UK). Explore <code>Dask</code> or <code>Spark</code> for distributed computation on bottlenecks.</li>
-                        <li><em>Monitoring & Retraining:</em> Conceptualise a monitoring system (e.g., using tools like <code>MLflow</code>, <code>Evidently AI</code>) to track data drift (pollution patterns, demographics changing) and model drift (relationships changing). Define retraining triggers and frequency.</li>
-                        <li><em>Automation:</em> Frame the <code>run_*.py</code> scripts as components of an automated pipeline (e.g., using <code>Airflow</code> or <code>Prefect</code>) for regular data updates and analysis runs.</li>
+             <div style="max-width: 960px; margin: 0 auto;"> <!-- Optional container -->
+                 <h2 data-aos="fade-up">Impact & Actionable Policy Recommendations</h2>
+                 <p data-aos="fade-up">This analysis translates directly into actionable strategies for policymakers and public health bodies, enabling a shift from broad strokes to targeted interventions:</p>
+                 <div class="card" data-aos="fade-up"> <!-- Wrap recommendations in a card -->
+                     <ul class="enhanced-list">
+                        <li><strong>Laser-Focus Resource Allocation:</strong> Prioritise interventions and funding towards the specific LSOA-level High-High <code>LISA</code> clusters (<strong>Finding 1</strong>) and high-risk LAD typologies (e.g., 'Urban Deprived/Polluted', <strong>Finding 3</strong>). This data-driven approach maximises impact by concentrating efforts where the need is greatest.</li>
+                        <li><strong>Implement Quantified PM2.5 Reduction Policies:</strong> Strategically deploy PM2.5 reduction measures (Clean Air Zones, domestic burning restrictions, industrial controls) in high-impact LADs identified by PSM (<strong>Finding 2</strong>) and <code>GBR</code> simulations (<strong>Finding 4</strong>). The significant association (ATT <strong>≈ -0.0399</strong>, <strong>p<0.05</strong>) strengthens the case. Preliminary impact estimates indicate substantial potential NHS savings.</li>
+                        <li><strong>Design Holistic, Place-Based Interventions:</strong> Address the interconnected nature of pollution and deprivation. Policy should integrate pollution control with measures tackling key deprivation drivers like poor housing ('Living Environment Deprivation') and access barriers ('Barriers to Housing & Services') identified as critical factors (<strong>Finding 5</strong>).</li>
+                        <li><strong>Foster Coordinated Regional Strategies:</strong> Recognise that environmental injustice transcends administrative boundaries (<strong>Finding 1</strong>). Encourage collaboration between neighbouring LADs within identified high-risk clusters to address shared challenges and leverage potential positive spillover effects from interventions.</li>
                     </ul>
-                </li>
-                 <li><i class="fas fa-balance-scale fa-fw"></i> <strong>Responsible AI Deep Dive:</strong> Further investigate potential biases in input data and model algorithms, explore advanced fairness metrics, and refine mitigation strategies to ensure equitable outcomes from interventions based on this analysis.</li>
-            </ul>
+                </div>
+            </div>
         </section>
 
-        <section class="project-section tech-stack" id="tech">
-            <h2>Technology Stack</h2>
-            <ul class="tech-list">
-                 <li><i class="fab fa-python fa-fw"></i> Python</li>
-                 <li><i class="fas fa-table fa-fw"></i> Pandas</li>
-                 <li><i class="fas fa-map-marker-alt fa-fw"></i> GeoPandas</li>
-                 <li><i class="fas fa-calculator fa-fw"></i> NumPy</li>
-                 <li><i class="fas fa-brain fa-fw"></i> Scikit-learn</li>
-                 <li><i class="fas fa-chart-line fa-fw"></i> Statsmodels</li>
-                 <li><i class="fas fa-map fa-fw"></i> PySAL</li>
-                 <li><i class="fas fa-lightbulb fa-fw"></i> SHAP</li>
-                 <li><i class="fas fa-chart-pie fa-fw"></i> Matplotlib</li>
-                 <li><i class="fas fa-palette fa-fw"></i> Seaborn</li>
-                 <li><i class="fas fa-chart-area fa-fw"></i> Plotly</li>
-            </ul>
+        <!-- Limitations Section -->
+        <section class="project-section bg-light" id="limitations">
+             <div style="max-width: 960px; margin: 0 auto;"> <!-- Optional container -->
+                <div class="card project-limitations" data-aos="fade-up">
+                    <h2 class="card-title"><i class="fas fa-exclamation-triangle me-2"></i>Limitations & Key Assumptions</h2>
+                     <p>While providing robust insights, this analysis acknowledges key limitations and assumptions:</p>
+                     <ul class="enhanced-list">
+                        <li><strong>Causal Claims (PSM):</strong> Propensity Score Matching strengthens associational claims by controlling for <em>observed</em> confounders (IMD domains), but cannot establish definitive causation due to potential unobserved factors. Findings represent strong associations.</li>
+                        <li><strong>Ecological Fallacy:</strong> Conclusions are based on area-level data (LAD/LSOA) and may not perfectly reflect individual-level risks.</li>
+                        <li><strong>Data Timeliness & Granularity:</strong> Findings are based on specific data snapshots (e.g., IMD 2019). Relationships may evolve.</li>
+                        <li><strong>Model Assumptions:</strong> Results are contingent on the assumptions of the chosen models (e.g., PSM assumptions, <code>K-Means</code>/<code>GBR</code> parameters).</li>
+                        <li><strong>Ethical Considerations & Bias:</strong> Potential biases in source data (e.g., monitor placement, health reporting) could influence results. Responsible AI principles guided the analysis.</li>
+                        <li><strong>NO₂ Analysis Results:</strong> The PSM analysis for NO₂ yielded non-significant results (p ≈ 0.30) after controls, suggesting PM2.5 has a stronger independent association in this analysis.</li>
+                        <li><strong>Impact Quantification Data:</strong> Population-based impact quantifications require validation using official ONS figures.</li>
+                    </ul>
+                </div>
+             </div>
         </section>
 
+        <!-- Next Steps Section -->
+        <section class="project-section" id="next-steps">
+            <div style="max-width: 960px; margin: 0 auto;"> <!-- Optional container -->
+                <div class="card project-next-steps" data-aos="fade-up">
+                    <h2 class="card-title"><i class="fas fa-tasks me-2"></i>Future Work & Potential Enhancements</h2>
+                    <p>Building on this foundation, future work could enhance the analysis and operationalise insights:</p>
+                    <ul class="enhanced-list">
+                        <li><strong>Longitudinal & Causal Analysis:</strong> Incorporate time-series data and stronger quasi-experimental methods (DiD, RDD).</li>
+                        <li><strong>Advanced Spatial/ML Modelling:</strong> Explore GWR, GNNs, or deep learning.</li>
+                        <li><strong>Granularity & Context:</strong> Integrate finer-grained data and qualitative research.</li>
+                        <li><strong>AI-Powered Synthesis & Augmentation:</strong> Leverage LLMs/Transformers for contextual analysis and reporting.</li>
+                        <li><strong>Broadened Scope:</strong> Include other environmental factors (noise, green space) and health outcomes (mental health).</li>
+                        <li><strong>MLOps & Productionisation:</strong> Formalise monitoring (MLflow, Evidently AI), automation (Airflow/Prefect), and scalability (Dask/Spark).</li>
+                        <li><strong>Responsible AI Deep Dive:</strong> Further investigate fairness metrics and mitigation strategies.</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- Technology Stack Section -->
+        <section class="project-section bg-light tech-stack" id="tech">
+            <div style="max-width: 960px; margin: 0 auto;"> <!-- Optional container -->
+                <h2 data-aos="fade-up">Technology Stack</h2>
+                <ul class="tech-list" data-aos="zoom-in-up">
+                    <li class="tech-item"><i class="fab fa-python fa-fw"></i> Python</li>
+                    <li class="tech-item"><i class="fas fa-table fa-fw"></i> Pandas</li>
+                    <li class="tech-item"><i class="fas fa-map-marker-alt fa-fw"></i> GeoPandas</li>
+                    <li class="tech-item"><i class="fas fa-calculator fa-fw"></i> NumPy</li>
+                    <li class="tech-item"><i class="fas fa-brain fa-fw"></i> Scikit-learn</li>
+                    <li class="tech-item"><i class="fas fa-chart-line fa-fw"></i> Statsmodels</li>
+                    <li class="tech-item"><i class="fas fa-map fa-fw"></i> PySAL</li>
+                    <li class="tech-item"><i class="fas fa-lightbulb fa-fw"></i> SHAP</li>
+                    <li class="tech-item"><i class="fas fa-chart-pie fa-fw"></i> Matplotlib</li>
+                    <li class="tech-item"><i class="fas fa-palette fa-fw"></i> Seaborn</li>
+                    <li class="tech-item"><i class="fas fa-chart-area fa-fw"></i> Plotly</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- Links Section -->
         <section class="project-section project-links">
-			<a href="https://github.com/ACl365/england-environmental-justice-analysis" class="button" target="_blank" rel="noopener noreferrer">View Code & Technical Details on GitHub</a>
-		</section>
+             <div style="max-width: 960px; margin: 0 auto;"> <!-- Optional container -->
+                <a href="https://github.com/ACl365/england-environmental-justice-analysis" class="button" target="_blank" rel="noopener noreferrer" data-aos="fade-up">
+                    <i class="fab fa-github me-2"></i>View Code & Technical Details on GitHub
+                </a>
+            </div>
+        </section>
 
     </article>
+
+    <!-- AOS Script -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+    <script>
+        // Initialize AOS
+        AOS.init({
+            duration: 600, // Slightly faster animation
+            easing: 'ease-in-out-quad', // Smoother easing
+            once: true, // Animate elements only once
+            mirror: false,
+            offset: 50, // Trigger animation slightly earlier
+        });
+
+        // Optional: Active Nav Link Highlighting on Scroll
+        const sections = document.querySelectorAll('section[id]');
+        const navLinks = document.querySelectorAll('.nav-list li a');
+        const navHeight = document.querySelector('.project-nav')?.offsetHeight || 60; // Get nav height
+
+        window.addEventListener('scroll', () => {
+            let currentSectionId = '';
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                // Adjust offset based on sticky nav height + a little extra buffer
+                if (pageYOffset >= (sectionTop - navHeight - 50)) {
+                    currentSectionId = section.getAttribute('id');
+                }
+            });
+
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                // Check if the link's href matches the current section ID
+                if (link.getAttribute('href') === `#${currentSectionId}`) {
+                    link.classList.add('active');
+                }
+            });
+
+             // Special case for the top of the page
+             if (window.pageYOffset < 200 && sections.length > 0) {
+                 const firstSectionId = sections[0].getAttribute('id');
+                 navLinks.forEach(link => {
+                     link.classList.remove('active');
+                     if (link.getAttribute('href') === `#${firstSectionId}`) {
+                          // Optionally highlight the first link when near the top
+                          // link.classList.add('active');
+                     }
+                 });
+             }
+        });
+    </script>
 
 </body>
 </html>

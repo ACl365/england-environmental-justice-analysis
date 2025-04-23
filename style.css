@@ -1,6 +1,8 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Source+Sans+Pro:ital,wght@0,400;0,600;1,400&display=swap');
+/* === Environmental Justice Project Styles === */
 
-/* --- Basic Reset & Defaults --- */
+/* --- Fonts & Base --- */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+
 *,
 *::before,
 *::after {
@@ -10,363 +12,607 @@
 }
 
 html {
-    scroll-behavior: smooth; /* Smooth scrolling for any internal links */
+    scroll-behavior: smooth;
     font-size: 16px; /* Base font size */
 }
 
 body {
-    font-family: var(--body-font); /* Set in variables */
+    font-family: var(--font-body);
     line-height: 1.7; /* Improved readability */
-    color: var(--text-color);
-    background-color: #ffffff; /* Clean white background */
+    color: var(--color-text);
+    background-color: var(--color-background-body);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
 }
 
-/* --- Variables --- */
+/* --- CSS Variables --- */
 :root {
-    --primary-color: #0d6efd; /* Updated Professional Blue */
-    --accent-color: #20c997;  /* Teal accent */
-    --secondary-color: var(--accent-color); /* Use accent for links/secondary elements */
-    --text-color: #212529;    /* Richer dark gray */
-    --heading-color: #343a40; /* Slightly lighter heading color */
-    --light-gray: #f8f9fa;   /* Standard light gray */
-    --medium-gray: #6c757d;  /* Standard medium gray */
-    --border-radius: 6px;     /* Slightly larger radius */
-    --base-spacing: 1rem;     /* 16px */
-    --max-width: 960px;       /* Max content width */
-    --heading-font: 'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    --body-font: 'Source Sans Pro', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    /* Color Palette (Refined Environmental/Health Focus) */
+    --color-primary: #1A5D1A;   /* Deep Forest Green */
+    --color-primary-light: #3a863a;
+    --color-primary-dark: #0d420d;
+    --color-secondary: #4A90E2;  /* Policy Blue */
+    --color-secondary-light: #7aa9e9;
+    --color-accent: #E8C547;   /* Muted Yellow/Gold */
+    --color-accent-dark: #c6a83a;
+    --color-text: #343a40;      /* Dark Gray */
+    --color-text-light: #6c757d; /* Medium Gray */
+    --color-heading: #212529;    /* Slightly darker than text */
+    --color-background-body: #ffffff;
+    --color-background-light: #f8f9fa; /* Off-white */
+    --color-background-card: #ffffff;
+    --color-border: #dee2e6;      /* Light border */
+    --color-success: #198754;
+    --color-warning: #ffc107;
+    --color-danger: #dc3545;
+    --color-info: #0dcaf0;
+
+    /* Typography */
+    --font-heading: 'Inter', system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+    --font-body: 'Inter', system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+    --font-code: "SFMono-Regular", Menlo, Monaco, Consolas, monospace;
+
+    /* Spacing System */
+    --space-xs: 0.25rem;  /* 4px */
+    --space-sm: 0.5rem;   /* 8px */
+    --space-md: 1rem;     /* 16px */
+    --space-lg: 1.5rem;   /* 24px */
+    --space-xl: 2rem;     /* 32px */
+    --space-2xl: 3rem;    /* 48px */
+    --space-3xl: 5rem;    /* 80px */
+
+    /* Shadows */
+    --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.04);
+    --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.07), 0 2px 4px -1px rgba(0, 0, 0, 0.04);
+    --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.07), 0 4px 6px -2px rgba(0, 0, 0, 0.04);
+
+    /* Animations */
+    --transition-fast: 150ms ease;
+    --transition-normal: 250ms ease;
+    --transition-slow: 350ms ease;
+
+    /* Border Radius */
+    --radius-sm: 0.25rem;
+    --radius-md: 0.5rem;
+    --radius-lg: 0.75rem;
 }
 
 /* --- Typography --- */
-/* Body font set directly on body tag now */
-
 h1, h2, h3, h4, h5, h6 {
-    font-family: var(--heading-font);
-    font-weight: 600; /* Bolder headings by default */
-    color: var(--heading-color);
+    font-family: var(--font-heading);
+    color: var(--color-heading);
+    font-weight: 700;
     line-height: 1.3;
-    margin-bottom: calc(var(--base-spacing) * 0.75);
+    margin-bottom: var(--space-md);
+    letter-spacing: -0.02em;
 }
 
 h1 {
-    font-size: 3.5rem; /* Significantly larger H1 */
-    font-weight: 700; /* Even bolder for H1 */
-    margin-bottom: calc(var(--base-spacing) * 0.5);
-    color: var(--primary-color); /* Keep primary color for H1 */
+    font-size: clamp(2.5rem, 5vw, 3.2rem); /* Responsive H1 */
+    font-weight: 800;
+    color: var(--color-primary);
 }
 
 h2 {
-    font-size: 2.2rem; /* Larger H2 */
-    border-bottom: 2px solid var(--light-gray); /* Slightly thinner border */
-    padding-bottom: calc(var(--base-spacing) * 0.5);
-    margin-top: calc(var(--base-spacing) * 4); /* More space above H2 */
-    margin-bottom: calc(var(--base-spacing) * 1.5);
+    font-size: clamp(2rem, 4vw, 2.4rem); /* Responsive H2 */
+    margin-top: var(--space-3xl);
+    padding-bottom: var(--space-sm);
+    border-bottom: 2px solid var(--color-border);
+    margin-bottom: var(--space-xl);
+}
+/* Remove top margin for the first H2 in the main content area */
+.project-page > section:first-of-type h2,
+.card > h2 {
+    margin-top: 0;
 }
 
+
 h3 {
-    font-size: 1.7rem; /* Larger H3 */
-    color: var(--primary-color);
-    margin-top: calc(var(--base-spacing) * 2.5);
-    margin-bottom: calc(var(--base-spacing) * 1);
+    font-size: clamp(1.4rem, 3vw, 1.7rem);
+    font-weight: 600;
+    color: var(--color-primary-dark);
+    margin-top: var(--space-2xl);
+    margin-bottom: var(--space-lg);
+}
+
+h4 {
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: var(--color-heading);
+    margin-top: var(--space-xl);
+    margin-bottom: var(--space-sm);
 }
 
 p {
-    margin-bottom: calc(var(--base-spacing) * 1.25); /* More space after paragraphs */
+    margin-bottom: var(--space-lg);
+    max-width: 75ch; /* Limit line length for readability */
 }
-
-ul, ol {
-    margin-bottom: var(--base-spacing);
-    padding-left: calc(var(--base-spacing) * 1.5); /* Indent lists */
-}
-
-li {
-    margin-bottom: calc(var(--base-spacing) * 0.5);
-}
-
-ul ul, ol ol { /* Nested lists */
-     margin-top: calc(var(--base-spacing) * 0.5);
-     margin-bottom: calc(var(--base-spacing) * 0.5);
-}
-
-strong {
-    font-weight: 600; /* Slightly bolder */
+p.lead {
+    font-size: 1.15rem;
+    font-weight: 400;
+    color: var(--color-text-light);
 }
 
 a {
-    color: var(--secondary-color);
+    color: var(--color-secondary);
     text-decoration: none;
-    transition: color 0.2s ease;
+    transition: color var(--transition-fast);
+}
+a:hover {
+    color: var(--color-secondary-light);
+    text-decoration: underline;
 }
 
-a:hover, a:focus {
-    color: var(--primary-color);
-    text-decoration: underline;
+ul, ol {
+    padding-left: var(--space-lg);
+    margin-bottom: var(--space-lg);
+}
+li {
+    margin-bottom: var(--space-sm);
+}
+
+strong {
+    font-weight: 600;
+}
+
+code {
+    font-family: var(--font-code);
+    background-color: rgba(74, 144, 226, 0.08); /* Light secondary background */
+    color: #3b70ab; /* Adjusted for contrast */
+    padding: 0.15em 0.4em;
+    border-radius: var(--radius-sm);
+    font-size: 0.85em;
 }
 
 /* --- Layout & Container --- */
 .project-page {
-    max-width: var(--max-width);
-    margin: calc(var(--base-spacing) * 4) auto; /* Increased top/bottom margin */
-    padding: 0 calc(var(--base-spacing) * 1.5); /* Keep horizontal padding */
+    max-width: 1140px; /* Slightly wider max width */
+    margin-left: auto;
+    margin-right: auto;
+    padding: var(--space-2xl) var(--space-lg); /* Add top/bottom padding */
 }
 
 .project-header {
-    text-align: center; /* Centre header text */
-    margin-bottom: calc(var(--base-spacing) * 4); /* Increased bottom margin */
-    padding: calc(var(--base-spacing) * 3) var(--base-spacing); /* Add vertical padding & horizontal */
-    background: linear-gradient(135deg, rgba(13, 110, 253, 0.05) 0%, rgba(255, 255, 255, 0) 60%); /* Subtle gradient */
-    border-bottom: 1px solid var(--light-gray); /* Add a subtle separator line */
+    padding: var(--space-3xl) var(--space-lg) var(--space-2xl);
+    text-align: center;
+    background-color: var(--color-background-light);
+    border-bottom: 1px solid var(--color-border);
+    margin-bottom: var(--space-3xl); /* Space after header */
 }
-
-/* Style the subtitle */
-.project-header .subtitle {
-    font-size: 1.25rem;
-    color: var(--medium-gray);
-    margin-top: calc(var(--base-spacing) * 0.5);
-    font-style: italic;
-    font-weight: 400; /* Ensure subtitle isn't bold if inheriting */
+.project-header h1 {
+    margin-bottom: var(--space-md);
 }
-
-/* Style the motivation paragraph specifically if needed */
-.project-header > p:not(.subtitle) { /* Target direct p children that aren't the subtitle */
-    font-size: 1.1rem;
-    color: var(--medium-gray);
-    max-width: 800px; /* Slightly narrower for focus */
+.project-header .lead { /* Subtitle styling */
+    max-width: 800px;
     margin-left: auto;
     margin-right: auto;
+    margin-bottom: var(--space-lg);
+}
+.project-header .motivation {
+    font-style: italic;
+    color: var(--color-text-light);
+    font-size: 1.1rem;
+    margin-top: var(--space-md); /* Space above motivation */
+    text-align: center;
+    max-width: 800px; /* Add max-width */
+    margin-left: auto; /* Center the block */
+    margin-right: auto; /* Center the block */
 }
 
 .project-section {
-    margin-bottom: calc(var(--base-spacing) * 3);
+    padding: var(--space-2xl) 0; /* Vertical spacing for sections */
+    margin-bottom: var(--space-xl); /* Space between sections */
+}
+.project-section.bg-light {
+    background-color: var(--color-background-light);
+    /* Add horizontal padding to contain background color */
+    padding-left: var(--space-lg);
+    padding-right: var(--space-lg);
+    margin-left: calc(-1 * var(--space-lg)); /* Extend background */
+    margin-right: calc(-1 * var(--space-lg));
+    padding-top: var(--space-3xl);
+    padding-bottom: var(--space-3xl);
+}
+/* Ensure content within bg-light sections stays within max-width */
+.project-section.bg-light > * {
+     max-width: 1140px;
+     margin-left: auto;
+     margin-right: auto;
+     padding-left: var(--space-lg); /* Re-apply padding inside */
+     padding-right: var(--space-lg);
 }
 
-/* --- Specific Section Styles --- */
-.project-summary {
-    background-color: var(--light-gray);
-    padding: calc(var(--base-spacing) * 1.5);
-    border-radius: var(--border-radius);
-    border-left: 5px solid var(--primary-color);
+
+/* --- Navigation --- */
+.project-nav {
+    position: sticky;
+    top: 0;
+    background-color: rgba(255, 255, 255, 0.95); /* Slightly transparent */
+    backdrop-filter: blur(8px); /* Blur effect */
+    padding: var(--space-sm) 0;
+    border-bottom: 1px solid var(--color-border);
+    z-index: 1000;
+    box-shadow: var(--shadow-sm);
 }
-.project-summary h2 {
-    margin-top: 0; /* Remove top margin for H2 inside summary */
-    border-bottom: none;
-    font-size: 1.8rem; /* Slightly larger H2 */
-    margin-bottom: var(--base-spacing); /* Add space after H2 */
+.nav-container {
+    max-width: 1140px;
+    margin: 0 auto;
+    padding: 0 var(--space-lg);
 }
-/* Style for justification labels */
+.nav-list {
+    display: flex;
+    justify-content: center;
+    gap: var(--space-md);
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    flex-wrap: wrap;
+}
+.nav-list li a {
+    text-decoration: none;
+    color: var(--color-text);
+    font-weight: 500;
+    padding: var(--space-sm) var(--space-md);
+    border-radius: var(--radius-md);
+    transition: background-color var(--transition-fast), color var(--transition-fast);
+    white-space: nowrap; /* Prevent nav items wrapping */
+}
+.nav-list li a:hover,
+.nav-list li a:focus,
+.nav-list li a.active { /* Style for active link (needs JS) */
+    color: var(--color-primary);
+    background-color: rgba(26, 93, 26, 0.08); /* Light primary background */
+}
+
+/* --- Card Component --- */
+.card {
+    background-color: var(--color-background-card);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg); /* More rounded */
+    box-shadow: var(--shadow-md);
+    padding: var(--space-xl);
+    margin-bottom: var(--space-xl);
+    transition: all var(--transition-normal);
+    height: 100%; /* For equal height cards in rows */
+    display: flex;
+    flex-direction: column;
+}
+.card:hover {
+    box-shadow: var(--shadow-lg);
+    transform: translateY(-5px);
+}
+.card-title { /* For h3/h4 inside cards */
+    margin-top: 0;
+    margin-bottom: var(--space-lg);
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: var(--color-primary);
+    border-bottom: none; /* Remove border if inherited from h2 */
+    padding-bottom: 0;
+    display: flex; /* Align icon and text */
+    align-items: center;
+    gap: var(--space-sm);
+}
+.card-title i { /* Icon styling within card title */
+    color: var(--color-primary-light);
+    font-size: 0.9em; /* Slightly smaller than text */
+}
+.card-body {
+    flex-grow: 1; /* Allow body to fill space */
+}
+
+/* --- Specific Section Styling --- */
+.project-summary.card { /* Style summary card */
+    border-left: 5px solid var(--color-primary);
+}
+/* Specific H2 styling within summary card */
+.project-summary h2.card-title {
+     font-size: clamp(1.8rem, 4vw, 2.2rem); /* Slightly adjust size for summary */
+     margin-bottom: var(--space-xl);
+}
+
+
+/* Enhanced Lists (like in Summary or Recommendations) */
+.enhanced-list {
+    list-style: none;
+    padding-left: 0;
+}
+.enhanced-list li {
+    position: relative;
+    padding-left: 2.2rem; /* More space for icon */
+    margin-bottom: var(--space-md);
+}
+.enhanced-list li::before { /* Font Awesome icon as bullet */
+    content: "\f00c"; /* Default: Checkmark icon */
+    font-family: "Font Awesome 6 Free";
+    font-weight: 900;
+    position: absolute;
+    left: 0;
+    top: 0.1em;
+    color: var(--color-accent); /* Accent color for icon */
+    font-size: 1.1em;
+    width: 1.5em; /* Ensure space is reserved */
+    text-align: center;
+}
+/* Specific icons for summary list items */
+.project-summary li:nth-child(1)::before { content: "\f3c5"; } /* fa-map-marked-alt */
+.project-summary li:nth-child(2)::before { content: "\f7df"; } /* fa-lungs-virus */
+.project-summary li:nth-child(3)::before { content: "\f5fd"; } /* fa-layer-group */
+
+/* Specific icons for Recommendations */
+#impact li:nth-child(1)::before { content: "\f140"; } /* fa-bullseye */
+#impact li:nth-child(2)::before { content: "\f72e"; } /* fa-wind */
+#impact li:nth-child(3)::before { content: "\f0c0"; } /* fa-users (or fa-people-arrows \f064) */
+#impact li:nth-child(4)::before { content: "\f2b5"; } /* fa-handshake */
+
+/* Specific icons for Limitations */
+#limitations li::before {
+    content: "\f071"; /* fa-exclamation-triangle */
+    color: var(--color-warning); /* Use warning color */
+}
+
+/* Specific icons for Next Steps */
+#next-steps li::before {
+    content: "\f55a"; /* fa-tasks */
+    color: var(--color-info); /* Use info color */
+}
+
 .justification-label {
-    display: block; /* Put label on its own line */
-    font-size: 0.9em;
-    font-weight: 600; /* Keep it bold */
-    color: var(--medium-gray); /* Use medium gray */
-    margin-bottom: calc(var(--base-spacing) * 0.25); /* Space below label */
-    margin-top: calc(var(--base-spacing) * 0.5); /* Space above label */
-    text-transform: uppercase; /* Make it stand out */
+    display: block;
+    font-size: 0.85em;
+    font-weight: 600;
+    color: var(--color-text-light);
+    margin-bottom: var(--space-xs);
+    margin-top: var(--space-sm);
+    text-transform: uppercase;
     letter-spacing: 0.5px;
 }
 
-.project-limitations,
-.project-next-steps {
-    background-color: #e9f9f3; /* Very light accent color */
-    border-left: 5px solid var(--accent-color); /* Accent color border */
-    padding: calc(var(--base-spacing) * 1.5);
-    border-radius: var(--border-radius);
-    margin-top: calc(var(--base-spacing) * 2);
+.project-limitations.card,
+.project-next-steps.card {
+    /* Use card style directly now, background handled by section */
+     border-left: 5px solid var(--color-warning); /* Keep border */
+     margin-top: var(--space-lg);
 }
-.project-limitations h2,
-.project-next-steps h2 {
-     margin-top: 0;
-     border-bottom: none;
-     font-size: 1.8rem; /* Match summary H2 size */
-     color: #147a5a; /* Darker shade of accent */
-     margin-bottom: var(--base-spacing);
+.project-next-steps.card {
+     border-left-color: var(--color-info);
 }
+.project-limitations h2.card-title,
+.project-next-steps h2.card-title {
+    color: #b45309; /* Darker warning color */
+}
+.project-next-steps h2.card-title {
+     color: #055160; /* Darker info color */
+}
+/* Icons already handled by .enhanced-list li::before rules */
 
-/* --- Findings & Figures --- */
-.finding {
-    margin-bottom: calc(var(--base-spacing) * 2.5);
-    padding-top: calc(var(--base-spacing) * 2);
-    border-top: 1px solid var(--light-gray); /* Add separator line */
-}
-.finding:first-of-type { /* Remove top border from the very first finding */
-    border-top: none;
-    padding-top: 0;
-}
 
+/* --- Figures & Captions --- */
 figure {
-    margin: calc(var(--base-spacing) * 1.5) 0;
+    margin: var(--space-xl) 0;
     text-align: center;
+    background-color: var(--color-background-light); /* Light background for figures */
+    padding: var(--space-lg);
+    border-radius: var(--radius-md);
+    border: 1px solid var(--color-border);
 }
-
 figure img {
     max-width: 100%;
     height: auto;
-    border: 1px solid #ccc;
-    border-radius: var(--border-radius);
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    display: block; /* Remove extra space below image */
-    margin-left: auto;
-    margin-right: auto;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-sm);
+    box-shadow: var(--shadow-sm);
+    display: block;
+    margin: 0 auto var(--space-md); /* Centre image, add bottom margin */
 }
-
 figcaption {
     font-size: 0.9rem;
-    color: var(--medium-gray);
-    margin-top: calc(var(--base-spacing) * 0.75);
-    padding: 0 var(--base-spacing); /* Add padding for longer captions */
+    color: var(--color-text-light);
+    line-height: 1.5;
+    max-width: 70ch;
+    margin: 0 auto; /* Centre caption text */
     font-style: italic;
 }
 
 .figure-row {
-    display: flex;
-    flex-wrap: wrap; /* Allow wrapping on smaller screens */
-    gap: calc(var(--base-spacing) * 1.5);
-    align-items: flex-start; /* Align items top */
-    margin-top: calc(var(--base-spacing) * 1.5);
-    margin-bottom: calc(var(--base-spacing) * 1.5);
+    display: grid; /* Use grid for flexible columns */
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); /* Responsive columns */
+    gap: var(--space-xl);
+    margin-top: var(--space-xl);
+}
+.figure--two-col { /* No longer needed with grid */
+    margin: 0;
+}
+.figure--two-col figure { /* Style figures within the row */
+     padding: var(--space-md); /* Slightly less padding */
+     margin: 0;
 }
 
-.figure--two-col {
-    flex: 1 1 calc(50% - var(--base-spacing) * 0.75); /* Grow, shrink, basis (adjusting for gap) */
-    min-width: 280px; /* Prevent figures getting too squished */
-    margin: 0; /* Remove default figure margins when in a row */
+/* --- Buttons --- */
+.project-links {
+    text-align: center;
+    margin-top: var(--space-xl);
+    margin-bottom: var(--space-xl);
+}
+.button {
+    display: inline-flex; /* Align icon and text */
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-sm);
+    background-color: var(--color-primary);
+    color: #ffffff;
+    padding: var(--space-md) var(--space-xl); /* Generous padding */
+    border-radius: var(--radius-md);
+    font-weight: 600;
+    font-size: 1rem;
+    text-decoration: none;
+    border: 2px solid transparent;
+    cursor: pointer;
+    transition: all var(--transition-normal);
+    box-shadow: var(--shadow-sm);
+}
+.button:hover,
+.button:focus {
+    background-color: var(--color-primary-dark);
+    color: #ffffff;
+    text-decoration: none;
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
+    outline: 2px solid var(--color-secondary-light); /* Focus outline */
+    outline-offset: 2px;
+}
+.button:active {
+    transform: translateY(0);
+    box-shadow: var(--shadow-sm);
 }
 
 /* --- Tech Stack --- */
-/* Common styles for tech stack display (applies to p or ul) */
-.tech-stack p,
-.tech-stack ul {
-    background-color: var(--light-gray);
-    padding: var(--base-spacing);
-    border-radius: var(--border-radius);
-    font-family: var(--body-font); /* Use body font */
-    color: var(--text-color); /* Use standard text color */
-    /* word-spacing removed, rely on gap */
+.tech-stack {
+    text-align: center;
+    margin-top: var(--space-xl);
 }
-/* Specific styles for the list format (used in index.html) */
-.tech-stack ul {
+.tech-list {
     list-style: none;
-    padding-left: 0; /* Remove default list padding */
+    padding-left: 0;
     display: flex;
     flex-wrap: wrap;
-    gap: calc(var(--base-spacing) * 1.25); /* Increased gap */
+    justify-content: center;
+    gap: var(--space-md);
+    margin-top: var(--space-lg);
 }
-.tech-stack li {
-    margin-bottom: 0; /* Remove bottom margin from list items */
-    display: inline-flex; /* Align icon and text */
+.tech-item {
+    display: inline-flex;
     align-items: center;
-    gap: calc(var(--base-spacing) * 0.5);
-    background-color: #e9ecef; /* Keep this distinct background */
-    padding: calc(var(--base-spacing) * 0.4) calc(var(--base-spacing) * 0.8);
-    border-radius: 4px;
-    font-size: 0.9rem; /* Slightly smaller font for tags */
+    gap: var(--space-sm);
+    background-color: var(--color-background-light);
+    border: 1px solid var(--color-border);
+    padding: var(--space-sm) var(--space-md);
+    border-radius: var(--radius-md);
+    font-size: 0.9rem;
+    color: var(--color-text);
+    transition: all var(--transition-fast);
 }
-/* .tech-stack li i { font-size: 1.2em; } */ /* Style icons */
-
-/* --- Buttons / Links --- */
-.project-links {
-    text-align: center; /* Centre button(s) */
-    margin-top: calc(var(--base-spacing) * 2);
+.tech-item:hover {
+    background-color: #e9ecef; /* Slightly darker hover */
+    border-color: #ced4da;
+    transform: translateY(-2px);
 }
-
-.button {
-    display: inline-block;
-    background-color: var(--primary-color);
-    color: #fff;
-    padding: calc(var(--base-spacing)*0.75) calc(var(--base-spacing)*1.5);
-    border-radius: var(--border-radius);
-    font-weight: bold;
-    text-decoration: none;
-    border: none;
-    cursor: pointer;
-    transition: background-color 0.2s ease-in-out, transform 0.1s ease;
-    margin: calc(var(--base-spacing)*0.5); /* Add margin for multiple buttons */
+.tech-item i { /* Style icons */
+    color: var(--color-primary);
+    font-size: 1.1em;
 }
 
-.button:hover,
-.button:focus {
-    background-color: #0b5ed7; /* Slightly darker primary */
-    color: #fff; /* Ensure text remains white */
-    text-decoration: none; /* Remove underline on hover */
-    outline: 3px solid var(--accent-color); /* Use accent for focus, thicker */
-    outline-offset: 1px;
+/* --- Key Metrics/Callouts --- */
+.key-metric {
+    background-color: rgba(74, 144, 226, 0.08); /* Light secondary bg */
+    border-left: 4px solid var(--color-secondary);
+    padding: var(--space-lg);
+    margin: var(--space-lg) 0;
+    border-radius: 0 var(--radius-md) var(--radius-md) 0;
 }
-
-.button:active {
-    transform: scale(0.98); /* Press effect */
+.key-metric strong {
+    color: var(--color-secondary);
+    font-size: 1.1rem;
+    display: block;
+    margin-bottom: var(--space-xs);
 }
-
-/* Optional secondary button style */
-.button.button-secondary {
-    background-color: transparent;
-    border: 2px solid var(--primary-color);
-    color: var(--primary-color);
-}
-.button.button-secondary:hover,
-.button.button-secondary:focus {
-    background-color: rgba(13, 110, 253, 0.1); /* Light primary background on hover */
-    color: var(--primary-color);
-    border-color: var(--primary-color); /* Ensure border stays */
-    outline: 3px solid var(--accent-color); /* Consistent focus outline */
-/* --- Code Snippets --- */
-code {
-  font-family: Consolas, 'Courier New', monospace;
-  background-color: #e9ecef; /* Similar to tech stack items */
-  padding: 0.15em 0.4em;
-  border-radius: 3px;
-  font-size: 0.9em;
-  color: #d63384; /* Bootstrap's pinkish code color */
-}
-
-pre code { /* Code blocks */
-  display: block;
-  padding: var(--base-spacing);
-  overflow-x: auto;
-}
-    outline-offset: 1px;
-}
-
 
 /* --- Responsive Design --- */
+@media (max-width: 992px) {
+    .project-page {
+        padding: var(--space-xl) var(--space-md); /* Adjust page padding */
+    }
+    .project-header {
+        padding: var(--space-2xl) var(--space-md) var(--space-xl);
+    }
+    .project-section.bg-light {
+         padding-left: var(--space-md);
+         padding-right: var(--space-md);
+         margin-left: calc(-1 * var(--space-md));
+         margin-right: calc(-1 * var(--space-md));
+    }
+    .project-section.bg-light > * {
+         padding-left: var(--space-md);
+         padding-right: var(--space-md);
+    }
+    .nav-container {
+         padding: 0 var(--space-md);
+    }
+}
+
 @media (max-width: 768px) {
     html {
-        font-size: 15px; /* Slightly smaller base font */
+        font-size: 15px;
     }
+    h1 { font-size: clamp(2rem, 6vw, 2.8rem); }
+    h2 { font-size: clamp(1.6rem, 5vw, 2rem); }
+    h3 { font-size: clamp(1.3rem, 4vw, 1.5rem); }
 
-    h1 { font-size: 2.2rem; }
-    h2 { font-size: 1.7rem; }
-    h3 { font-size: 1.3rem; }
-
-    .project-page {
-        padding: 0 var(--base-spacing); /* Adjust padding */
+    .nav-list {
+        justify-content: space-around; /* Better spacing on smaller screens */
+        gap: var(--space-sm);
+    }
+    .nav-list li a {
+        padding: var(--space-sm) var(--space-sm); /* Smaller padding on mobile nav */
     }
 
     .figure-row {
-        flex-direction: column; /* Stack figures */
-        gap: calc(var(--base-spacing) * 2);
+        grid-template-columns: 1fr; /* Stack figures */
+        gap: var(--space-lg);
     }
-
-    .figure--two-col {
-        flex-basis: 100%; /* Make stacked figures full width */
-        min-width: unset; /* Remove min-width when stacked */
+    .project-section {
+        padding: var(--space-xl) 0;
     }
+     .project-section.bg-light {
+         padding-top: var(--space-2xl);
+         padding-bottom: var(--space-2xl);
+     }
+     .card {
+         padding: var(--space-lg);
+     }
 }
 
-@media (max-width: 480px) {
+@media (max-width: 576px) {
     html {
         font-size: 14px;
     }
-     h1 { font-size: 1.9rem; }
-     h2 { font-size: 1.5rem; }
-     h3 { font-size: 1.2rem; }
-
-    .project-header .subtitle {
-        font-size: 1.1rem;
+    .project-header .lead {
+        font-size: 1.05rem;
     }
     .button {
-         padding: calc(var(--base-spacing)*0.6) calc(var(--base-spacing)*1.2);
-         width: 100%; /* Make buttons full width */
-         margin-left: 0;
-         margin-right: 0;
+        width: 100%;
+        margin-bottom: var(--space-sm);
+    }
+     .project-links {
+         display: flex;
+         flex-direction: column;
+     }
+    .tech-list {
+         gap: var(--space-sm);
+    }
+    .tech-item {
+         padding: var(--space-xs) var(--space-sm);
+         font-size: 0.85rem;
+    }
+    .nav-list li a {
+        font-size: 0.9rem; /* Smaller nav text */
     }
 }
+
+/* --- AOS Animations (Initial State) --- */
+/* Define initial states for AOS elements if needed, */
+/* e.g., slight offset or opacity 0 */
+[data-aos] {
+     opacity: 0;
+     transition-property: transform, opacity;
+}
+[data-aos].aos-animate {
+     opacity: 1;
+}
+[data-aos="fade-up"].aos-animate {
+     transform: translateY(0);
+}
+[data-aos="fade-up"] {
+     transform: translateY(20px);
+}
+/* Add other AOS transitions as needed */
