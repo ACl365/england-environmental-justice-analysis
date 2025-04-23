@@ -13,7 +13,7 @@
 
 ## Introduction: The Challenge & Project Aim
 
-Environmental injustice poses a significant public health challenge in England, where socioeconomically disadvantaged communities frequently experience disproportionately high levels of air pollution (e.g., NO₂, PM2.5). This unequal burden is strongly linked to adverse health outcomes, particularly respiratory conditions, deepening existing health inequalities.
+Environmental injustice poses a significant public health challenge in England, where socioeconomically disadvantaged communities frequently experience disproportionately high levels of air pollution (e.g., <dfn title="Nitrogen Dioxide">NO₂</dfn>, <dfn title="Particulate Matter < 2.5 micrometers">PM2.5</dfn>). This unequal burden is strongly linked to adverse health outcomes, particularly respiratory conditions, deepening existing health inequalities.
 
 This project moves beyond simple correlations to provide a rigorous, multi-method analysis of this critical nexus. **The aim is to identify specific areas and populations most vulnerable to the combined impacts of pollution and deprivation, quantify the associational link with respiratory health, and provide data-driven evidence to inform targeted, equitable policy interventions.**
 
@@ -21,11 +21,11 @@ This project moves beyond simple correlations to provide a rigorous, multi-metho
 
 This comprehensive analysis revealed several crucial insights enabling targeted action:
 
-*   **Geographic Concentration:** Environmental injustice (high pollution/deprivation) exhibits significant spatial clustering (LISA/Gi*), allowing precise targeting beyond broad approaches.
-*   **PM2.5 Health Association:** Higher PM2.5 exposure is significantly associated with poorer respiratory health outcomes, even after controlling for observed deprivation via PSM (ATT ≈ -0.0399, p ≈ 0.027). This suggests reducing PM2.5 is associated with a ~4.0% relative improvement in the respiratory health index for matched LADs.
+*   **Geographic Concentration:** Environmental injustice (high pollution/deprivation) exhibits significant spatial clustering (<dfn title="Local Indicators of Spatial Association">LISA</dfn>/<dfn title="Getis-Ord Gi*">Gi*</dfn>), allowing precise targeting beyond broad approaches.
+*   **PM2.5 Health Association:** Higher PM2.5 exposure is significantly associated with poorer respiratory health outcomes, even after controlling for observed deprivation via <dfn title="Propensity Score Matching">PSM</dfn> (<dfn title="Average Treatment Effect on the Treated">ATT</dfn> ≈ -0.0399, p ≈ 0.027). This suggests reducing PM2.5 is associated with a ~4.0% relative improvement in the respiratory health index for matched <dfn title="Local Authority District">LADs</dfn>.
 *   **Distinct Area Profiles:** LADs cluster into distinct typologies (KMeans) with unique challenge combinations (e.g., 'Urban Deprived/Polluted'), necessitating tailored policies.
-*   **Quantified Policy Impact:** Policy simulations (GBR) estimate measurable average improvements in the respiratory health index from targeted PM2.5 reductions in high-priority LADs (e.g., Southend-on-Sea, Wigan), potentially benefiting ~1.4M residents in areas with above-median improvement for a 20% reduction.
-*   **Deprivation Nuances:** 'Living Environment' and 'Barriers to Housing &amp; Services' deprivation domains are key correlates of pollution, highlighting specific areas for integrated interventions beyond just income/employment.
+*   **Quantified Policy Impact:** Policy simulations (<dfn title="Gradient Boosting Regressor">GBR</dfn>) estimate measurable average improvements (~0.0013) in the respiratory health index from targeted PM2.5 reductions in high-priority LADs (e.g., Southend-on-Sea, Wigan, Bury, Leeds, Westminster, Eastbourne, Portsmouth, Salford, Manchester, Blaby). Preliminary quantification suggests potentially benefiting ~1.4M residents in areas with above-median improvement for a 20% reduction (requires validation with official <dfn title="Office for National Statistics">ONS</dfn> data).
+*   **Deprivation Nuances:** 'Living Environment' and 'Barriers to Housing & Services' deprivation domains (from the <dfn title="Index of Multiple Deprivation">IMD</dfn>) are key correlates of pollution, highlighting specific areas for integrated interventions beyond just income/employment.
 
 **➡️ Explore the detailed findings, visualisations, and actionable recommendations in the [Project Showcase](https://ACl365.github.io/england-environmental-justice-analysis/).**
 
@@ -33,14 +33,14 @@ This comprehensive analysis revealed several crucial insights enabling targeted 
 
 An integrated framework combining spatial, machine learning, and quasi-causal techniques was employed, with careful methodological choices:
 
-*   **Spatial Statistics (PySAL, GeoPandas):** Used Moran's I, LISA, Getis-Ord Gi* to identify spatial patterns. **Justification:** Essential for geographic data where observations aren't independent; identifies statistically significant local clusters (hotspots/coldspots) crucial for targeting. Queen contiguity weights chosen for administrative areas.
-*   **Spatial Econometrics (spreg):** Employed OLS and Spatial Lag models (ML_Lag). **Justification:** Addresses spatial dependence (neighbourhood effects) often present in geographic data, which can bias standard OLS regression. The spatial lag model explicitly accounts for this (significance of rho coefficient indicates spatial dependence).
-*   **Machine Learning (Scikit-learn, SHAP):**
+*   **Spatial Statistics (PySAL, GeoPandas):** Used Moran's I, LISA, Gi* to identify spatial patterns. **Justification:** Essential for geographic data where observations aren't independent; identifies statistically significant local clusters (hotspots/coldspots) crucial for targeting. Queen contiguity weights chosen for administrative areas.
+*   **Spatial Econometrics (spreg):** Employed <dfn title="Ordinary Least Squares">OLS</dfn> and Spatial Lag models (<dfn title="Maximum Likelihood Spatial Lag">ML-Lag</dfn>). **Justification:** Addresses spatial dependence (neighbourhood effects) often present in geographic data, which can bias standard OLS regression. The spatial lag model explicitly accounts for this (significance of rho coefficient indicates spatial dependence).
+*   **Machine Learning (Scikit-learn, <dfn title="SHapley Additive exPlanations">SHAP</dfn>):**
     *   *KMeans Clustering:* Used to identify LAD typologies. **Justification:** Chosen for efficiency and interpretability (via centroids) on this dataset. Alternatives (DBSCAN, GMM - see `src/advanced_cluster_analysis.py`) were considered, but KMeans provided clearer separation into policy-relevant groups here. Silhouette scores guided cluster selection.
-    *   *Gradient Boosting Regressor (GBR):* Used for policy simulation. **Justification:** Strong predictive performance, handles non-linearities/interactions, robust to outliers. Allows quantitative estimation of intervention impacts (e.g., NO₂ reduction on health index). Validated with cross-validation (R²/MSE).
+    *   *Gradient Boosting Regressor (GBR):* Used for policy simulation. **Justification:** Strong predictive performance, handles non-linearities/interactions, robust to outliers. Allows quantitative estimation of intervention impacts (e.g., PM2.5 reduction on health index). Validated with cross-validation (R²/MSE).
     *   *SHAP:* Used for interpreting ML models (esp. GBR), identifying key drivers and their impact.
-*   **Causal Inference (Associational - Statsmodels):** Applied Propensity Score Matching (PSM). **Justification:** Pragmatic approach for observational data to estimate the association between pollutants (NO₂, PM2.5) and health while controlling for *observed* confounders (IMD domains), approximating a quasi-experiment. The analysis found a statistically significant association for PM2.5 (p<0.05), providing stronger evidence for its link to respiratory health independent of measured deprivation. Acknowledges limitations (unobserved confounders) but uses rigorous diagnostics (SMD < 0.1, Rosenbaum bounds) to assess robustness.
-*   **Data Integration & Index Construction (Pandas, GeoPandas):** Merged multi-source datasets (ONS, DEFRA, DLUHC-IMD, NHS). Developed custom indices (`env_justice_index`, `respiratory_health_index`) with specific rationales (see `DATA_DICTIONARY.md`) to capture 'double burden' and health concepts effectively. Ensured geospatial integrity (EPSG:27700).
+*   **Causal Inference (Associational - Statsmodels):** Applied Propensity Score Matching (PSM). **Justification:** Pragmatic approach for observational data to estimate the association between pollutants (PM2.5) and health while controlling for *observed* confounders (IMD domains), approximating a quasi-experiment. The analysis found a statistically significant association for PM2.5 (p<0.05), providing stronger evidence for its link to respiratory health independent of measured deprivation. Acknowledges limitations (unobserved confounders) but uses rigorous diagnostics (<dfn title="Standardised Mean Difference">SMD</dfn> < 0.1, Rosenbaum bounds) to assess robustness.
+*   **Data Integration & Index Construction (Pandas, GeoPandas):** Merged multi-source datasets (ONS, <dfn title="Department for Environment, Food & Rural Affairs">DEFRA</dfn>, <dfn title="Department for Levelling Up, Housing and Communities">DLUHC</dfn>-IMD, <dfn title="National Health Service">NHS</dfn>). Developed custom indices (`env_justice_index`, `respiratory_health_index`) with specific rationales (see `DATA_DICTIONARY.md`) to capture 'double burden' and health concepts effectively. Ensured geospatial integrity (EPSG:27700).
 
 ## Technology Stack
 
@@ -51,7 +51,7 @@ Python | Pandas | GeoPandas | NumPy | Scikit-learn | Statsmodels | PySAL (libpys
 england-environmental-justice-analysis/
 ├── assets/ # (Not gitignored) Web assets (key images, CSS) for GitHub Pages
 │   └── images/
-├── data/ # (Gitignored - requires manual download) Raw &amp; Processed Data
+├── data/ # (Gitignored - requires manual download) Raw & Processed Data
 │   ├── raw/
 │   ├── processed/
 │   └── geographies/
@@ -84,7 +84,7 @@ england-environmental-justice-analysis/
     ```bash
     pip install -r requirements.txt
     ```
-4.  **Acquire Data:** Download the required datasets as detailed in `docs/DATA_SETUP.md` **(You must create this file - see instructions below)** and place them in the correct `data/` directory structure.
+4.  **Acquire Data:** Download the required datasets as detailed in `docs/DATA_SETUP.md` and place them in the correct `data/` directory structure.
 
 ## Usage
 
@@ -128,11 +128,11 @@ Refer to tests/run_tests.py for more options.
 Data Requirements
 This analysis relies on publicly available UK datasets which are not included in this repository due to size and licensing restrictions. Users must download the required data files independently.
 
-Required Data: IMD 2019 (England), DEFRA Air Quality estimates, NHS Health Indicators (England), ONS LSOA/LAD Geographic Boundaries (England &amp; Wales / Great Britain).
+Required Data: IMD 2019 (England), DEFRA Air Quality estimates, NHS Health Indicators (England), ONS <dfn title="Lower Layer Super Output Area">LSOA</dfn>/LAD Geographic Boundaries (England & Wales / Great Britain).
 
 Placement: Data should be placed within the data/ directory structure (e.g., data/raw/, data/geographies/).
 
-Detailed Instructions: Please create a file named DATA_SETUP.md inside the docs/ folder. Copy the detailed "Data Acquisition" section from the previous README version (the one with specific filenames, download links, and processing notes) into this new file.
+Detailed Instructions: Please refer to `docs/DATA_SETUP.md` for detailed instructions on data acquisition, including specific filenames, download links, and required processing steps.
 
 ## Advanced Considerations, MLOps, & Future Directions
 

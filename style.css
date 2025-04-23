@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Source+Sans+Pro:ital,wght@0,400;0,600;1,400&display=swap');
+
 /* --- Basic Reset & Defaults --- */
 *,
 *::before,
@@ -13,62 +15,63 @@ html {
 }
 
 body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* Common sans-serif stack */
+    font-family: var(--body-font); /* Set in variables */
     line-height: 1.7; /* Improved readability */
-    color: #333;
-    background-color: #fdfdfd; /* Slightly off-white background */
+    color: var(--text-color);
+    background-color: #ffffff; /* Clean white background */
 }
 
 /* --- Variables --- */
 :root {
-    --primary-color: #005a9c; /* Professional Blue */
-    --secondary-color: #007bff; /* Brighter blue for accents/links */
-    --text-color: #333;
-    --heading-color: #2c3e50; /* Darker shade for headings */
-    --light-gray: #f0f4f8; /* Lighter background/border */
-    --medium-gray: #6c757d; /* Subdued text, captions */
-    --border-radius: 5px;
-    --base-spacing: 1rem; /* 16px */
-    --max-width: 960px; /* Max content width */
-    --heading-font: 'Lato', 'Helvetica Neue', Helvetica, Arial, sans-serif; /* Example heading font */
-    --body-font: 'Roboto', 'Helvetica Neue', Helvetica, Arial, sans-serif; /* Example body font */
+    --primary-color: #0d6efd; /* Updated Professional Blue */
+    --accent-color: #20c997;  /* Teal accent */
+    --secondary-color: var(--accent-color); /* Use accent for links/secondary elements */
+    --text-color: #212529;    /* Richer dark gray */
+    --heading-color: #343a40; /* Slightly lighter heading color */
+    --light-gray: #f8f9fa;   /* Standard light gray */
+    --medium-gray: #6c757d;  /* Standard medium gray */
+    --border-radius: 6px;     /* Slightly larger radius */
+    --base-spacing: 1rem;     /* 16px */
+    --max-width: 960px;       /* Max content width */
+    --heading-font: 'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    --body-font: 'Source Sans Pro', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
 /* --- Typography --- */
-body {
-    font-family: var(--body-font);
-}
+/* Body font set directly on body tag now */
 
 h1, h2, h3, h4, h5, h6 {
     font-family: var(--heading-font);
+    font-weight: 600; /* Bolder headings by default */
     color: var(--heading-color);
     line-height: 1.3;
     margin-bottom: calc(var(--base-spacing) * 0.75);
 }
 
 h1 {
-    font-size: 2.6rem;
+    font-size: 3.5rem; /* Significantly larger H1 */
+    font-weight: 700; /* Even bolder for H1 */
     margin-bottom: calc(var(--base-spacing) * 0.5);
-    color: var(--primary-color);
+    color: var(--primary-color); /* Keep primary color for H1 */
 }
 
 h2 {
-    font-size: 1.9rem;
-    border-bottom: 3px solid var(--light-gray);
-    padding-bottom: calc(var(--base-spacing) * 0.4);
-    margin-top: calc(var(--base-spacing) * 3); /* More space above H2 */
+    font-size: 2.2rem; /* Larger H2 */
+    border-bottom: 2px solid var(--light-gray); /* Slightly thinner border */
+    padding-bottom: calc(var(--base-spacing) * 0.5);
+    margin-top: calc(var(--base-spacing) * 4); /* More space above H2 */
     margin-bottom: calc(var(--base-spacing) * 1.5);
 }
 
 h3 {
-    font-size: 1.5rem;
+    font-size: 1.7rem; /* Larger H3 */
     color: var(--primary-color);
-    margin-top: calc(var(--base-spacing) * 2);
-    margin-bottom: calc(var(--base-spacing) * 0.75);
+    margin-top: calc(var(--base-spacing) * 2.5);
+    margin-bottom: calc(var(--base-spacing) * 1);
 }
 
 p {
-    margin-bottom: var(--base-spacing);
+    margin-bottom: calc(var(--base-spacing) * 1.25); /* More space after paragraphs */
 }
 
 ul, ol {
@@ -103,20 +106,34 @@ a:hover, a:focus {
 /* --- Layout & Container --- */
 .project-page {
     max-width: var(--max-width);
-    margin: calc(var(--base-spacing) * 2) auto;
-    padding: 0 calc(var(--base-spacing) * 1.5); /* Add horizontal padding */
+    margin: calc(var(--base-spacing) * 4) auto; /* Increased top/bottom margin */
+    padding: 0 calc(var(--base-spacing) * 1.5); /* Keep horizontal padding */
 }
 
 .project-header {
     text-align: center; /* Centre header text */
-    margin-bottom: calc(var(--base-spacing) * 3);
+    margin-bottom: calc(var(--base-spacing) * 4); /* Increased bottom margin */
+    padding: calc(var(--base-spacing) * 3) var(--base-spacing); /* Add vertical padding & horizontal */
+    background: linear-gradient(135deg, rgba(13, 110, 253, 0.05) 0%, rgba(255, 255, 255, 0) 60%); /* Subtle gradient */
+    border-bottom: 1px solid var(--light-gray); /* Add a subtle separator line */
 }
 
+/* Style the subtitle */
 .project-header .subtitle {
     font-size: 1.25rem;
     color: var(--medium-gray);
     margin-top: calc(var(--base-spacing) * 0.5);
     font-style: italic;
+    font-weight: 400; /* Ensure subtitle isn't bold if inheriting */
+}
+
+/* Style the motivation paragraph specifically if needed */
+.project-header > p:not(.subtitle) { /* Target direct p children that aren't the subtitle */
+    font-size: 1.1rem;
+    color: var(--medium-gray);
+    max-width: 800px; /* Slightly narrower for focus */
+    margin-left: auto;
+    margin-right: auto;
 }
 
 .project-section {
@@ -133,13 +150,25 @@ a:hover, a:focus {
 .project-summary h2 {
     margin-top: 0; /* Remove top margin for H2 inside summary */
     border-bottom: none;
-    font-size: 1.6rem; /* Slightly smaller H2 */
+    font-size: 1.8rem; /* Slightly larger H2 */
+    margin-bottom: var(--base-spacing); /* Add space after H2 */
+}
+/* Style for justification labels */
+.justification-label {
+    display: block; /* Put label on its own line */
+    font-size: 0.9em;
+    font-weight: 600; /* Keep it bold */
+    color: var(--medium-gray); /* Use medium gray */
+    margin-bottom: calc(var(--base-spacing) * 0.25); /* Space below label */
+    margin-top: calc(var(--base-spacing) * 0.5); /* Space above label */
+    text-transform: uppercase; /* Make it stand out */
+    letter-spacing: 0.5px;
 }
 
 .project-limitations,
 .project-next-steps {
-    background-color: #fff8e1; /* Light yellow background */
-    border-left: 5px solid #ffab00; /* Amber border */
+    background-color: #e9f9f3; /* Very light accent color */
+    border-left: 5px solid var(--accent-color); /* Accent color border */
     padding: calc(var(--base-spacing) * 1.5);
     border-radius: var(--border-radius);
     margin-top: calc(var(--base-spacing) * 2);
@@ -148,13 +177,20 @@ a:hover, a:focus {
 .project-next-steps h2 {
      margin-top: 0;
      border-bottom: none;
-     font-size: 1.6rem;
-     color: #e65100; /* Darker orange heading */
+     font-size: 1.8rem; /* Match summary H2 size */
+     color: #147a5a; /* Darker shade of accent */
+     margin-bottom: var(--base-spacing);
 }
 
 /* --- Findings & Figures --- */
 .finding {
     margin-bottom: calc(var(--base-spacing) * 2.5);
+    padding-top: calc(var(--base-spacing) * 2);
+    border-top: 1px solid var(--light-gray); /* Add separator line */
+}
+.finding:first-of-type { /* Remove top border from the very first finding */
+    border-top: none;
+    padding-top: 0;
 }
 
 figure {
@@ -203,9 +239,9 @@ figcaption {
     background-color: var(--light-gray);
     padding: var(--base-spacing);
     border-radius: var(--border-radius);
-    font-family: 'Courier New', Courier, monospace; /* Monospace font */
-    color: var(--heading-color);
-    word-spacing: calc(var(--base-spacing)*0.5); /* Add spacing between words */
+    font-family: var(--body-font); /* Use body font */
+    color: var(--text-color); /* Use standard text color */
+    /* word-spacing removed, rely on gap */
 }
 /* Specific styles for the list format (used in index.html) */
 .tech-stack ul {
@@ -213,16 +249,17 @@ figcaption {
     padding-left: 0; /* Remove default list padding */
     display: flex;
     flex-wrap: wrap;
-    gap: var(--base-spacing);
+    gap: calc(var(--base-spacing) * 1.25); /* Increased gap */
 }
 .tech-stack li {
     margin-bottom: 0; /* Remove bottom margin from list items */
     display: inline-flex; /* Align icon and text */
     align-items: center;
     gap: calc(var(--base-spacing) * 0.5);
-    background-color: #e9ecef; /* Slightly different background */
+    background-color: #e9ecef; /* Keep this distinct background */
     padding: calc(var(--base-spacing) * 0.4) calc(var(--base-spacing) * 0.8);
     border-radius: 4px;
+    font-size: 0.9rem; /* Slightly smaller font for tags */
 }
 /* .tech-stack li i { font-size: 1.2em; } */ /* Style icons */
 
@@ -248,11 +285,11 @@ figcaption {
 
 .button:hover,
 .button:focus {
-    background-color: #003e74; /* Darker shade */
+    background-color: #0b5ed7; /* Slightly darker primary */
     color: #fff; /* Ensure text remains white */
     text-decoration: none; /* Remove underline on hover */
-    outline: 2px solid var(--secondary-color); /* Focus indicator */
-    outline-offset: 2px;
+    outline: 3px solid var(--accent-color); /* Use accent for focus, thicker */
+    outline-offset: 1px;
 }
 
 .button:active {
@@ -267,8 +304,26 @@ figcaption {
 }
 .button.button-secondary:hover,
 .button.button-secondary:focus {
-    background-color: var(--light-gray);
+    background-color: rgba(13, 110, 253, 0.1); /* Light primary background on hover */
     color: var(--primary-color);
+    border-color: var(--primary-color); /* Ensure border stays */
+    outline: 3px solid var(--accent-color); /* Consistent focus outline */
+/* --- Code Snippets --- */
+code {
+  font-family: Consolas, 'Courier New', monospace;
+  background-color: #e9ecef; /* Similar to tech stack items */
+  padding: 0.15em 0.4em;
+  border-radius: 3px;
+  font-size: 0.9em;
+  color: #d63384; /* Bootstrap's pinkish code color */
+}
+
+pre code { /* Code blocks */
+  display: block;
+  padding: var(--base-spacing);
+  overflow-x: auto;
+}
+    outline-offset: 1px;
 }
 
 

@@ -6,72 +6,72 @@ This document provides a description of every feature used in the project, inclu
 
 | Feature | Description | Source | Units | Type | Derivation/Normalization |
 |---|---|---|---|---|---|
-| lsoa_code | Lower Super Output Area code | ONS | N/A | String | N/A |
+| lsoa_code | <dfn title="Lower Layer Super Output Area">LSOA</dfn> code | <dfn title="Office for National Statistics">ONS</dfn> | N/A | String | N/A |
 | lsoa_name | Lower Super Output Area name | ONS | N/A | String | N/A |
-| lad_code | Local Authority District code | ONS | N/A | String | N/A |
+| lad_code | <dfn title="Local Authority District">LAD</dfn> code | ONS | N/A | String | N/A |
 | lad_name | Local Authority District name | ONS | N/A | String | N/A |
-| imd_rank | Index of Multiple Deprivation rank | DCLG | N/A | Integer | N/A |
-| imd_decile | Index of Multiple Deprivation decile | DCLG | N/A | Integer | N/A |
-| imd_score_normalized | Normalised Index of Multiple Deprivation score | DCLG | N/A | Float | Normalised to 0-100 scale |
+| imd_rank | <dfn title="Index of Multiple Deprivation">IMD</dfn> rank | <dfn title="Department for Levelling Up, Housing and Communities">DLUHC</dfn> | N/A | Integer | N/A |
+| imd_decile | Index of Multiple Deprivation decile | DLUHC | N/A | Integer | N/A |
+| imd_score_normalized | Normalised Index of Multiple Deprivation score | DLUHC | N/A | Float | Normalised to 0-100 scale |
 | total_population_mid_2015_excluding_prisoners | Total population (excluding prisoners) | ONS | People | Integer | N/A |
 | dependent_children_aged_0_15_mid_2015_excluding_prisoners | Number of dependent children (excluding prisoners) | ONS | People | Integer | N/A |
 | population_aged_16_59_mid_2015_excluding_prisoners | Population aged 16-59 (excluding prisoners) | ONS | People | Integer | N/A |
 | older_population_aged_60_and_over_mid_2015_excluding_prisoners | Older population aged 60 and over (excluding prisoners) | ONS | People | Integer | N/A |
 | working_age_population_18_59/64_for_use_with_employment_deprivation_domain_excluding_prisoners | Working age population | ONS | People | Integer | N/A |
-| index_of_multiple_deprivation_imd_score | Index of Multiple Deprivation score | DCLG | N/A | Float | N/A |
-| index_of_multiple_deprivation_imd_rank_where_1_is_most_deprived | Index of Multiple Deprivation rank | DCLG | N/A | Integer | N/A |
-| index_of_multiple_deprivation_imd_decile_where_1_is_most_deprived_10%_of_lsoas | Index of Multiple Deprivation decile | DCLG | N/A | Integer | N/A |
-| income_score_rate | Income score rate | DCLG | N/A | Float | N/A |
-| income_rank_where_1_is_most_deprived | Income rank | DCLG | N/A | Integer | N/A |
-| income_decile_where_1_is_most_deprived_10%_of_lsoas | Income decile | DCLG | N/A | Integer | N/A |
-| employment_score_rate | Employment score rate | DCLG | N/A | Float | N/A |
-| employment_rank_where_1_is_most_deprived | Employment rank | DCLG | N/A | Integer | N/A |
-| employment_decile_where_1_is_most_deprived_10%_of_lsoas | Employment decile | DCLG | N/A | Integer | N/A |
-| education_skills_and_training_score | Education, Skills and Training score | DCLG | N/A | Float | N/A |
-| education_skills_and_training_rank_where_1_is_most_deprived | Education, Skills and Training rank | DCLG | N/A | Integer | N/A |
-| education_skills_and_training_decile_where_1_is_most_deprived_10%_of_lsoas | Education, Skills and Training decile | DCLG | N/A | Integer | N/A |
-| health_deprivation_and_disability_score | Health Deprivation and Disability score | DCLG | N/A | Float | N/A |
-| health_deprivation_and_disability_rank_where_1_is_most_deprived | Health Deprivation and Disability rank | DCLG | N/A | Integer | N/A |
-| health_deprivation_and_disability_decile_where_1_is_most_deprived_10%_of_lsoas | Health Deprivation and Disability decile | DCLG | N/A | Integer | N/A |
-| crime_score | Crime score | DCLG | N/A | Float | N/A |
-| crime_rank_where_1_is_most_deprived | Crime rank | DCLG | N/A | Integer | N/A |
-| crime_decile_where_1_is_most_deprived_10%_of_lsoas | Crime decile | DCLG | N/A | Integer | N/A |
-| barriers_to_housing_and_services_score | Barriers to Housing and Services score | DCLG | N/A | Float | N/A |
-| barriers_to_housing_and_services_rank_where_1_is_most_deprived | Barriers to Housing and Services rank | DCLG | N/A | Integer | N/A |
-| barriers_to_housing_and_services_decile_where_1_is_most_deprived_10%_of_lsoas | Barriers to Housing and Services decile | DCLG | N/A | Integer | N/A |
-| living_environment_score | Living Environment score | DCLG | N/A | Float | N/A |
-| living_environment_rank_where_1_is_most_deprived | Living Environment rank | DCLG | N/A | Integer | N/A |
-| living_environment_decile_where_1_is_most_deprived_10%_of_lsoas | Living Environment decile | DCLG | N/A | Integer | N/A |
-| income_deprivation_affecting_children_index_idaci_score_rate | Income Deprivation Affecting Children Index (IDACI) score rate | DCLG | N/A | Float | N/A |
-| income_deprivation_affecting_children_index_idaci_rank_where_1_is_most_deprived | Income Deprivation Affecting Children Index (IDACI) rank | DCLG | N/A | Integer | N/A |
-| income_deprivation_affecting_children_index_idaci_decile_where_1_is_most_deprived_10%_of_lsoas | Income Deprivation Affecting Children Index (IDACI) decile | DCLG | N/A | Integer | N/A |
-| income_deprivation_affecting_older_people_idaopi_score_rate | Income Deprivation Affecting Older People (IDAOPI) score rate | DCLG | N/A | Float | N/A |
-| income_deprivation_affecting_older_people_idaopi_rank_where_1_is_most_deprived | Income Deprivation Affecting Older People (IDAOPI) rank | DCLG | N/A | Integer | N/A |
-| income_deprivation_affecting_older_people_idaopi_decile_where_1_is_most_deprived_10%_of_lsoas | Income Deprivation Affecting Older People (IDAOPI) decile | DCLG | N/A | Integer | N/A |
-| children_and_young_people_sub_domain_score | Children and Young People sub-domain score | DCLG | N/A | Float | N/A |
-| children_and_young_people_sub_domain_rank_where_1_is_most_deprived | Children and Young People sub-domain rank | DCLG | N/A | Integer | N/A |
-| children_and_young_people_sub_domain_decile_where_1_is_most_deprived_10%_of_lsoas | Children and Young People sub-domain decile | DCLG | N/A | Integer | N/A |
-| adult_skills_sub_domain_score | Adult Skills sub-domain score | DCLG | N/A | Float | N/A |
-| adult_skills_sub_domain_rank_where_1_is_most_deprived | Adult Skills sub-domain rank | DCLG | N/A | Integer | N/A |
-| adult_skills_sub_domain_decile_where_1_is_most_deprived_10%_of_lsoas | Adult Skills sub-domain decile | DCLG | N/A | Integer | N/A |
-| geographical_barriers_sub_domain_score | Geographical Barriers sub-domain score | DCLG | N/A | Float | N/A |
-| geographical_barriers_sub_domain_rank_where_1_is_most_deprived | Geographical Barriers sub-domain rank | DCLG | N/A | Integer | N/A |
-| geographical_barriers_sub_domain_decile_where_1_is_most_deprived_10%_of_lsoas | Geographical Barriers sub-domain decile | DCLG | N/A | Integer | N/A |
-| wider_barriers_sub_domain_score | Wider Barriers sub-domain score | DCLG | N/A | Float | N/A |
-| wider_barriers_sub_domain_rank_where_1_is_most_deprived | Wider Barriers sub-domain rank | DCLG | N/A | Integer | N/A |
-| wider_barriers_sub_domain_decile_where_1_is_most_deprived_10%_of_lsoas | Wider Barriers sub-domain decile | DCLG | N/A | Integer | N/A |
-| indoors_sub_domain_score | Indoors sub-domain score | DCLG | N/A | Float | N/A |
-| indoors_sub_domain_rank_where_1_is_most_deprived | Indoors sub-domain rank | DCLG | N/A | Integer | N/A |
-| indoors_sub_domain_decile_where_1_is_most_deprived_10%_of_lsoas | Indoors sub-domain decile | DCLG | N/A | Integer | N/A |
-| outdoors_sub_domain_score | Outdoors sub-domain score | DCLG | N/A | Float | N/A |
-| outdoors_sub_domain_rank_where_1_is_most_deprived | Outdoors sub-domain rank | DCLG | N/A | Integer | N/A |
-| outdoors_sub_domain_decile_where_1_is_most_deprived_10%_of_lsoas | Outdoors sub-domain decile | DCLG | N/A | Integer | N/A |
+| index_of_multiple_deprivation_imd_score | Index of Multiple Deprivation score | DLUHC | N/A | Float | N/A |
+| index_of_multiple_deprivation_imd_rank_where_1_is_most_deprived | Index of Multiple Deprivation rank | DLUHC | N/A | Integer | N/A |
+| index_of_multiple_deprivation_imd_decile_where_1_is_most_deprived_10%_of_lsoas | Index of Multiple Deprivation decile | DLUHC | N/A | Integer | N/A |
+| income_score_rate | Income score rate | DLUHC | N/A | Float | N/A |
+| income_rank_where_1_is_most_deprived | Income rank | DLUHC | N/A | Integer | N/A |
+| income_decile_where_1_is_most_deprived_10%_of_lsoas | Income decile | DLUHC | N/A | Integer | N/A |
+| employment_score_rate | Employment score rate | DLUHC | N/A | Float | N/A |
+| employment_rank_where_1_is_most_deprived | Employment rank | DLUHC | N/A | Integer | N/A |
+| employment_decile_where_1_is_most_deprived_10%_of_lsoas | Employment decile | DLUHC | N/A | Integer | N/A |
+| education_skills_and_training_score | Education, Skills and Training score | DLUHC | N/A | Float | N/A |
+| education_skills_and_training_rank_where_1_is_most_deprived | Education, Skills and Training rank | DLUHC | N/A | Integer | N/A |
+| education_skills_and_training_decile_where_1_is_most_deprived_10%_of_lsoas | Education, Skills and Training decile | DLUHC | N/A | Integer | N/A |
+| health_deprivation_and_disability_score | Health Deprivation and Disability score | DLUHC | N/A | Float | N/A |
+| health_deprivation_and_disability_rank_where_1_is_most_deprived | Health Deprivation and Disability rank | DLUHC | N/A | Integer | N/A |
+| health_deprivation_and_disability_decile_where_1_is_most_deprived_10%_of_lsoas | Health Deprivation and Disability decile | DLUHC | N/A | Integer | N/A |
+| crime_score | Crime score | DLUHC | N/A | Float | N/A |
+| crime_rank_where_1_is_most_deprived | Crime rank | DLUHC | N/A | Integer | N/A |
+| crime_decile_where_1_is_most_deprived_10%_of_lsoas | Crime decile | DLUHC | N/A | Integer | N/A |
+| barriers_to_housing_and_services_score | Barriers to Housing and Services score | DLUHC | N/A | Float | N/A |
+| barriers_to_housing_and_services_rank_where_1_is_most_deprived | Barriers to Housing and Services rank | DLUHC | N/A | Integer | N/A |
+| barriers_to_housing_and_services_decile_where_1_is_most_deprived_10%_of_lsoas | Barriers to Housing and Services decile | DLUHC | N/A | Integer | N/A |
+| living_environment_score | Living Environment score | DLUHC | N/A | Float | N/A |
+| living_environment_rank_where_1_is_most_deprived | Living Environment rank | DLUHC | N/A | Integer | N/A |
+| living_environment_decile_where_1_is_most_deprived_10%_of_lsoas | Living Environment decile | DLUHC | N/A | Integer | N/A |
+| income_deprivation_affecting_children_index_idaci_score_rate | Income Deprivation Affecting Children Index (IDACI) score rate | DLUHC | N/A | Float | N/A |
+| income_deprivation_affecting_children_index_idaci_rank_where_1_is_most_deprived | Income Deprivation Affecting Children Index (IDACI) rank | DLUHC | N/A | Integer | N/A |
+| income_deprivation_affecting_children_index_idaci_decile_where_1_is_most_deprived_10%_of_lsoas | Income Deprivation Affecting Children Index (IDACI) decile | DLUHC | N/A | Integer | N/A |
+| income_deprivation_affecting_older_people_idaopi_score_rate | Income Deprivation Affecting Older People (IDAOPI) score rate | DLUHC | N/A | Float | N/A |
+| income_deprivation_affecting_older_people_idaopi_rank_where_1_is_most_deprived | Income Deprivation Affecting Older People (IDAOPI) rank | DLUHC | N/A | Integer | N/A |
+| income_deprivation_affecting_older_people_idaopi_decile_where_1_is_most_deprived_10%_of_lsoas | Income Deprivation Affecting Older People (IDAOPI) decile | DLUHC | N/A | Integer | N/A |
+| children_and_young_people_sub_domain_score | Children and Young People sub-domain score | DLUHC | N/A | Float | N/A |
+| children_and_young_people_sub_domain_rank_where_1_is_most_deprived | Children and Young People sub-domain rank | DLUHC | N/A | Integer | N/A |
+| children_and_young_people_sub_domain_decile_where_1_is_most_deprived_10%_of_lsoas | Children and Young People sub-domain decile | DLUHC | N/A | Integer | N/A |
+| adult_skills_sub_domain_score | Adult Skills sub-domain score | DLUHC | N/A | Float | N/A |
+| adult_skills_sub_domain_rank_where_1_is_most_deprived | Adult Skills sub-domain rank | DLUHC | N/A | Integer | N/A |
+| adult_skills_sub_domain_decile_where_1_is_most_deprived_10%_of_lsoas | Adult Skills sub-domain decile | DLUHC | N/A | Integer | N/A |
+| geographical_barriers_sub_domain_score | Geographical Barriers sub-domain score | DLUHC | N/A | Float | N/A |
+| geographical_barriers_sub_domain_rank_where_1_is_most_deprived | Geographical Barriers sub-domain rank | DLUHC | N/A | Integer | N/A |
+| geographical_barriers_sub_domain_decile_where_1_is_most_deprived_10%_of_lsoas | Geographical Barriers sub-domain decile | DLUHC | N/A | Integer | N/A |
+| wider_barriers_sub_domain_score | Wider Barriers sub-domain score | DLUHC | N/A | Float | N/A |
+| wider_barriers_sub_domain_rank_where_1_is_most_deprived | Wider Barriers sub-domain rank | DLUHC | N/A | Integer | N/A |
+| wider_barriers_sub_domain_decile_where_1_is_most_deprived_10%_of_lsoas | Wider Barriers sub-domain decile | DLUHC | N/A | Integer | N/A |
+| indoors_sub_domain_score | Indoors sub-domain score | DLUHC | N/A | Float | N/A |
+| indoors_sub_domain_rank_where_1_is_most_deprived | Indoors sub-domain rank | DLUHC | N/A | Integer | N/A |
+| indoors_sub_domain_decile_where_1_is_most_deprived_10%_of_lsoas | Indoors sub-domain decile | DLUHC | N/A | Integer | N/A |
+| outdoors_sub_domain_score | Outdoors sub-domain score | DLUHC | N/A | Float | N/A |
+| outdoors_sub_domain_rank_where_1_is_most_deprived | Outdoors sub-domain rank | DLUHC | N/A | Integer | N/A |
+| outdoors_sub_domain_decile_where_1_is_most_deprived_10%_of_lsoas | Outdoors sub-domain decile | DLUHC | N/A | Integer | N/A |
 | working_age_population_18_59/64_for_use_with_employment_deprivation_domain_excluding_prisoners_ | Working age population | ONS | People | Integer | N/A |
-| data_quality | Data quality flag | DCLG | N/A | Integer | N/A |
-| NO2 | Nitrogen Dioxide concentration | DEFRA | ug/m3 | Float | N/A |
+| data_quality | Data quality flag | DLUHC | N/A | Integer | N/A |
+| NO2 | <dfn title="Nitrogen Dioxide">NO₂</dfn> concentration | <dfn title="Department for Environment, Food & Rural Affairs">DEFRA</dfn> | ug/m3 | Float | N/A |
 | O3 | Ozone concentration | DEFRA | ug/m3 | Float | N/A |
-| PM10 | Particulate Matter < 10um concentration | DEFRA | ug/m3 | Float | N/A |
-| PM2.5 | Particulate Matter < 2.5um concentration | DEFRA | ug/m3 | Float | N/A |
+| PM10 | <dfn title="Particulate Matter < 10 micrometers">PM10</dfn> concentration | DEFRA | ug/m3 | Float | N/A |
+| PM2.5 | <dfn title="Particulate Matter < 2.5 micrometers">PM2.5</dfn> concentration | DEFRA | ug/m3 | Float | N/A |
 | PM2.5_normalized | Normalised Particulate Matter < 2.5um concentration | DEFRA | N/A | Float | Normalised to 0-1 scale |
 | PM10_normalized | Normalised Particulate Matter < 10um concentration | DEFRA | N/A | Float | Normalised to 0-1 scale |
 | NO2_normalized | Normalised Nitrogen Dioxide concentration | DEFRA | N/A | Float | Normalised to 0-1 scale |
@@ -82,7 +82,7 @@ This document provides a description of every feature used in the project, inclu
 
 | Feature | Description | Source | Units | Type | Derivation/Normalization |
 |---|---|---|---|---|---|
-| local_authority_code | Local Authority District code | NHS OF | N/A | String | N/A |
+| local_authority_code | Local Authority District code | <dfn title="NHS Outcomes Framework">NHS OF</dfn> | N/A | String | N/A |
 | chronic_conditions_value | Chronic conditions value | NHS OF | N/A | Float | N/A |
 | chronic_conditions_lower_ci | Chronic conditions lower confidence interval | NHS OF | N/A | Float | N/A |
 | chronic_conditions_upper_ci | Chronic conditions upper confidence interval | NHS OF | N/A | Float | N/A |
