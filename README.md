@@ -1,9 +1,3 @@
-You are absolutely right! My apologies. I included the markdown code fences which you don't need for the actual file content.
-
-Here is the raw text content for your `README.md` file. Copy everything below this line and paste it directly into your `README.md`.
-
----
-
 # Environmental Justice Analysis in England: Addressing Health Inequalities Through Data-Driven Insights
 
 [![Project Status: Active](https://www.repostatus.org/badges/latest/active.svg)](https://www.repostatus.org/#active)
